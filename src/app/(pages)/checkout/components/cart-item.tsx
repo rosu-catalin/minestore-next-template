@@ -17,6 +17,7 @@ type CartItemProps = {
 
 export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
     const [quantity, setQuantity] = useState(item.count);
+    const [loading, setLoading] = useState(false);
     const { setCart } = useCartStore();
     const throttleQuantity = useThrottle(quantity, 600);
 
@@ -35,6 +36,18 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
         await removeItemFromCart(id);
         const cart = await getCart();
         setCart(cart);
+    };
+
+    const handleQuantity = async (id: number, quantity: number) => {
+        try {
+            setLoading(true);
+            await updateItemCount(id, quantity);
+            setQuantity(quantity);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -60,9 +73,17 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                 <div className="ml-auto flex-row space-x-2">
                     <div className="mr-10 flex-row items-center space-x-2">
                         <button
+                            aria-label="Decrease quantity"
                             hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent"
-                            onClick={() => setQuantity((q) => q - 1)}
+                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={quantity === 1 || loading}
+                            onClick={() => {
+                                if (quantity === 1) {
+                                    return;
+                                }
+
+                                handleQuantity(item.id, quantity - 1);
+                            }}
                         >
                             -
                         </button>
@@ -70,9 +91,11 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                             {quantity}
                         </div>
                         <button
+                            aria-label="Increase quantity"
                             hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent"
-                            onClick={() => setQuantity((q) => q + 1)}
+                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={loading}
+                            onClick={() => handleQuantity(item.id, quantity + 1)}
                         >
                             +
                         </button>
@@ -85,7 +108,8 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                     </button>
                     <button
                         onClick={() => handleRemoveItemFromCart(item.id)}
-                        className="h-8 w-8 rounded bg-accent text-lg font-bold"
+                        className="h-8 w-8 rounded bg-accent text-lg font-bold transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={loading}
                     >
                         x
                     </button>
