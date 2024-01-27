@@ -43,19 +43,16 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
 
     const t = useTranslations('card');
 
-    const handleClick = () => {
+    const handleCartItem = async () => {
         if (!isItemUnavailable) {
             return;
         }
 
-        if (user) {
-            setShow(true);
-        } else {
+        if (!user) {
             notify('Please authorize!', 'red');
+            return;
         }
-    };
 
-    const handleCartItem = async () => {
         try {
             setLoading(true);
 

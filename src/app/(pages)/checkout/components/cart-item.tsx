@@ -6,8 +6,9 @@ import { TCart } from '@/types/cart';
 import { useThrottle } from '@uidotdev/usehooks';
 import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
+import { useCartStore } from '@/stores/cart';
 
-const { updateItemCount } = getEndpoints(fetcher);
+const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
 type CartItemProps = {
     item: TCart['items'][number];
@@ -16,7 +17,7 @@ type CartItemProps = {
 
 export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
     const [quantity, setQuantity] = useState(item.count);
-
+    const { setCart } = useCartStore();
     const throttleQuantity = useThrottle(quantity, 600);
 
     useEffect(() => {
@@ -29,6 +30,12 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
 
     const isPriceVirtual = item.is_virtual_currency_only === 1;
     const price = isPriceVirtual ? item.virtual_price : item.price;
+
+    const handleRemoveItemFromCart = async (id: number) => {
+        await removeItemFromCart(id);
+        const cart = await getCart();
+        setCart(cart);
+    };
 
     return (
         <>
@@ -77,7 +84,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                         i
                     </button>
                     <button
-                        onClick={() => setQuantity(0)}
+                        onClick={() => handleRemoveItemFromCart(item.id)}
                         className="h-8 w-8 rounded bg-accent text-lg font-bold"
                     >
                         x
