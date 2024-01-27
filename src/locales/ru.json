@@ -1,28 +1,92 @@
 {
-  "navbar": {
-    "currency": "Валюта",
-    "language": "Язык",
-    "cart": "Корзина",
-    "cart-hint": "элементов за",
-    "not-logged": "Не авторизирован",
-    "logout": "Выйти"
-  },
-  "header": {
-    "players-online": "Игроки онлайн",
-    "members-online": "Участники онлайн",
-    "donation-goal": "Цель сбора"
-  },
-  "sidebar": {
-    "home": "Главная",
-    "top-donator": "Топ Донатер",
-    "top-donator-hint": "Самый крупный донатер в этом месяце"
-  },
-  "card": {
-    "buy": "Купить"
-  },
-  "item-details": {
-    "add": "Добавить",
-    "remove": "Убрать"
-  },
-  "recent-purchases": "Последние покупки"
+    "navbar": {
+        "currency": "Валюта",
+        "language": "Язык",
+        "cart": "Корзина",
+        "cart-hint": "товаров на",
+        "not-logged": "Вы не вошли",
+        "logout": "Выйти"
+    },
+    "header": {
+        "players-online": "Игроков онлайн",
+        "members-online": "Участников онлайн",
+        "donation-goal": "Цель пожертвования"
+    },
+    "sidebar": {
+        "home": "Главная",
+        "top-donator": "Топ Донатор",
+        "top-donator-hint": "Самый щедрый в этом месяце"
+    },
+    "card": {
+        "buy": "Купить",
+        "remove": "Убрать",
+        "unavailable": "Недоступно"
+    },
+    "item-details": {
+        "add": "Добавить",
+        "remove": "Убрать"
+    },
+    "recent-purchases": "Последние платежи",
+    "home": {
+        "welcome": "Добро пожаловать",
+        "featured-packages": "ПОПУЛЯРНЫЕ ПАКЕТЫ",
+        "to-the-official-server-store": "в официальный магазин RAviRai Server.",
+        "recent-purchases": "Последние покупки",
+        "paypal-balance-banks-all-credit-debit-cards": "Баланс PayPal, Банки, Все кредитные/дебетовые карты",
+        "paysafecard-amazon-pay-mobile-payments-600-more": "Paysafecard, Amazon Pay, Мобильные платежи, +600 Других",
+        "all-credit-debit-cards": "Все кредитные и дебетовые карты"
+    },
+    "auth": {
+        "enter-username": "Пожалуйста, введите ваше имя пользователя, чтобы продолжить:",
+        "continue": "Продолжить"
+    },
+    "checkout": {
+        "title": "Оформление заказа",
+        "name": "Имя",
+        "price": "Цена",
+        "quantity": "Количество",
+        "featured-deal": "Популярное предложение",
+        "this-item-is-popular-among-us-customers": "Этот товар популярен среди наших клиентов. Попробуйте его!",
+        "details": {
+            "you-are-buying-as": "Вы покупаете как...",
+            "not-correct": "Не правильно?",
+            "your-details": "Ваши данные",
+            "first-name": "Имя",
+            "email": "E-mail",
+            "address-line-1": "Адрес, строка 1",
+            "address-line-2": "Адрес, строка 2",
+            "city": "Город",
+            "zip-code": "Почтовый индекс",
+            "state-region": "Штат/Регион",
+            "country": "Страна"
+        },
+        "redeem-coupons-or-gift-cards": "Использовать купоны или подарочные карты",
+        "active-gift": "Активный подарок",
+        "redeem": "Использовать",
+        "referral-code": "Реферральный код",
+        "payment-method": "Метод оплаты",
+        "privacy-statement": "Заявление о конфиденциальности",
+        "privacy-statement-description": "Все платежи являются окончательными и не подлежат возврату. Попытка обратного списания или открытие спора в PayPal приведет к постоянному и необратимому бану на всех наших серверах и других магазинах Minecraft.",
+        "agree": "Я соглашаюсь с условиями этой покупки.",
+        "purchase": "Покупка"
+    },
+    "profile": {
+        "title": "Профиль",
+        "information": "Информация",
+        "registration-date": "Дата регистрации:",
+        "money-spent": "Потрачено денег:",
+        "recent-purchases": "Последние покупки"
+    },
+    "notifications": {
+        "not-all-detail-fields-are-filled-in": "Не все поля заполнены!",
+        "accept-privacy-statement": "Примите заявление о конфиденциальности!",
+        "accept-terms": "Примите условия!",
+        "subscription-item-should-be-alone-in-the-cart": "Подписочный товар должен быть один в корзине!"
+    },
+    "footer": {
+        "useful-links": "Полезные ссылки",
+        "about-us": "О нас",
+        "info": "Мы не связаны с Mojang AB. Работает на платформе",
+        "description": "является сетью Minecraft: Java Edition, предоставляющей игрокам захватывающий и уникальный геймплей. Это единственный официальный магазин для сети."
+    }
 }
