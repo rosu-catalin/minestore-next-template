@@ -94,7 +94,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
             )}
 
             <Image
-                src={`/media/items/${item.id}.png`}
+                src={item.image || '/media/placeholder.png'}
                 alt=""
                 width={140}
                 height={140}

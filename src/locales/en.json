@@ -5,7 +5,8 @@
         "cart": "Shopping Cart",
         "cart-hint": "items for",
         "not-logged": "Not logged in",
-        "logout": "Logout"
+        "logout": "Logout",
+        "empty-cart": "Empty Cart"
     },
     "header": {
         "players-online": "Players Online",

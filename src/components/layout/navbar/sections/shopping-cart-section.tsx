@@ -13,10 +13,14 @@ export const ShoppingCartSection: FC = () => {
 
     const t = useTranslations('navbar');
 
+    const isCartEmpty = cart?.items === 0;
+
+    console.log(t('cart-hint'));
+
     return (
         <>
             <ReactSVG src="/icons/shopping-cart.svg" />
-            <div className="ml-4 flex-col items-center">
+            <div className="ml-4 flex-col">
                 <Link
                     href={appSettings.routes.checkout}
                     className="glow-text red-glow cursor-pointer font-bold uppercase"
@@ -25,7 +29,13 @@ export const ShoppingCartSection: FC = () => {
                 </Link>
                 {user ? (
                     <span className="text-xs uppercase text-[#cfcfcf]">
-                        {cart?.items} {t('cart-hint')} <Price value={cart?.price || 0} />
+                        {isCartEmpty ? (
+                            t('empty-cart')
+                        ) : (
+                            <>
+                                {cart?.items} {t('cart-hint')} <Price value={cart?.price || 0} />
+                            </>
+                        )}
                     </span>
                 ) : (
                     <span className="text-xs uppercase text-[#cfcfcf]">{t('not-logged')}</span>
