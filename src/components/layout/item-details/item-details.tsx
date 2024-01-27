@@ -19,9 +19,9 @@ type DetailsProps = {
 };
 
 export const ItemDetails: FC<DetailsProps> = ({ id, show, onHide }) => {
-    const { items } = useCartStore();
+    const { items, setCart } = useCartStore();
 
-    const inCart = items.some((x) => x.id === id);
+    const isItemInCart = items.some((x) => x.id === id);
 
     const [details, setDetails] = useState<TItem>();
 
@@ -29,24 +29,27 @@ export const ItemDetails: FC<DetailsProps> = ({ id, show, onHide }) => {
         getItem(id).then(setDetails);
     }, [id]);
 
-    const { setCart } = useCartStore();
+    const handleCartItem = async () => {
+        try {
+            if (isItemInCart) {
+                await removeItemFromCart(id);
+            } else {
+                await addToCart(id);
+            }
 
-    const add = async () => {
-        if (inCart) {
-            await removeItemFromCart(id);
-        } else {
-            await addToCart(id);
-        }
+            const response = await getCart();
+            setCart(response);
 
-        const response = await getCart();
-        setCart(response);
+            onHide();
 
-        onHide();
+            const notificationMessage = isItemInCart
+                ? 'Item was deleted from cart!'
+                : 'Item added to cart!';
+            const notificationColor = isItemInCart ? 'red' : 'green';
 
-        if (inCart) {
-            notify('Item was deleted from cart!', 'red');
-        } else {
-            notify('Item added to cart!', 'green');
+            notify(notificationMessage, notificationColor);
+        } catch (error) {
+            console.error('Error while adding/removing item:', error);
         }
     };
 
@@ -80,8 +83,8 @@ export const ItemDetails: FC<DetailsProps> = ({ id, show, onHide }) => {
                     isVirtual={details?.is_virtual_currency_only === 1}
                     className="font-bold text-[#02a603]"
                 />
-                <Button onClick={add} className="mt-2 w-[140px] px-4 py-1">
-                    {inCart ? t('remove') : t('add')}
+                <Button onClick={handleCartItem} className="mt-2 w-[140px] px-4 py-1">
+                    {isItemInCart ? t('remove') : t('add')}
                 </Button>
             </div>
         </Modal>

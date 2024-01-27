@@ -1,5 +1,7 @@
 'use client';
 
+import { getEndpoints } from '@/api';
+import { fetcher } from '@/api/client/fetcher';
 import { FC, useState } from 'react';
 import { Button } from '@/components/base/button/button';
 import { TItem } from '@/types/item';
@@ -12,6 +14,8 @@ import { useUserStore } from '@/stores/user';
 import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 
+const { addToCart, getCart, removeItemFromCart } = getEndpoints(fetcher);
+
 type CardProps = {
     item: TItem;
     direction?: 'row' | 'col';
@@ -20,10 +24,11 @@ type CardProps = {
 };
 
 export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumulative }) => {
-    const { items } = useCartStore();
+    const { items, setCart } = useCartStore();
     const { user } = useUserStore();
 
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const isRow = direction === 'row';
 
@@ -47,6 +52,32 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
             setShow(true);
         } else {
             notify('Please authorize!', 'red');
+        }
+    };
+
+    const handleCartItem = async () => {
+        try {
+            setLoading(true);
+
+            if (isItemInCart) {
+                await removeItemFromCart(item.id);
+            } else {
+                await addToCart(item.id);
+            }
+
+            const response = await getCart();
+            setCart(response);
+
+            const notificationMessage = isItemInCart
+                ? 'Item was deleted from cart!'
+                : 'Item added to cart!';
+            const notificationColor = isItemInCart ? 'red' : 'green';
+
+            notify(notificationMessage, notificationColor);
+        } catch (error) {
+            console.error('Error while adding/removing item:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -96,12 +127,14 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
                         className="mx-4 my-2 text-[20px] font-bold text-[#0d7516]"
                     />
                     <Button
+                        disabled={loading}
                         className={joinClasses(
                             'mt-auto',
+                            'disabled:cursor-not-allowed disabled:opacity-50',
                             { 'ml-2 mt-0': isRow },
                             { 'bg-accent': isItemFeatured }
                         )}
-                        onClick={isItemInCart ? () => {} : handleClick}
+                        onClick={handleCartItem}
                     >
                         {isItemInCart ? t('remove') : t('buy')}
                     </Button>
