@@ -1,0 +1,86 @@
+'use client';
+
+import { TSubCategories } from '@/types/categories';
+import { joinClasses } from '@helpers/join-classes';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import { SumMenuItem } from './sub-menu-item';
+
+type MenuItemProps = {
+    name: string;
+    image: string;
+    url: string;
+    subItems?: TSubCategories;
+};
+
+export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] }) => {
+    const pathname = usePathname();
+    const isActive = pathname === url;
+
+    const [expand, setExpand] = useState(false);
+    const isSubMenu = 0 < subItems.length;
+
+    const router = useRouter();
+
+    const handleClick = () => {
+        if (isSubMenu === false) {
+            router.push(url);
+        }
+
+        setExpand((expand) => !expand);
+    };
+
+    return (
+        <li className="cursor-pointer overflow-hidden rounded-[10px] bg-[#242426]">
+            <div
+                onClick={handleClick}
+                className={joinClasses(
+                    "before:content-[' '] h-20 flex-row items-center bg-[#202022] before:absolute before:-m-6 before:h-10 before:w-1.5 before:rounded-r-lg before:bg-white hover:before:bg-accent",
+                    { 'before:bg-accent': isActive }
+                )}
+            >
+                {image && (
+                    <div
+                        className={joinClasses(
+                            'flex h-16 w-20 border-r border-transparent px-3 py-1',
+                            { 'border-[#5c5c5c33]': image }
+                        )}
+                    >
+                        <Image
+                            src={image}
+                            className="m-auto h-auto w-auto"
+                            width={64}
+                            height={64}
+                            alt=""
+                        />
+                    </div>
+                )}
+                <span
+                    className={joinClasses(
+                        'ml-6 font-bold',
+                        isActive ? 'text-accent' : 'glow-text red-glow'
+                    )}
+                >
+                    {name}
+                </span>
+                {isSubMenu && (
+                    <ReactSVG src="/icons/expand-more.svg" color="white" className="ml-auto mr-4" />
+                )}
+            </div>
+
+            {isSubMenu && expand && (
+                <div onClick={handleClick}>
+                    {subItems.map((category, index) => (
+                        <SumMenuItem
+                            key={index}
+                            name={category.name}
+                            url={`/categories/${category.url}`}
+                        />
+                    ))}
+                </div>
+            )}
+        </li>
+    );
+};

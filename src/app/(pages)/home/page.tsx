@@ -1,0 +1,104 @@
+'use client';
+
+import { useSettingsStore } from '@/stores/settings';
+import { Alert } from '@layout/alert/alert';
+import { FeaturedDeal } from '@layout/feratured-deal/featured-deal';
+import { GiftCard } from '@layout/gift-card/giftcard';
+import { RecentPurchases } from '@layout/recent-purchases/recent-purchases';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+export default function Home() {
+    const { settings } = useSettingsStore();
+    const t = useTranslations('home');
+
+    return (
+        <>
+            <div className="flex-col rounded-[10px] bg-[#18181d] p-6">
+                <span className="text-center text-[28px] uppercase text-[#dd2828]">
+                    {t('featured-packages')}
+                </span>
+
+                <hr className="mt-2 border-[2.5px] border-[#dd2828]" />
+
+                <div className="mt-6 flex-row space-x-4">
+                    {settings?.deal.map((item, index) => <FeaturedDeal key={index} item={item} />)}
+                </div>
+            </div>
+
+            <div className="mt-4 flex-col rounded-[10px] bg-[#18181d] p-4">
+                <Alert />
+
+                <div className="">
+                    <div className="mt-12 flex-col items-center space-x-5 md:flex-row">
+                        <div className="flex-col rounded-lg bg-[#631c2d] p-2.5 text-center md:max-w-[300px]">
+                            <span className="glow-text text-[40px] font-bold">{t('welcome')}</span>
+
+                            <span className="mt-5 text-[20px]">
+                                {t('to-the-official-server-store')}
+                            </span>
+
+                            <span
+                                className="mt-5 text-[14px]"
+                                dangerouslySetInnerHTML={{ __html: settings?.block_1 || '' }}
+                            ></span>
+                        </div>
+
+                        <div className="mt-8 w-full md:mt-0">
+                            <img src={settings?.block_3} className="w-full" alt="" />
+                        </div>
+                    </div>
+
+                    <div className="mt-12 flex-row items-center justify-between space-x-5">
+                        <div>
+                            <div
+                                className="mt-12"
+                                dangerouslySetInnerHTML={{ __html: settings?.block_2 || '' }}
+                            ></div>
+                        </div>
+
+                        <div className="hidden pr-8 md:flex-col">
+                            <span className="text-[20px] font-bold uppercase">
+                                {t('recent-purchases')}
+                            </span>
+                            <RecentPurchases />
+
+                            <GiftCard />
+                        </div>
+                    </div>
+
+                    <div className="mt-10">
+                        <div className="flex-row py-4">
+                            <div className="w-32">
+                                <Image src="/paypal.png" alt=" " width={110} height={29} />
+                            </div>
+                            <span className="ml-12">
+                                {t('paypal-balance-banks-all-credit-debit-cards')}
+                            </span>
+                        </div>
+
+                        <hr className="w-64" />
+
+                        <div className="flex-row py-4">
+                            <div className="w-32">
+                                <Image src="/paymentwall.png" alt=" " width={108} height={26} />
+                            </div>
+                            <span className="ml-12">
+                                {t('paysafecard-amazon-pay-mobile-payments-600-more')}
+                            </span>
+                        </div>
+
+                        <hr className="w-64" />
+
+                        <div className="flex-row py-4">
+                            <div className="w-32">
+                                <Image src="/stripe.png" alt=" " width={66} height={27} />
+                            </div>
+                            <span className="ml-12">{t('all-credit-debit-cards')}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}

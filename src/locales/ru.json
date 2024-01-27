@@ -1,0 +1,28 @@
+{
+  "navbar": {
+    "currency": "Валюта",
+    "language": "Язык",
+    "cart": "Корзина",
+    "cart-hint": "элементов за",
+    "not-logged": "Не авторизирован",
+    "logout": "Выйти"
+  },
+  "header": {
+    "players-online": "Игроки онлайн",
+    "members-online": "Участники онлайн",
+    "donation-goal": "Цель сбора"
+  },
+  "sidebar": {
+    "home": "Главная",
+    "top-donator": "Топ Донатер",
+    "top-donator-hint": "Самый крупный донатер в этом месяце"
+  },
+  "card": {
+    "buy": "Купить"
+  },
+  "item-details": {
+    "add": "Добавить",
+    "remove": "Убрать"
+  },
+  "recent-purchases": "Последние покупки"
+}

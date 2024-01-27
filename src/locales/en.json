@@ -1,0 +1,92 @@
+{
+    "navbar": {
+        "currency": "Currency",
+        "language": "Language",
+        "cart": "Shopping Cart",
+        "cart-hint": "items for",
+        "not-logged": "Not logged in",
+        "logout": "Logout"
+    },
+    "header": {
+        "players-online": "Players Online",
+        "members-online": "Members Online",
+        "donation-goal": "Donation Goal"
+    },
+    "sidebar": {
+        "home": "Home",
+        "top-donator": "Top Donator",
+        "top-donator-hint": "Donated the most this month"
+    },
+    "card": {
+        "buy": "Buy",
+        "remove": "Remove",
+        "unavailable": "Unavailable"
+    },
+    "item-details": {
+        "add": "Add",
+        "remove": "Remove"
+    },
+    "recent-purchases": "Recent Payments",
+    "home": {
+        "welcome": "welcome",
+        "featured-packages": "FEATURED PACKAGES",
+        "to-the-official-server-store": "to the official RAviRai Server Store.",
+        "recent-purchases": "Recent Purchases",
+        "paypal-balance-banks-all-credit-debit-cards": "PayPal balance, Banks, All Credit/Debit Cards",
+        "paysafecard-amazon-pay-mobile-payments-600-more": "Paysafecard, Amazon Pay, Mobile Payments, +600 More",
+        "all-credit-debit-cards": "All Credit & Debit Cards"
+    },
+    "auth": {
+        "enter-username": "Please enter your username to continue:",
+        "continue": "Continue"
+    },
+    "checkout": {
+        "title": "Checkout",
+        "name": "Name",
+        "price": "Price",
+        "quantity": "Quantity",
+        "featured-deal": "Featured Deal",
+        "this-item-is-popular-among-us-customers": "This item is popular among us customers. Give it a try!",
+        "details": {
+            "you-are-buying-as": "You are buying as...",
+            "not-correct": "Not correct ?",
+            "your-details": "Your Details",
+            "first-name": "First Name",
+            "email": "E-mail",
+            "address-line-1": "Address Line 1",
+            "address-line-2": "Address Line 2",
+            "city": "City",
+            "zip-code": "Zip Code",
+            "state-region": "State/Region",
+            "country": "Country"
+        },
+        "redeem-coupons-or-gift-cards": "Redeem Coupons or Gift Cards",
+        "active-gift": "Active gift",
+        "redeem": "Redeem",
+        "referral-code": "Referral Code",
+        "payment-method": "Payment method",
+        "privacy-statement": "Privacy Statement",
+        "privacy-statement-description": "All payments are final and non-refundable. Attempting a chargeback or opening a PayPal dispute will result in permanent and irreversible banishment from all of our servers, and other minecraft stores.",
+        "agree": "I agree to the terms & conditions of this purchase.",
+        "purchase": "Purchase"
+    },
+    "profile": {
+        "title": "Profile",
+        "information": "Information",
+        "registration-date": "Registration date:",
+        "money-spent": "Money spent:",
+        "recent-purchases": "Recent purchases"
+    },
+    "notifications": {
+        "not-all-detail-fields-are-filled-in": "Not all detail fields are filled in!",
+        "accept-privacy-statement": "Accept Privacy Statement!",
+        "accept-terms": "Accept Terms!",
+        "subscription-item-should-be-alone-in-the-cart": "Subscription item should be alone in the cart!"
+    },
+    "footer": {
+        "useful-links": "Useful Links",
+        "about-us": "About Us",
+        "info": "We are not affiliated with Mojang AB. Powered by",
+        "description": "is a Minecraft: Java Edition network that provides players with captivating and unique gameplay. This is the only official store for the network."
+    }
+}
