@@ -18,11 +18,17 @@ type PriceTagProps = {
 const PriceTag: FC<PriceTagProps> = ({ price, currency, isVirtual }) => {
     const { settings } = useSettingsStore();
 
-    const displayPrice = isVirtual
-        ? `${price} ${settings?.virtual_currency}`
-        : price > 0
-          ? `${price.toFixed(2)} ${currency}`
-          : 'Free';
+    const getDisplayPrice = () => {
+        if (isVirtual) {
+            return `${price} ${settings?.virtual_currency}`;
+        }
+        if (price > 0) {
+            return `${price.toFixed(2)} ${currency}`;
+        }
+        return 'Free';
+    };
+
+    const displayPrice = getDisplayPrice();
 
     return <span className="text-green-400">{displayPrice}</span>;
 };
