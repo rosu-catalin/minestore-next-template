@@ -3,5 +3,5 @@ export const appSettings = {
         checkout: '/checkout'
     },
     defaultPaymentMethod: 'Stripe',
-    apiURL: 'https://pro.minestorecms.com/api'
+    apiURL: 'http://46.146.229.143/api'
 };

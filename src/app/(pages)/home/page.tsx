@@ -14,19 +14,9 @@ export default function Home() {
 
     return (
         <>
-            <div className="flex-col rounded-[10px] bg-[#18181d] p-6">
-                <span className="text-center text-[28px] uppercase text-[#dd2828]">
-                    {t('featured-packages')}
-                </span>
+            <FeaturedDeals />
 
-                <hr className="mt-2 border-[2.5px] border-[#dd2828]" />
-
-                <div className="mt-6 flex-row space-x-4">
-                    {settings?.deal.map((item, index) => <FeaturedDeal key={index} item={item} />)}
-                </div>
-            </div>
-
-            <div className="mt-4 flex-col rounded-[10px] bg-[#18181d] p-4">
+            <div className="flex-col rounded-[10px] bg-[#18181d] p-4">
                 <Alert />
 
                 <div className="">
@@ -100,5 +90,29 @@ export default function Home() {
                 </div>
             </div>
         </>
+    );
+}
+
+function FeaturedDeals() {
+    const { settings } = useSettingsStore();
+    const t = useTranslations('home');
+
+    if (settings?.isFeaturedDeal === 0) return null;
+    if (settings?.featuredDeal_items.length === 0) return null;
+
+    return (
+        <div className="mb-4 flex-col rounded-[10px] bg-[#18181d] p-6">
+            <span className="text-center text-[28px] uppercase text-[#dd2828]">
+                {t('featured-packages')}
+            </span>
+
+            <hr className="mt-2 border-[2.5px] border-[#dd2828]" />
+
+            <div className="mt-6 flex-row space-x-4">
+                {settings?.featuredDeal_items?.map((item, index) => (
+                    <FeaturedDeal key={index} item={item} />
+                ))}
+            </div>
+        </div>
     );
 }

@@ -29,6 +29,8 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
         filled: convertToLocalCurrency(parseFloat(settings.goal_sum))
     };
 
+    console.log(settings);
+
     const percent = (goal.filled / goal.total) * 100;
 
     const { user } = useUserStore();
