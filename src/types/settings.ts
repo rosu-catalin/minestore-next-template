@@ -16,7 +16,7 @@ export type TSettings = {
         ip: string;
         port: string;
     };
-    isFeaturedDeal: number;
+    isFeaturedDeal: number | boolean;
     featuredDeal_items: Array<{
         name: string;
         price: number;
@@ -26,8 +26,11 @@ export type TSettings = {
     }>;
     details: number;
     content: string;
-    goal: string;
-    goal_sum: string;
+    goals: Array<{
+        name: string;
+        current_amount: number;
+        goal_amount: number;
+    }>;
     top: {
         avatar: string;
         username: string;

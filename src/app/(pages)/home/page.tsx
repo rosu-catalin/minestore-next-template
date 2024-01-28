@@ -97,7 +97,7 @@ function FeaturedDeals() {
     const { settings } = useSettingsStore();
     const t = useTranslations('home');
 
-    if (settings?.isFeaturedDeal === 0) return null;
+    if (!settings?.isFeaturedDeal) return null;
     if (settings?.featuredDeal_items.length === 0) return null;
 
     return (

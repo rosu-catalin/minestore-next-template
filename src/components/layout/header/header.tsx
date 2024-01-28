@@ -13,26 +13,12 @@ import { useUserStore } from '@/stores/user';
 import Link from 'next/link';
 
 import './Header.css';
-import { useTranslations } from 'next-intl';
 
 type HeaderProps = {
     settings: TSettings;
 };
 
 export const Header: FC<HeaderProps> = ({ settings }) => {
-    const { currency } = useCurrencyStore();
-
-    const t = useTranslations('header');
-
-    const goal = {
-        total: convertToLocalCurrency(parseFloat(settings.goal)),
-        filled: convertToLocalCurrency(parseFloat(settings.goal_sum))
-    };
-
-    console.log(settings);
-
-    const percent = (goal.filled / goal.total) * 100;
-
     const { user } = useUserStore();
 
     return (
@@ -53,26 +39,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
 
             <Container>
                 <div className="flex h-[110px] items-center rounded-[10px] bg-[url(/bg.png)] px-5">
-                    <div className="flex-col">
-                        <div className="flex-row items-center">
-                            <span className="text-xl font-bold">{t('donation-goal')}</span>
-                            <ReactSVG className="ml-5" src="/icons/donation.svg" />
-                        </div>
-                        <div className="flex-row items-center">
-                            <span>
-                                {goal.filled.toFixed(2)}/{goal.total.toFixed(2)} {currency?.name}
-                            </span>
-                            <span className="ml-auto mr-6 hidden md:inline">
-                                {percent.toFixed(0)}%
-                            </span>
-                        </div>
-                        <div className="mt-4 hidden h-2 w-[300px] overflow-hidden rounded-full bg-[#363636] p-[1px] md:block">
-                            <div
-                                className="h-1.5 rounded-full bg-white shadow shadow-white"
-                                style={{ width: `${percent}%` }}
-                            />
-                        </div>
-                    </div>
+                    <DonationGoal goal={settings.goals} />
 
                     {user && (
                         <>
@@ -101,3 +68,35 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
         </header>
     );
 };
+
+function DonationGoal({ goal }: { goal: TSettings['goals'] }) {
+    const { currency } = useCurrencyStore();
+
+    const { current_amount, goal_amount, name } = goal[0];
+
+    const filled = convertToLocalCurrency(current_amount).toFixed(2);
+    const goalValue = convertToLocalCurrency(goal_amount).toFixed(2);
+
+    const percent = (current_amount / goal_amount) * 100;
+
+    return (
+        <div className="flex-col">
+            <div className="flex-row items-center">
+                <span className="text-xl font-bold">{name}</span>
+                <ReactSVG className="ml-5" src="/icons/donation.svg" />
+            </div>
+            <div className="flex-row items-center">
+                <span>
+                    {filled} / {goalValue} {currency?.name || ''}
+                </span>
+                <span className="ml-auto mr-6 hidden md:inline">{percent.toFixed(0)}%</span>
+            </div>
+            <div className="mt-4 hidden h-2 w-[300px] overflow-hidden rounded-full bg-[#363636] p-[1px] md:block">
+                <div
+                    className="h-1.5 rounded-full bg-white shadow shadow-white"
+                    style={{ width: `${percent}%` }}
+                />
+            </div>
+        </div>
+    );
+}
