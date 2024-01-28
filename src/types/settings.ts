@@ -24,7 +24,7 @@ export type TSettings = {
         image: null | string;
         id: number;
     }>;
-    details: number;
+    details: number | boolean;
     content: string;
     goals: Array<{
         name: string;

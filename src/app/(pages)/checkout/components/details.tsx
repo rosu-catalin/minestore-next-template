@@ -4,6 +4,7 @@ import { Input } from '@/components/base/input/input';
 import { countries } from '@/constants/countries';
 import { useAuth } from '@/core/auth/client/use-auth';
 import { useCheckoutStore } from '@/stores/checkout';
+import { useSettingsStore } from '@/stores/settings';
 import { useUserStore } from '@/stores/user';
 import { TCheckoutRequest } from '@/types/requests/checkout';
 import { useTranslations } from 'next-intl';
@@ -11,6 +12,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 export const Details: FC = () => {
+    const settings = useSettingsStore();
     const t = useTranslations('checkout.details');
 
     const { user } = useUserStore();
@@ -20,6 +22,8 @@ export const Details: FC = () => {
     const set = (values: Partial<TCheckoutRequest['details']>) => {
         setDetails({ ...details, ...values });
     };
+
+    if (!settings?.settings?.details) return null;
 
     return (
         <div className="flex-row">

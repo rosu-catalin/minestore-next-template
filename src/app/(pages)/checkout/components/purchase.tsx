@@ -7,12 +7,14 @@ import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 import { useCheckoutStore } from '@/stores/checkout';
 import { useCurrencyStore } from '@/stores/currency';
+import { useSettingsStore } from '@/stores/settings';
 import { useTranslations } from 'next-intl';
 import { FC, useState } from 'react';
 
 const { checkout } = getEndpoints(fetcher);
 
 export const Purchase: FC = () => {
+    const settings = useSettingsStore();
     const t = useTranslations();
 
     const [acceptTerms, setAcceptTerms] = useState(false);
@@ -34,9 +36,11 @@ export const Purchase: FC = () => {
             'zipcode'
         ] as const;
 
-        for (const field of fields) {
-            if (!details[field]) {
-                return t('notifications.not-all-detail-fields-are-filled-in');
+        if (settings?.settings?.details) {
+            for (const field of fields) {
+                if (!details[field]) {
+                    return t('notifications.not-all-detail-fields-are-filled-in');
+                }
             }
         }
 
