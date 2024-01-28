@@ -72,6 +72,8 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
 function DonationGoal({ goal }: { goal: TSettings['goals'] }) {
     const { currency } = useCurrencyStore();
 
+    if (!goal.length) return null;
+
     const { current_amount, goal_amount, name } = goal[0];
 
     const filled = convertToLocalCurrency(current_amount).toFixed(2);

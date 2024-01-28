@@ -1,34 +1,43 @@
-"use client"
+'use client';
 
-import { getEndpoints } from "@/api"
-import { fetcher } from "@/api/client/fetcher"
-import { TAnnouncement } from "@/types/announcement"
-import Link from "next/link"
-import { FC, useEffect, useState } from "react"
+import { getEndpoints } from '@/api';
+import { fetcher } from '@/api/client/fetcher';
+import { TAnnouncement } from '@/types/announcement';
+import Link from 'next/link';
+import { FC, useEffect, useState } from 'react';
 
-const { getAnnouncement } = getEndpoints(fetcher)
+const { getAnnouncement } = getEndpoints(fetcher);
 
 export const Alert: FC = () => {
+    const [details, setDetails] = useState<TAnnouncement>();
 
-   const [details, setDetails] = useState<TAnnouncement>()
+    useEffect(() => {
+        getAnnouncement().then(setDetails);
+    }, []);
 
-   useEffect(() => {
-      getAnnouncement().then(setDetails)
-   }, [])
+    if (!details?.is_index) return null;
 
-   return (
-      <div className="bg-[#202022] rounded-lg flex-row h-[100px] overflow-clip">
-         <div className="bg-[#2f2f2f] text-[#ff5353] w-8 text-center text-4xl font-bold leading-[100px]">!</div>
+    return (
+        <div className="h-[100px] flex-row overflow-clip rounded-lg bg-[#202022]">
+            <div className="w-8 bg-[#2f2f2f] text-center text-4xl font-bold leading-[100px] text-[#ff5353]">
+                !
+            </div>
 
-         <div className="px-8 flex-row items-center">
-            <span className="text-[#bd1d1d] font-bold text-[20px]">{details?.title}</span>
+            <div className="flex-row items-center px-8">
+                <span className="text-[20px] font-bold text-[#bd1d1d]">{details?.title}</span>
 
-            <span className="font-bold ml-8 text-[#ff7979]" dangerouslySetInnerHTML={{ __html: details?.content || "" }} />
+                <span
+                    className="ml-8 font-bold text-[#ff7979]"
+                    dangerouslySetInnerHTML={{ __html: details?.content || '' }}
+                />
 
-            <Link href={details?.button_url || ""} className="font-bold text-[18px] uppercase bg-[url(/btn.png)] rounded h-12 text-center leading-[48px] w-56">
-               {details?.button_name}
-            </Link>
-         </div>
-      </div>
-   )
-}
+                <Link
+                    href={details?.button_url || ''}
+                    className="h-12 w-56 rounded bg-[url(/btn.png)] text-center text-[18px] font-bold uppercase leading-[48px]"
+                >
+                    {details?.button_name}
+                </Link>
+            </div>
+        </div>
+    );
+};

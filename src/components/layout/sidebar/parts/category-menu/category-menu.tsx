@@ -17,13 +17,13 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
             <ul className="space-y-8">
                 <MenuItem name={t('home')} image="/icons/home.svg" url="/" />
 
-                {categories.map((category, index) => (
+                {categories.map((category) => (
                     <MenuItem
-                        key={index}
+                        key={category.idx}
                         name={category.name}
                         image={category.img ? `/media/categories/${category.img}` : ''}
                         url={`/categories/${category.url}`}
-                        subItems={category.categories}
+                        subItems={category.subcategories}
                     />
                 ))}
             </ul>

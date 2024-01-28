@@ -18,6 +18,8 @@ export const FeaturedDeal: FC = () => {
         getRecommends().then(setRecommends);
     }, []);
 
+    if (recommends.length === 0) return null;
+
     return (
         <>
             <span className="mt-8 text-center text-[30px] uppercase text-[#dd2828]">
