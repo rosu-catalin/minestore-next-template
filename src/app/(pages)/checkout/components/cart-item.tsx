@@ -75,7 +75,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                         <button
                             aria-label="Decrease quantity"
                             hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={quantity === 1 || loading}
                             onClick={() => {
                                 if (quantity === 1) {
@@ -93,7 +93,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                         <button
                             aria-label="Increase quantity"
                             hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={loading}
                             onClick={() => handleQuantity(item.id, quantity + 1)}
                         >
@@ -108,7 +108,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                     </button>
                     <button
                         onClick={() => handleRemoveItemFromCart(item.id)}
-                        className="h-8 w-8 rounded bg-accent text-lg font-bold transition transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                        className="h-8 w-8 rounded bg-accent text-lg font-bold transition disabled:cursor-not-allowed disabled:opacity-50"
                         disabled={loading}
                     >
                         x

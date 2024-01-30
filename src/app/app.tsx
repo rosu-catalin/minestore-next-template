@@ -17,7 +17,7 @@ export const App: FC<PropsWithChildren> = async ({ children }) => {
     const settings = await getSettings();
     const categories = await getCategories();
 
-    const user = await getUser().catch((x) => undefined);
+    const user = await getUser().catch(() => undefined);
 
     const messages = await getDictionary('en');
 

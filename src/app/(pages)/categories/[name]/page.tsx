@@ -18,6 +18,8 @@ export default async function Page({ params }: any) {
 
     const { category, items } = response;
 
+    console.log(JSON.stringify(items, null, 2));
+
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
             <div className="w-full flex-col p-4">
@@ -35,11 +37,16 @@ export default async function Page({ params }: any) {
             {category.is_comparison ? (
                 <Comparison items={items} />
             ) : (
-                <div className="mt-8 flex-row flex-wrap place-content-center gap-4 p-4">
+                <div
+                    className={joinClasses('mt-8 grid gap-4 p-4', {
+                        'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]':
+                            !category?.is_listing
+                    })}
+                >
                     {items.map((item, index) => (
                         <Card
                             isCumulative={!!category.is_cumulative}
-                            className={joinClasses('w-[32%]', { 'w-full': category.is_listing })}
+                            className={joinClasses({ 'w-full': category.is_listing })}
                             direction={category.is_listing ? 'row' : 'col'}
                             key={index}
                             item={item}

@@ -1,24 +1,26 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-   images: {
-      remotePatterns: [
-         {
-            hostname: "mc-heads.net",
-         },
-         {
-            hostname: "minotar.net",
-         }
-      ],
-   },
-   rewrites: async () => {
-      return [
-         {
-            source: "/",
-            destination: "/home",
-         }
-      ]
-   }
-}
+    images: {
+        remotePatterns: [
+            {
+                hostname: 'mc-heads.net'
+            },
+            {
+                hostname: 'minotar.net'
+            },
+            {
+                hostname: '46.146.229.143'
+            }
+        ]
+    },
+    rewrites: async () => {
+        return [
+            {
+                source: '/',
+                destination: '/home'
+            }
+        ];
+    }
+};
 
-
-module.exports = nextConfig
+module.exports = nextConfig;

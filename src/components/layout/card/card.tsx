@@ -78,6 +78,9 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
         }
     };
 
+    const productImage = (process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || '') + item.image;
+    console.log(productImage);
+
     return (
         <div
             className={joinClasses(
@@ -94,7 +97,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
             )}
 
             <Image
-                src={item.image || '/media/placeholder.png'}
+                src={productImage || '/media/placeholder.png'}
                 alt=""
                 width={140}
                 height={140}
@@ -119,6 +122,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
                     })}
                 >
                     <Price
+                        discount={item.discount}
                         value={price}
                         isVirtual={isPriceVirtual}
                         className="mx-4 my-2 text-[20px] font-bold text-[#0d7516]"

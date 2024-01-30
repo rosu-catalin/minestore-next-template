@@ -20,6 +20,8 @@ export default async function Page({ params }: any) {
     const { subcategories } = response;
     const subCategory = subcategories?.find((x) => x.category.url === path);
 
+    console.log(JSON.stringify(response, null, 2));
+
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
             <div className="w-full flex-col p-4">
@@ -39,11 +41,16 @@ export default async function Page({ params }: any) {
             {subCategory?.category.is_comparison ? (
                 <Comparison items={subCategory?.items || []} />
             ) : (
-                <div className="mt-8 flex-row flex-wrap place-content-center gap-4 p-4">
+                <div
+                    className={joinClasses('mt-8 grid gap-4 p-4', {
+                        'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]':
+                            !subCategory?.category.is_listing
+                    })}
+                >
                     {subCategory?.items.map((item, index) => (
                         <Card
                             isCumulative={!!subCategory.category.is_cumulative}
-                            className={joinClasses('w-[32%]', {
+                            className={joinClasses({
                                 'w-full': subCategory.category.is_listing
                             })}
                             direction={subCategory.category.is_listing ? 'row' : 'col'}
