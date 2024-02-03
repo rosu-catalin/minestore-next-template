@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/base/button/button';
 import { Input } from '@/components/base/input/input';
 import { getEndpoints } from '@/api';

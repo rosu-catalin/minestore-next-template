@@ -20,7 +20,7 @@ export default async function Page({ params }: any) {
     const { subcategories } = response;
     const subCategory = subcategories?.find((x) => x.category.url === path);
 
-    const categoryComparasions = subCategory?.category.comparison;
+    const categoryComparasions = subCategory?.category.comparison || [];
     console.log(categoryComparasions);
 
     return (
