@@ -14,13 +14,12 @@ export const TableValue: FC<Props> = ({ item, index }) => {
         return <></>;
     }
 
-    const comparison = JSON.parse(item.comparison);
-
-    const value = comparison?.[`${index + 1}`];
+    const comparison = item.comparison;
+    console.log(comparison);
 
     return (
         <div className="flex w-[180px] flex-shrink-0 items-center justify-center text-center">
-            {calcComparisonValue(value)}
+            {/* {calcComparisonValue(value)} */}
         </div>
     );
 };

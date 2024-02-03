@@ -20,7 +20,8 @@ export default async function Page({ params }: any) {
     const { subcategories } = response;
     const subCategory = subcategories?.find((x) => x.category.url === path);
 
-    console.log(JSON.stringify(response, null, 2));
+    const categoryComparasions = subCategory?.category.comparison;
+    console.log(categoryComparasions);
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
@@ -39,7 +40,7 @@ export default async function Page({ params }: any) {
             </div>
 
             {subCategory?.category.is_comparison ? (
-                <Comparison items={subCategory?.items || []} />
+                <Comparison items={subCategory?.items || []} comparasion={categoryComparasions} />
             ) : (
                 <div
                     className={joinClasses('mt-8 grid gap-4 p-4', {

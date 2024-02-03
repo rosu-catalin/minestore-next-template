@@ -1,19 +1,32 @@
 import { TItem } from './item';
 
-type TCategory = {
+export type TComparison = {
     id: number;
     name: string;
+    type: number;
+    sorting: number;
+};
+
+export type TCategory = {
+    id: number;
+    parent_id: number;
+    name: string;
+    img: string | null;
     url: string;
-    img: string;
     description: string;
     sorting: number;
-    gui_item_id: string | null;
-    is_cumulative: number;
-    is_listing: number;
-    is_comparison: number;
-    comparison: string;
+    is_enable: number | boolean;
+    gui_item_id: number | null;
+    is_cumulative: number | boolean;
+    is_listing: number | boolean;
+    is_comparison: number | boolean;
     created_at: string;
     updated_at: string;
+    comparison: TComparison[];
+    comparisons?: {
+        comparison_id: number;
+        value: string;
+    }[];
 };
 
 export type TCategoryDetails = {

@@ -16,6 +16,8 @@ export const Cart: FC = () => {
 
     const { cart, items, setCart } = useCartStore();
 
+    console.log(items);
+
     const loadCartDetails = () => {
         getCart().then(setCart).catch(handleUnauthorized);
     };

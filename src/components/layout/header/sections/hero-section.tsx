@@ -45,12 +45,12 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
     return (
         <div className="w-full flex-row items-center justify-center">
             <div
-                onClick={() => sweetAlert(`${settings.server.ip}:${settings.server.port}`)}
+                onClick={() => sweetAlert(`${settings.server.ip}`)}
                 className="-mt-20 hidden cursor-pointer items-center transition duration-300 hover:scale-110 lg:flex"
             >
                 <ReactSVG className="h-12 w-12 text-[#e43c3c]" src="/icons/play.svg" />
                 <div className="ml-0.5 flex-col">
-                    <span className="glow-text text-lg font-bold">hypixel.net</span>
+                    <span className="glow-text text-lg font-bold">{settings.server.ip}</span>
                     <span className="glow-text text-sm">
                         {serverOnline} {t('players-online')}
                     </span>

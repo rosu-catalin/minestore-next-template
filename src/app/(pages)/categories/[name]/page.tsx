@@ -10,15 +10,13 @@ const { getCategoryDetails } = getEndpoints(fetcher);
 export default async function Page({ params }: any) {
     const categoryPath = params.name;
 
-    const response = await getCategoryDetails(categoryPath).catch((x) => undefined);
+    const response = await getCategoryDetails(categoryPath).catch(() => undefined);
 
     if (!response) {
         return <></>;
     }
 
     const { category, items } = response;
-
-    console.log(JSON.stringify(items, null, 2));
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">

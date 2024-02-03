@@ -5,6 +5,12 @@ import { Card } from '@layout/card/card';
 
 type ComparisonProps = {
     items: TItem[];
+    comparasion?: {
+        id: number;
+        name: string;
+        type: 1 | 2;
+        sorting: number;
+    };
 };
 
 export const Comparison: FC<ComparisonProps> = ({ items }) => {
