@@ -4,15 +4,20 @@ import { FC, PropsWithChildren } from 'react';
 type ButtonProps = PropsWithChildren<{
     onClick?(): void;
     className?: string;
+    loading?: boolean;
 }> &
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-export const Button: FC<ButtonProps> = ({ onClick, children, className, ...props }) => {
+export const Button: FC<ButtonProps> = ({ onClick, children, className, loading, ...props }) => {
     return (
         <button
             onClick={onClick}
             {...props}
-            className={joinClasses('h-[40px] w-[100px] rounded bg-[#bd1d1d] font-bold', className)}
+            className={joinClasses(
+                'h-[40px] w-[100px] rounded bg-[#bd1d1d] font-bold',
+                className,
+                loading && 'pointer-events-none cursor-not-allowed opacity-50'
+            )}
         >
             {children}
         </button>

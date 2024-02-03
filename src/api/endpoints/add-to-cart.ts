@@ -1,9 +1,8 @@
-import { AxiosInstance } from "axios"
+import { AxiosInstance } from 'axios';
 
-type ReturnType = void
+type ReturnType = void;
 
-export const addToCart = (fetcher: AxiosInstance) =>
-   async (id: number) => {
-      const url = `/cart/add/${id}`
-      return (await fetcher.post<ReturnType>(url)).data
-   }
+export const addToCart = (fetcher: AxiosInstance) => async (id: number) => {
+    const url = `/cart/add/${id}`;
+    return (await fetcher.post<ReturnType>(url)).data;
+};

@@ -16,6 +16,8 @@ export const Cart: FC = () => {
 
     const { cart, items, setCart } = useCartStore();
 
+    console.log(JSON.stringify(cart, null, 2));
+
     console.log(items);
 
     const loadCartDetails = () => {

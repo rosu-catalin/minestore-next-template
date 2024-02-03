@@ -15,4 +15,5 @@ export type TItem = {
     is_virtual_currency_only: number;
     in_cart?: boolean;
     is_unavailable?: boolean;
+    is_subs: boolean | number;
 };

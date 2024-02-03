@@ -25,6 +25,7 @@ type CardProps = {
 
 export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumulative }) => {
     const { items, setCart } = useCartStore();
+
     const { user } = useUserStore();
 
     const [show, setShow] = useState(false);
@@ -44,6 +45,14 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
     const t = useTranslations('card');
 
     const handleCartItem = async () => {
+        const cartContainsSubs = items.some((x) => x.is_subs);
+        const cartContainsRegular = items.some((x) => !x.is_subs);
+
+        if ((cartContainsSubs && !item.is_subs) || (cartContainsRegular && item.is_subs)) {
+            notify('You cannot mix regular and subscription items!', 'red');
+            return;
+        }
+
         if (!isItemUnavailable) {
             return;
         }
@@ -63,6 +72,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
             }
 
             const response = await getCart();
+
             setCart(response);
 
             const notificationMessage = isItemInCart

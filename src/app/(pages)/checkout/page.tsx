@@ -14,7 +14,8 @@ import { Vars } from './components/variables/vars';
 const { getUser } = getEndpoints(fetcher);
 
 export default async function Checkout() {
-    await getUser().catch(handleUnauthorized);
+    const user = await getUser().catch(handleUnauthorized);
+    const { id } = user;
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d] p-4">
@@ -23,7 +24,7 @@ export default async function Checkout() {
             <Vars />
             <FeaturedDeal />
             <Details />
-            <RedeemCoupon />
+            <RedeemCoupon userId={id} />
             <ReferralCode />
             <Payments />
             <Purchase />
