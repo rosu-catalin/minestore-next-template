@@ -16,4 +16,5 @@ export type TItem = {
     in_cart?: boolean;
     is_unavailable?: boolean;
     is_subs: boolean | number;
+    original_price?: number;
 };

@@ -21,7 +21,6 @@ export default async function Page({ params }: any) {
     const subCategory = subcategories?.find((x) => x.category.url === path);
 
     const categoryComparasions = subCategory?.category.comparison || [];
-    console.log(categoryComparasions);
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">

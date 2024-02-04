@@ -16,9 +16,7 @@ export const Cart: FC = () => {
 
     const { cart, items, setCart } = useCartStore();
 
-    console.log(JSON.stringify(cart, null, 2));
-
-    console.log(items);
+    console.log('Cart Items:', items);
 
     const loadCartDetails = () => {
         getCart().then(setCart).catch(handleUnauthorized);
@@ -44,19 +42,25 @@ export const Cart: FC = () => {
                 </span>
             </div>
 
-            <div className="mt-6 rounded-[10px] border-4 border-[#202022]">
-                <div className="flex-row items-center border-b-4 border-[#202022] py-4">
-                    <div className="w-28"></div>
-                    <div className="w-[160px] text-[20px] font-bold text-accent">{t('name')}</div>
-                    <div className="w-[120px] text-[20px] font-bold text-accent">{t('price')}</div>
-                    <div className="ml-auto mr-[115px] w-[120px] text-[20px] font-bold text-accent">
-                        {t('quantity')}
+            {items?.length > 0 && (
+                <div className="mt-6 rounded-[10px] border-4 border-[#202022]">
+                    <div className="flex-row items-center border-b-4 border-[#202022] py-4">
+                        <div className="w-28"></div>
+                        <div className="w-[160px] text-[20px] font-bold text-accent">
+                            {t('name')}
+                        </div>
+                        <div className="w-[120px] text-[20px] font-bold text-accent">
+                            {t('price')}
+                        </div>
+                        <div className="ml-auto mr-[115px] w-[120px] text-[20px] font-bold text-accent">
+                            {t('quantity')}
+                        </div>
                     </div>
+                    {items?.map((item, index) => (
+                        <CartItem onChangeQuantity={loadCartDetails} key={index} item={item} />
+                    ))}
                 </div>
-                {items?.map((item, index) => (
-                    <CartItem onChangeQuantity={loadCartDetails} key={index} item={item} />
-                ))}
-            </div>
+            )}
         </>
     );
 };

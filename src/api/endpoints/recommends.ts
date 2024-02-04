@@ -1,10 +1,9 @@
-import { TItem } from "@/types/item"
-import { AxiosInstance } from "axios"
+import { TItem } from '@/types/item';
+import { AxiosInstance } from 'axios';
 
-type ReturnType = Array<TItem>
+type ReturnType = Array<TItem>;
 
-export const getRecommends = (fetcher: AxiosInstance) =>
-   async () => {
-      const url = "/cart/getRecommended"
-      return (await fetcher.post<ReturnType>(url)).data
-   }
+export const getRecommends = (fetcher: AxiosInstance) => async () => {
+    const url = '/cart/getPromoted';
+    return (await fetcher.get<ReturnType>(url)).data;
+};

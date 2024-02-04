@@ -80,7 +80,7 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
                 className="-mt-20 hidden items-center transition duration-300 hover:scale-110 lg:flex"
             >
                 <div className="ml-0.5 flex-col">
-                    <span className="glow-text text-lg font-bold">Discord Server</span>
+                    <span className="glow-text text-lg font-bold">{t('discord-server')}</span>
                     <span className="glow-text text-sm">
                         {discordOnline} {t('members-online')}
                     </span>

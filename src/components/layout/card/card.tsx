@@ -21,9 +21,16 @@ type CardProps = {
     direction?: 'row' | 'col';
     className?: string;
     isCumulative: boolean;
+    calledFromCheckout?: boolean;
 };
 
-export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumulative }) => {
+export const Card: FC<CardProps> = ({
+    item,
+    direction = 'col',
+    className,
+    isCumulative,
+    calledFromCheckout
+}) => {
     const { items, setCart } = useCartStore();
 
     const { user } = useUserStore();
@@ -44,7 +51,9 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
 
     const t = useTranslations('card');
 
-    const handleCartItem = async () => {
+    console.log(item);
+
+    const addItem = async () => {
         const cartContainsSubs = items.some((x) => x.is_subs);
         const cartContainsRegular = items.some((x) => !x.is_subs);
 
@@ -65,31 +74,45 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
         try {
             setLoading(true);
 
-            if (isItemInCart) {
-                await removeItemFromCart(item.id);
-            } else {
-                await addToCart(item.id);
-            }
+            await addToCart(item.id, calledFromCheckout ? 1 : 0);
 
             const response = await getCart();
 
             setCart(response);
 
-            const notificationMessage = isItemInCart
-                ? 'Item was deleted from cart!'
-                : 'Item added to cart!';
-            const notificationColor = isItemInCart ? 'red' : 'green';
+            const notificationMessage = 'Item added to cart!';
+            const notificationColor = 'green';
 
             notify(notificationMessage, notificationColor);
         } catch (error) {
-            console.error('Error while adding/removing item:', error);
+            console.error('Error while adding item:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const removeItem = async () => {
+        try {
+            setLoading(true);
+
+            await removeItemFromCart(item.id);
+
+            const response = await getCart();
+
+            setCart(response);
+
+            const notificationMessage = 'Item was deleted from cart!';
+            const notificationColor = 'red';
+
+            notify(notificationMessage, notificationColor);
+        } catch (error) {
+            console.error('Error while removing item:', error);
         } finally {
             setLoading(false);
         }
     };
 
     const productImage = (process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || '') + item.image;
-    console.log(productImage);
 
     return (
         <div
@@ -106,13 +129,15 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
                 </div>
             )}
 
-            <Image
-                src={productImage || '/media/placeholder.png'}
-                alt=""
-                width={140}
-                height={140}
-                className="h-[140px] w-[140px] object-contain"
-            />
+            {item.image && (
+                <Image
+                    src={productImage || '/media/placeholder.png'}
+                    alt=""
+                    width={140}
+                    height={140}
+                    className="h-[140px] w-[140px] object-contain"
+                />
+            )}
 
             <div className={joinClasses('my-2', { 'ml-8 w-[200px] flex-col': isRow })}>
                 <span
@@ -132,6 +157,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
                     })}
                 >
                     <Price
+                        originalPrice={item.original_price}
                         discount={item.discount}
                         value={price}
                         isVirtual={isPriceVirtual}
@@ -145,7 +171,7 @@ export const Card: FC<CardProps> = ({ item, direction = 'col', className, isCumu
                             { 'ml-2 mt-0': isRow },
                             { 'bg-accent': isItemFeatured }
                         )}
-                        onClick={handleCartItem}
+                        onClick={isItemInCart ? removeItem : addItem}
                     >
                         {isItemInCart ? t('remove') : t('buy')}
                     </Button>

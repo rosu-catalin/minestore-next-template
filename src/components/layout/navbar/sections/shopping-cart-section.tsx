@@ -15,8 +15,6 @@ export const ShoppingCartSection: FC = () => {
 
     const isCartEmpty = cart?.items === 0;
 
-    console.log(t('cart-hint'));
-
     return (
         <>
             <ReactSVG src="/icons/shopping-cart.svg" />

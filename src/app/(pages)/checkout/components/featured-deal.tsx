@@ -15,7 +15,10 @@ export const FeaturedDeal: FC = () => {
     const [recommends, setRecommends] = useState<Array<TItem>>([]);
 
     useEffect(() => {
-        getRecommends().then(setRecommends);
+        getRecommends().then((data) => {
+            setRecommends(data);
+            // console.log(data);
+        });
     }, []);
 
     if (recommends.length === 0) return null;
@@ -28,12 +31,13 @@ export const FeaturedDeal: FC = () => {
 
             <hr className="border-2 border-[#dd2828]" />
 
-            <div className="mt-6 rounded-[10px] bg-[#202022]">
+            <div className="mt-6 grid gap-4 rounded-[10px] md:grid-cols-2 lg:grid-cols-3">
                 {recommends.map((item, index) => (
                     <Card
+                        calledFromCheckout={true}
                         isCumulative={false}
                         key={index}
-                        direction="row"
+                        direction="col"
                         item={{
                             ...item,
                             description: t('this-item-is-popular-among-us-customers')

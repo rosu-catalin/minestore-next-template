@@ -11,7 +11,8 @@
     "header": {
         "players-online": "Players Online",
         "members-online": "Members Online",
-        "donation-goal": "Donation Goal"
+        "donation-goal": "Donation Goal",
+        "discord-server": "Discord Server"
     },
     "sidebar": {
         "home": "Home",
