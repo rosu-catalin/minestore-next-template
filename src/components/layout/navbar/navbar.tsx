@@ -9,7 +9,7 @@ import { ShoppingCartSection } from './sections/shopping-cart-section';
 import { UserSection } from './sections/user-section';
 
 import './Navbar.css';
-import { Divider } from './components/Divider';
+import { Divider } from './components/divider';
 
 type NavbarProps = {
     settings: TSettings;
