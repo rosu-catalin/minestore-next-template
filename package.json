@@ -9,6 +9,7 @@
     "dependencies": {
         "@formatjs/intl-localematcher": "^0.5.2",
         "@headlessui/react": "^1.7.18",
+        "@typescript-eslint/eslint-plugin": "^6.20.0",
         "@uidotdev/usehooks": "^2.4.1",
         "axios": "^1.6.3",
         "clsx": "^2.1.0",
@@ -39,10 +40,10 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-unicorn": "^49.0.0",
         "postcss": "^8",
+        "prettier": "^3.1.0",
+        "prettier-plugin-tailwindcss": "^0.5.7",
         "server-only": "^0.0.1",
         "tailwindcss": "^3.3.0",
-        "typescript": "^5",
-        "prettier-plugin-tailwindcss": "^0.5.7",
-        "prettier": "^3.1.0"
+        "typescript": "^5"
     }
 }

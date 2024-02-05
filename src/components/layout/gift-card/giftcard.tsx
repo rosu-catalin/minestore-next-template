@@ -13,6 +13,10 @@ const { getGift } = getEndpoints(fetcher);
 export const GiftCard: FC = () => {
     const [giftCode, setGiftCode] = useState('');
 
+    const handleGiftCode = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGiftCode(event.target.value);
+    };
+
     const check = async () => {
         const response = await getGift(giftCode).catch((error: AxiosError) => {
             if (error.response?.status === 401) {
@@ -37,7 +41,7 @@ export const GiftCard: FC = () => {
     return (
         <div className="flex-col">
             <span className="mt-20 text-[20px] font-bold">Gift Card</span>
-            <Input placeholder="Card Code" className="mt-6" onChange={setGiftCode} />
+            <Input placeholder="Card Code" className="mt-4" onChange={handleGiftCode} />
             <Button onClick={check} className="mx-auto mt-4">
                 Check
             </Button>

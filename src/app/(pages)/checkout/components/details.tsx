@@ -23,6 +23,14 @@ export const Details: FC = () => {
         setDetails({ ...details, ...values });
     };
 
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        set({ [e.target.name]: e.target.value });
+    };
+
+    const handleCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        set({ country: e.target.value });
+    };
+
     if (!settings?.settings?.details) return null;
 
     return (
@@ -54,37 +62,37 @@ export const Details: FC = () => {
                 <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-4">
                     <label className="flex-col">
                         <span>{t('first-name')} *</span>
-                        <Input className="mt-2 w-full" onChange={(fullname) => set({ fullname })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="fullname" />
                     </label>
                     <label className="flex-col">
                         <span>{t('email')} *</span>
-                        <Input className="mt-2 w-full" onChange={(email) => set({ email })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="email" />
                     </label>
                     <label className="flex-col">
                         <span>{t('address-line-1')} *</span>
-                        <Input className="mt-2 w-full" onChange={(address1) => set({ address1 })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="address1" />
                     </label>
                     <label className="flex-col">
                         <span>{t('address-line-2')}</span>
-                        <Input className="mt-2 w-full" onChange={(address2) => set({ address2 })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="address2" />
                     </label>
                     <label className="col-span-2 flex-col">
                         <span>{t('city')} *</span>
-                        <Input className="mt-2 w-full" onChange={(city) => set({ city })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="city" />
                     </label>
                     <label className="flex-col">
                         <span>{t('zip-code')} *</span>
-                        <Input className="mt-2 w-full" onChange={(zipcode) => set({ zipcode })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="zipcode" />
                     </label>
                     <label className="flex-col">
                         <span>{t('state-region')} *</span>
-                        <Input className="mt-2 w-full" onChange={(region) => set({ region })} />
+                        <Input className="mt-2 w-full" onChange={handleInput} name="region" />
                     </label>
                     <label className="flex-col">
                         <span>{t('country')} *</span>
                         <select
                             defaultValue={countries[countries.length - 1]}
-                            onChange={(e) => set({ country: e.target.value })}
+                            onChange={handleCountry}
                             className="mt-2 w-full rounded-[10px] bg-[#303437] p-1 shadow-md shadow-black/25 outline-none"
                         >
                             {countries.map((country, index) => (

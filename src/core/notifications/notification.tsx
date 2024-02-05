@@ -9,10 +9,10 @@ type NotificationProps = {
     id: string;
     message: string;
     level: TLevel;
-    t: Toast;
+    t?: Toast;
 };
 
-export const Notification: FC<NotificationProps> = ({ id, message, level, t }) => {
+export const Notification: FC<NotificationProps> = ({ id, message, level }) => {
     const styles = {
         defaults: {
             container: 'rounded w-96 py-4 px-6 border-b-4 flex-row'
