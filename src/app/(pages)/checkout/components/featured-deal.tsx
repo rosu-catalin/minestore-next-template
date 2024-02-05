@@ -31,13 +31,13 @@ export const FeaturedDeal: FC = () => {
 
             <hr className="border-2 border-[#dd2828]" />
 
-            <div className="mt-6 grid gap-4 rounded-[10px] md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4">
                 {recommends.map((item, index) => (
                     <Card
                         calledFromCheckout={true}
                         isCumulative={false}
                         key={index}
-                        direction="col"
+                        direction="row"
                         item={{
                             ...item,
                             description: t('this-item-is-popular-among-us-customers')

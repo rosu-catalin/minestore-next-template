@@ -26,6 +26,8 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
     const [coupon, setCoupon] = useState('');
 
     const accept = async () => {
+        if (!coupon) return notify('Please enter a coupon', 'red');
+
         try {
             setLoading(true);
             const response = await acceptCoupon(coupon);
