@@ -25,6 +25,10 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
 
     const [coupon, setCoupon] = useState('');
 
+    const handleCoupon = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCoupon(e.target.value);
+    };
+
     const accept = async () => {
         if (!coupon) return notify('Please enter a coupon', 'red');
 
@@ -84,7 +88,7 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
                     <Input
                         className="h-10 w-[150px]"
                         placeholder="0XXX-00XX-0XXX"
-                        onChange={setCoupon}
+                        onChange={handleCoupon}
                     />
                     <Button onClick={accept} loading={loading} className="ml-4">
                         {t('redeem')}

@@ -7,11 +7,22 @@ import { Alert } from '@layout/alert/alert';
 
 const { getCategoryDetails } = getEndpoints(fetcher);
 
-export default async function Page({ params }: any) {
+type Params = {
+    name: string[];
+};
+
+export default async function Page({ params }: { params: Params }) {
     const categoryPath = params.name[0];
     const path = params.name.join('/');
 
-    const response = await getCategoryDetails(categoryPath).catch(() => undefined);
+    const response = await getCategoryDetails(categoryPath)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            console.error(err);
+            return undefined;
+        });
 
     if (!response) {
         return <></>;

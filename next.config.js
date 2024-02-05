@@ -10,6 +10,9 @@ const nextConfig = {
             },
             {
                 hostname: '46.146.229.143'
+            },
+            {
+                hostname: 'i.imgur.com'
             }
         ]
     },

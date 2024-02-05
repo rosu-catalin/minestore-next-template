@@ -35,7 +35,15 @@ export default function Home() {
                         </div>
 
                         <div className="mt-8 w-full md:mt-0">
-                            <img src={settings?.block_3} className="w-full" alt="" />
+                            {settings?.block_3 && (
+                                <Image
+                                    src={settings?.block_3}
+                                    alt=""
+                                    width={500}
+                                    height={500}
+                                    className="object-contain"
+                                />
+                            )}
                         </div>
                     </div>
 

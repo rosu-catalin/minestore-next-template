@@ -1,4 +1,4 @@
-type Line = {
+export type Line = {
     name: string;
     value: string;
     price: number;
