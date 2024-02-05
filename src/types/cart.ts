@@ -1,3 +1,9 @@
+type Line = {
+    name: string;
+    value: string;
+    price: number;
+};
+
 export type TCart = {
     cart: {
         id: number;
@@ -26,7 +32,7 @@ export type TCart = {
             id: number;
             description: string;
             type: number;
-            lines: null | any;
+            lines: Line[] | null;
             use: string;
         }>;
         count: number;
