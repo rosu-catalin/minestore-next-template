@@ -25,7 +25,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
         updateItemCount(item.id, throttleQuantity).then(() => {
             onChangeQuantity(throttleQuantity);
         });
-    }, [throttleQuantity]);
+    }, [throttleQuantity, item.id, onChangeQuantity]);
 
     const [show, setShow] = useState(false);
 

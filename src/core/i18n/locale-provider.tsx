@@ -1,46 +1,44 @@
-"use client"
+'use client';
 
-import { FC, useEffect, useLayoutEffect, useState } from "react"
-import { NextIntlClientProvider } from "next-intl"
-import { useLangStore } from "@/stores/lang"
-import { getDictionary } from "."
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
+import { useLangStore } from '@/stores/lang';
+import { getDictionary } from '.';
 
 interface LocaleProviderProps {
-   children: React.ReactNode
-   initialMessages: any
+    children: React.ReactNode;
+    initialMessages: Record<string, string>;
 }
 
 export const LocaleProvider: FC<LocaleProviderProps> = ({ children, initialMessages }) => {
+    const { lang } = useLangStore();
 
-   const { lang } = useLangStore()
+    const [messages, setMessages] = useState(initialMessages);
+    const [isMounted, setIsMounted] = useState(false);
 
-   const [messages, setMessages] = useState<any>(initialMessages)
+    useLayoutEffect(() => {
+        const load = async () => {
+            try {
+                const messages = await getDictionary(lang as string);
+                setMessages(messages);
+            } catch {
+                const messages = await getDictionary('en');
+                setMessages(messages);
+            }
+        };
 
-   const [isMounted, setIsMounted] = useState(false)
+        load();
+    }, [lang]);
 
-   const load = async () => {
-      try {
-         const messages = await getDictionary(lang as any)
-         setMessages(messages)
-      } catch {
-         const messages = await getDictionary("en")
-         setMessages(messages)
-      }
-   }
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
-   useLayoutEffect(() => {
-      load()
-   }, [lang])
+    if (!isMounted) return null;
 
-   useEffect(() => {
-      setIsMounted(true)
-   }, [])
-
-   if (!isMounted) return null
-
-   return (
-      <NextIntlClientProvider locale={lang} messages={messages}>
-         {children}
-      </NextIntlClientProvider>
-   )
-}
+    return (
+        <NextIntlClientProvider locale={lang} messages={messages}>
+            {children}
+        </NextIntlClientProvider>
+    );
+};
