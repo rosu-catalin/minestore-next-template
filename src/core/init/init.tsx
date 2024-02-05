@@ -1,12 +1,12 @@
 'use client';
 
+import { FC, useEffect } from 'react';
 import { useCurrencyStore } from '@/stores/currency';
 import { useSettingsStore } from '@/stores/settings';
-import { TSettings } from '@/types/settings';
-import { FC, useEffect } from 'react';
 import { useCartStore } from '@/stores/cart';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
+import { TSettings } from '@/types/settings';
 
 const { getCart } = getEndpoints(fetcher);
 
@@ -20,15 +20,22 @@ export const Init: FC<{ settings: TSettings }> = ({ settings }) => {
     }, [settings, setSettings]);
 
     useEffect(() => {
-        if (localStorage.currency) {
-            setCurrency(settings.currencies.find((x) => x.name === localStorage.currency)!);
-        } else {
-            localStorage.currency = settings.system_currency.name;
-            setCurrency(settings.system_currency);
-        }
+        const initializeCurrency = async () => {
+            const currencyName = localStorage.currency;
+            if (currencyName) {
+                const currency = settings.currencies.find((x) => x.name === currencyName);
+                if (currency) {
+                    setCurrency(currency);
+                }
+            } else {
+                localStorage.currency = settings.system_currency.name;
+                setCurrency(settings.system_currency);
+            }
+        };
 
+        initializeCurrency();
         getCart().then(setCart);
-    }, []);
+    }, [settings.currencies, settings.system_currency, setCurrency, setCart]);
 
     return <></>;
 };
