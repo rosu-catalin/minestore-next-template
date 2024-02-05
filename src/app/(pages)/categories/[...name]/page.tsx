@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: Params }) {
     const { subcategories } = response;
     const subCategory = subcategories?.find((x) => x.category.url === path);
 
-    const categoryComparasions = subCategory?.category.comparison || [];
+    // const categoryComparasions = subCategory?.category.comparison || [];
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Params }) {
             </div>
 
             {subCategory?.category.is_comparison ? (
-                <Comparison items={subCategory?.items || []} comparasion={categoryComparasions} />
+                <Comparison items={subCategory?.items || []} />
             ) : (
                 <div
                     className={joinClasses('mt-8 grid gap-4 p-4', {
