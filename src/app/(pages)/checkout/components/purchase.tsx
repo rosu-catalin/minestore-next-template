@@ -19,7 +19,7 @@ export const Purchase: FC = () => {
 
     const [acceptTerms, setAcceptTerms] = useState(false);
 
-    const { details, paymentMethod, acceptPrivacy, vars, referral } = useCheckoutStore();
+    const { details, paymentMethod, acceptPrivacy, referral } = useCheckoutStore();
 
     const { items } = useCartStore();
 
@@ -76,7 +76,7 @@ export const Purchase: FC = () => {
             details,
             paymentMethod,
             ref: referral,
-            vars: vars.map((v) => [v.itemCId, v.varId, v.value])
+            vars: []
         });
 
         if (response.data.type === 'url') {
