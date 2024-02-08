@@ -11,7 +11,6 @@ const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
 type CartItemProps = {
     item: TCart['items'][number];
-    onChangeQuantity(quantity: number): void;
 };
 
 export const CartItem: FC<CartItemProps> = ({ item }) => {

@@ -1,26 +1,16 @@
 'use client';
 
-import { FC, useEffect } from 'react';
-import { getEndpoints } from '@/api';
-import { fetcher } from '@/api/client/fetcher';
+import { FC } from 'react';
 import { CartItem } from './cart-item';
 import { Price } from '@/components/base/price/price';
 import { useCartStore } from '@/stores/cart';
-import { handleUnauthorized } from '@/api/client/handlers';
 import { useTranslations } from 'next-intl';
-
-const { getCart } = getEndpoints(fetcher);
 
 export const Cart: FC = () => {
     const t = useTranslations('checkout');
+    const { cart, items } = useCartStore();
 
-    const { cart, items, setCart } = useCartStore();
-
-    const loadCartDetails = () => {
-        getCart().then(setCart).catch(handleUnauthorized);
-    };
-
-    useEffect(loadCartDetails, [setCart]);
+    console.log(cart, items);
 
     return (
         <>
@@ -54,9 +44,7 @@ export const Cart: FC = () => {
                             {t('quantity')}
                         </div>
                     </div>
-                    {items?.map((item, index) => (
-                        <CartItem onChangeQuantity={loadCartDetails} key={index} item={item} />
-                    ))}
+                    {items?.map((item, index) => <CartItem key={index} item={item} />)}
                 </div>
             )}
         </>
