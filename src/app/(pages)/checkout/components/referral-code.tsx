@@ -10,6 +10,10 @@ export const ReferralCode: FC = () => {
 
     const { setReferral } = useCheckoutStore();
 
+    const handleReferral = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setReferral(e.target.value);
+    };
+
     return (
         <div className="mt-10 flex-col">
             <span className="text-[20px] font-bold">{t('referral-code')}</span>
@@ -17,7 +21,7 @@ export const ReferralCode: FC = () => {
                 <Input
                     className="h-10 w-[150px]"
                     placeholder="--- --- ---"
-                    onChange={setReferral}
+                    onChange={handleReferral}
                 />
             </div>
         </div>
