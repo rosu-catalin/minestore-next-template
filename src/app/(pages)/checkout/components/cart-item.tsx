@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from 'react';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { TCart } from '@/types/cart';
-import { useThrottle } from '@uidotdev/usehooks';
 import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
 import { useCartStore } from '@/stores/cart';
@@ -15,17 +14,14 @@ type CartItemProps = {
     onChangeQuantity(quantity: number): void;
 };
 
-export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
+export const CartItem: FC<CartItemProps> = ({ item }) => {
+    const { setCart } = useCartStore();
     const [quantity, setQuantity] = useState(item.count);
     const [loading, setLoading] = useState(false);
-    const { setCart } = useCartStore();
-    const throttleQuantity = useThrottle(quantity, 600);
 
     useEffect(() => {
-        updateItemCount(item.id, throttleQuantity).then(() => {
-            onChangeQuantity(throttleQuantity);
-        });
-    }, [throttleQuantity]);
+        updateItemCount(item.id, quantity);
+    }, [quantity, item.id]);
 
     const [show, setShow] = useState(false);
 
@@ -33,9 +29,16 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
     const price = isPriceVirtual ? item.virtual_price : item.price;
 
     const handleRemoveItemFromCart = async (id: number) => {
-        await removeItemFromCart(id);
-        const cart = await getCart();
-        setCart(cart);
+        try {
+            setLoading(true);
+            await removeItemFromCart(id);
+            const cart = await getCart();
+            setCart(cart);
+        } catch (e) {
+            console.error('Error removing item from cart', e);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleQuantity = async (id: number, quantity: number) => {
@@ -43,6 +46,9 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
             setLoading(true);
             await updateItemCount(id, quantity);
             setQuantity(quantity);
+
+            const cart = await getCart();
+            setCart(cart);
         } catch (e) {
             console.error(e);
         } finally {
@@ -78,10 +84,7 @@ export const CartItem: FC<CartItemProps> = ({ item, onChangeQuantity }) => {
                             className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={quantity === 1 || loading}
                             onClick={() => {
-                                if (quantity === 1) {
-                                    return;
-                                }
-
+                                if (quantity === 1) return;
                                 handleQuantity(item.id, quantity - 1);
                             }}
                         >
