@@ -11,5 +11,6 @@ type ReturnType = {
 export const acceptCoupon = (fetcher: AxiosInstance) => async (coupon: string) => {
     const url = '/cart/acceptCoupon';
     const body = { coupon };
+
     return (await fetcher.post<ReturnType>(url, body)).data;
 };

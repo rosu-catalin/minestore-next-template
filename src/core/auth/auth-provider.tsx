@@ -3,15 +3,13 @@
 import { useUserStore } from '@/stores/user';
 import { TUser } from '@/types/user';
 import { usePathname, useRouter } from 'next/navigation';
-import { FC, PropsWithChildren, useEffect, useLayoutEffect, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useLayoutEffect } from 'react';
 
 type AuthProviderProps = PropsWithChildren<{
     initialUser?: TUser;
 }>;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children, initialUser }) => {
-    const [renderCount, setRenderCount] = useState(0);
-
     const pathname = usePathname();
     const router = useRouter();
 
@@ -27,24 +25,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children, initialUser }) =
         if (isAuthorized && pathname === '/auth') {
             router.push('/');
         }
-    }, [isAuthorized, pathname, router]);
 
-    useEffect(() => {
-        setRenderCount((count) => count + 1);
-
-        if (renderCount === 0) {
-            return;
-        }
-
-        if (isAuthorized && pathname === '/auth') {
-            router.back();
-            router.refresh();
-        }
-
-        if (!isAuthorized && pathname.startsWith('/categories/')) {
+        if (!isAuthorized && pathname !== '/auth' && pathname.startsWith('/categories/')) {
             router.push('/auth');
         }
-    }, [isAuthorized, pathname, router, renderCount]);
+
+        console.log('RERENDERING');
+    }, [isAuthorized, pathname, router]);
 
     if (isAuthorized && pathname === '/auth') {
         return (

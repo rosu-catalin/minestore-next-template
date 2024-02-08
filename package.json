@@ -14,7 +14,7 @@
         "axios": "^1.6.3",
         "clsx": "^2.1.0",
         "negotiator": "^0.6.3",
-        "next": "14.0.4",
+        "next": "14.1.0",
         "next-i18n-router": "^5.2.0",
         "next-intl": "^3.4.2",
         "nookies": "^2.5.2",

@@ -23,6 +23,8 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
 
     const { cart, setCart } = useCartStore();
 
+    console.log('cart', cart);
+
     const [coupon, setCoupon] = useState('');
 
     const handleCoupon = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +76,7 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
     return (
         <div className="mt-10 flex-col">
             <span className="text-[20px] font-bold">{t('redeem-coupons-or-gift-cards')}</span>
-            {cart?.gift_id ? (
+            {cart?.gift_id || cart?.coupon_id ? (
                 <div className="flex gap-4">
                     <span>
                         {t('active-gift')}: {cart.gift_id} (<Price value={cart.gift_sum} />)

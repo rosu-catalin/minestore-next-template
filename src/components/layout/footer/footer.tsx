@@ -25,10 +25,10 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
                     <div className="col-span-12 text-center md:col-span-3 md:max-w-[300px]">
                         <h2 className="text-3xl font-bold">{t('useful-links')}</h2>
                         <div className="mx-auto mt-2 h-[5px] w-[40px] bg-red-600" />
-                        <Link href={settings.footer?.[0].url || ''} target="_blank">
+                        <Link href={settings.footer?.[0]?.url || ''} target="_blank">
                             <p className="py-3 !text-base font-bold">YouTube</p>
                         </Link>
-                        <Link href={settings.footer?.[1].url || ''} target="_blank">
+                        <Link href={settings.footer?.[1]?.url || ''} target="_blank">
                             <p className="py-3 !text-base font-bold">Staff</p>
                         </Link>
                     </div>

@@ -51,8 +51,6 @@ export const Card: FC<CardProps> = ({
 
     const t = useTranslations('card');
 
-    console.log(item);
-
     const addItem = async () => {
         const cartContainsSubs = items.some((x) => x.is_subs);
         const cartContainsRegular = items.some((x) => !x.is_subs);

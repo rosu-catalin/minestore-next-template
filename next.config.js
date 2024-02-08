@@ -9,7 +9,7 @@ const nextConfig = {
                 hostname: 'minotar.net'
             },
             {
-                hostname: '46.146.229.143'
+                hostname: 'experimental.minestorecms.com'
             },
             {
                 hostname: 'i.imgur.com'
