@@ -8,6 +8,8 @@ import { InputTypeVariable } from './components/input-type-variable';
 export const Vars: FC = () => {
     const { items } = useCartStore();
 
+    // TODO Fix options
+
     return (
         <div className="flex-col">
             {items.map((item, index) => (
@@ -18,7 +20,7 @@ export const Vars: FC = () => {
                                 <SelectTypeVariable
                                     name={variable.use}
                                     description={variable.description}
-                                    options={variable.lines}
+                                    options={[]}
                                     itemCId={item.cid}
                                     varId={variable.id}
                                 />
