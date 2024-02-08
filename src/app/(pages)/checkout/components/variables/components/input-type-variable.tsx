@@ -25,11 +25,15 @@ export const InputTypeVariable: FC<InputTypeVariableProps> = ({ itemCId, varId, 
         }
     };
 
+    const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+        update(e.target.value);
+    };
+
     return (
         <div className="flex-col py-5">
             <span className="text-[20px] font-bold">Option for Variable test Input</span>
             <span className="mt-1">{description}</span>
-            <Input className="mt-2 w-full" placeholder="Enter text..." onChange={update} />
+            <Input className="mt-2 w-full" placeholder="Enter text..." onChange={handleUpdate} />
         </div>
     );
 };
