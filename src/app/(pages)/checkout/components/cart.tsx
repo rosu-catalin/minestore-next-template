@@ -46,7 +46,7 @@ export const Cart: FC = () => {
                             <TableHead className="w-[300px] text-base font-bold text-accent md:text-lg">
                                 {t('name')}
                             </TableHead>
-                            <TableHead className="text-base font-bold text-accent md:text-lg">
+                            <TableHead className="w-[200px] text-base font-bold text-accent md:text-lg">
                                 {t('price')}
                             </TableHead>
                             <TableHead className="w-[130px] text-base font-bold text-accent md:text-lg">
