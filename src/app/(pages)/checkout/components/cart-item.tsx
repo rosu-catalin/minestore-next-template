@@ -6,6 +6,7 @@ import { TCart } from '@/types/cart';
 import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
 import { useCartStore } from '@/stores/cart';
+import { TableRow, TableCell } from '@/components/base/table/table';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -57,66 +58,80 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
 
     return (
         <>
-            <div className="flex-row items-center px-4 py-4">
-                <div>
-                    <Image
-                        src={`/media/items/${item.id}.png`}
-                        alt=""
-                        width={80}
-                        height={80}
-                        className="h-20 w-20 object-contain"
+            <TableRow>
+                <TableCell className="hidden md:block">
+                    {item.image ? (
+                        <Image
+                            src={`http://experimental.minestorecms.com${item.image}`}
+                            alt=""
+                            width={80}
+                            height={80}
+                            className="h-20 w-20 object-contain"
+                        />
+                    ) : (
+                        <div className="h-20 w-20"></div>
+                    )}
+                </TableCell>
+                <TableCell className="text-balance text-sm font-bold md:text-lg">
+                    {item.name}
+                </TableCell>
+                <TableCell>
+                    <Price
+                        value={price}
+                        isVirtual={isPriceVirtual}
+                        className="text-sm md:text-lg md:font-bold"
                     />
-                </div>
-                <div className="ml-4 w-[160px] text-[20px] font-bold">{item.name}</div>
-
-                <Price
-                    value={price}
-                    className="w-[120px] text-[20px] font-bold"
-                    isVirtual={isPriceVirtual}
-                />
-
-                <div className="ml-auto flex-row space-x-2">
-                    <div className="mr-10 flex-row items-center space-x-2">
-                        <button
-                            aria-label="Decrease quantity"
-                            hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
-                            disabled={quantity === 1 || loading}
-                            onClick={() => {
-                                if (quantity === 1) return;
-                                handleQuantity(item.id, quantity - 1);
-                            }}
-                        >
-                            -
-                        </button>
-                        <div className="w-10 rounded bg-[#303437] text-center text-lg font-bold">
+                </TableCell>
+                <TableCell className="text-right">
+                    <div className="flex-row items-center space-x-2">
+                        <div>
+                            <button
+                                aria-label="Decrease quantity"
+                                hidden={!!item.is_subs}
+                                className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={quantity === 1 || loading}
+                                onClick={() => {
+                                    if (quantity === 1) return;
+                                    handleQuantity(item.id, quantity - 1);
+                                }}
+                            >
+                                -
+                            </button>
+                        </div>
+                        <div className="flex h-6 w-6 items-center justify-center rounded bg-[#303437] text-center text-sm font-bold md:h-8 md:w-8 md:text-lg">
                             {quantity}
                         </div>
+                        <div>
+                            <button
+                                aria-label="Increase quantity"
+                                hidden={!!item.is_subs}
+                                className="h-4 w-4 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8"
+                                disabled={loading}
+                                onClick={() => handleQuantity(item.id, quantity + 1)}
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </TableCell>
+                <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
                         <button
-                            aria-label="Increase quantity"
-                            hidden={!!item.is_subs}
-                            className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
-                            disabled={loading}
-                            onClick={() => handleQuantity(item.id, quantity + 1)}
+                            onClick={() => setShow(true)}
+                            className="h-6 w-6 rounded bg-gray-400 text-base font-bold md:h-8 md:w-8 md:text-lg"
                         >
-                            +
+                            i
+                        </button>
+                        <button
+                            onClick={() => handleRemoveItemFromCart(item.id)}
+                            className="h-6 w-6 rounded bg-accent text-base font-bold transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8 md:text-lg"
+                            disabled={loading}
+                        >
+                            x
                         </button>
                     </div>
-                    <button
-                        onClick={() => setShow(true)}
-                        className="h-8 w-8 rounded bg-gray-400 text-lg font-bold"
-                    >
-                        i
-                    </button>
-                    <button
-                        onClick={() => handleRemoveItemFromCart(item.id)}
-                        className="h-8 w-8 rounded bg-accent text-lg font-bold transition disabled:cursor-not-allowed disabled:opacity-50"
-                        disabled={loading}
-                    >
-                        x
-                    </button>
-                </div>
-            </div>
+                </TableCell>
+            </TableRow>
 
             <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} />
         </>
