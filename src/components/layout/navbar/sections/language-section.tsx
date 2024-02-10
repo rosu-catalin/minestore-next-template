@@ -42,7 +42,10 @@ export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
                 >
                     {languages.map((lang, index) => (
                         <div
-                            onClick={() => setLang(lang.code)}
+                            onClick={() => {
+                                setLang(lang.code);
+                                setDisplayLanguage(false);
+                            }}
                             className="glow-text red-glow cursor-pointer flex-row items-center font-bold leading-10"
                             key={index}
                         >

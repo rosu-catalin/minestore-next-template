@@ -36,7 +36,10 @@ export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
                 >
                     {currencies.map((currency, index) => (
                         <span
-                            onClick={() => setCurrency(currency)}
+                            onClick={() => {
+                                setCurrency(currency);
+                                setDisplayCurrency(false);
+                            }}
                             className="glow-text red-glow h-10 cursor-pointer font-bold leading-10"
                             key={index}
                         >
