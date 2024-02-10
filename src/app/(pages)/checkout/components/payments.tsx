@@ -34,6 +34,8 @@ export const Payments: FC = () => {
             .catch(handleUnauthorized);
     }, [items]);
 
+    if (items.length === 0) return null;
+
     return (
         <div className="mt-10 bg-[#202022] p-4">
             <span className="text-[20px] font-bold">{t('payment-method')}</span>

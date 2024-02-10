@@ -3,6 +3,7 @@
 import { Input } from '@/components/base/input/input';
 import { countries } from '@/constants/countries';
 import { useAuth } from '@/core/auth/client/use-auth';
+import { useCartStore } from '@/stores/cart';
 import { useCheckoutStore } from '@/stores/checkout';
 import { useSettingsStore } from '@/stores/settings';
 import { useUserStore } from '@/stores/user';
@@ -12,6 +13,8 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 export const Details: FC = () => {
+    const { items } = useCartStore();
+
     const settings = useSettingsStore();
     const t = useTranslations('checkout.details');
 
@@ -32,6 +35,7 @@ export const Details: FC = () => {
     };
 
     if (!settings?.settings?.details) return null;
+    if (items.length === 0) return null;
 
     return (
         <div className="flex-row">

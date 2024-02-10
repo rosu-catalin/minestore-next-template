@@ -13,6 +13,8 @@ type LanguageSectionProps = {
 export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
     const { languages } = settings;
 
+    console.log(settings);
+
     const [displayLanguage, setDisplayLanguage] = useState(false);
 
     const { lang, setLang } = useLangStore();

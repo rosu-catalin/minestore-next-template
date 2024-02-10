@@ -4,8 +4,10 @@ import { FC } from 'react';
 import { Input } from '@/components/base/input/input';
 import { useCheckoutStore } from '@/stores/checkout';
 import { useTranslations } from 'next-intl';
+import { useCartStore } from '@/stores/cart';
 
 export const ReferralCode: FC = () => {
+    const { items } = useCartStore();
     const t = useTranslations('checkout');
 
     const { setReferral } = useCheckoutStore();
@@ -13,6 +15,8 @@ export const ReferralCode: FC = () => {
     const handleReferral = (e: React.ChangeEvent<HTMLInputElement>) => {
         setReferral(e.target.value);
     };
+
+    if (items.length === 0) return null;
 
     return (
         <div className="mt-10 flex-col">

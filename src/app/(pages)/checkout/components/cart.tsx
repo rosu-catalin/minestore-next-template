@@ -29,6 +29,13 @@ export const Cart: FC = () => {
                 </span>
             </div>
 
+            {items.length === 0 && (
+                <div className="mt-12 flex-col items-center text-center">
+                    <h1 className="text-2xl font-bold text-accent">{t('empty-cart-title')}</h1>
+                    <p className="text-balance">{t('empty-cart-description')}</p>
+                </div>
+            )}
+
             {items.length > 0 && (
                 <Table className="my-4 border-4 border-[#202022]">
                     <TableHeader className="[&_tr]:border-b-4">

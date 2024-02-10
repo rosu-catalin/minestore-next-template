@@ -17,6 +17,8 @@ type RedeemCouponProps = {
 };
 
 export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
+    const { items } = useCartStore();
+
     const t = useTranslations('checkout');
 
     const [loading, setLoading] = useState(false);
@@ -72,6 +74,8 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
             setLoading(false);
         }
     };
+
+    if (items.length === 0) return null;
 
     return (
         <div className="mt-10 flex-col">

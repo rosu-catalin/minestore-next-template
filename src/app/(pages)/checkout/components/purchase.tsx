@@ -88,6 +88,8 @@ export const Purchase: FC = () => {
         }
     };
 
+    if (items.length === 0) return null;
+
     return (
         <div className="mt-8 flex-row items-center pb-4">
             <label className="flex-row items-center">
