@@ -29,8 +29,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children, initialUser }) =
         if (!isAuthorized && pathname !== '/auth' && pathname.startsWith('/categories/')) {
             router.push('/auth');
         }
-
-        console.log('RERENDERING');
     }, [isAuthorized, pathname, router]);
 
     if (isAuthorized && pathname === '/auth') {
