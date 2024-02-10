@@ -36,7 +36,7 @@ export const Cart: FC = () => {
                 <Table className="my-4 border-4 border-[#202022]">
                     <TableHeader className="[&_tr]:border-b-4">
                         <TableRow className="border-[#202022]">
-                            <TableHead className="hidden w-[100px] md:block">
+                            <TableHead className="hidden md:table-cell md:w-[100px]">
                                 <span className="sr-only">Image</span>
                             </TableHead>
                             <TableHead className="w-[300px] text-base font-bold text-accent md:text-lg">
