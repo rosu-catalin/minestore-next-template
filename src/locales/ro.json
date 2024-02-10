@@ -1,0 +1,99 @@
+{
+    "navbar": {
+        "currency": "Valută",
+        "language": "Limba",
+        "cart": "Coș de cumpărături",
+        "cart-hint": "articole pentru",
+        "not-logged": "Nu ați autentificat",
+        "logout": "Deconectare",
+        "empty-cart": "Coș gol"
+    },
+    "header": {
+        "players-online": "Jucători Online",
+        "members-online": "Membri Online",
+        "donation-goal": "Obiectivul Donațiilor",
+        "discord-server": "Server Discord"
+    },
+    "sidebar": {
+        "home": "Acasă",
+        "top-donator": "Top Donator",
+        "top-donator-hint": "A donat cel mai mult în acest lună"
+    },
+    "card": {
+        "buy": "Cumpărare",
+        "remove": "Eliminare",
+        "unavailable": "Indisponibil"
+    },
+    "item-details": {
+        "add": "Adăugare",
+        "remove": "Eliminare"
+    },
+    "recent-purchases": "Achiziții Recente",
+    "home": {
+        "welcome": "Bun venit",
+        "featured-packages": "PACHETELE RECOMANDATE",
+        "to-the-official-server-store": "în magazinul oficial al serverului RAviRai.",
+        "recent-purchases": "Achiziții Recente",
+        "paypal-balance-banks-all-credit-debit-cards": "Sold PayPal, Bănci, Toate Cardurile de Credit/Debit",
+        "paysafecard-amazon-pay-mobile-payments-600-more": "Paysafecard, Plată Amazon, Plăți Mobile, +600 Altele",
+        "all-credit-debit-cards": "Toate Cardurile de Credit și Debit"
+    },
+    "auth": {
+        "enter-username": "Vă rugăm să introduceți numele de utilizator pentru a continua:",
+        "continue": "Continuare"
+    },
+    "checkout": {
+        "title": "Finalizare Comandă",
+        "image": "Imagine",
+        "name": "Nume",
+        "price": "Preț",
+        "quantity": "Cantitate",
+        "actions": "Acțiuni",
+        "featured-deal": "Ofertă Specială",
+        "this-item-is-popular-among-us-customers": "Acest element este popular printre clienții noștri. Încercați-l!",
+        "empty-cart-title": "Oops! Coșul dvs. este gol",
+        "empty-cart-description": "Se pare că în coșul dvs. nu există nimic momentan. Luați-vă timp să explorați magazinul nostru și descoperiți elemente uimitoare, ranguri și multe altele! Când găsiți ceva ce vă place, adăugați-l în coș și continuați cu finalizarea comenzii.",
+        "details": {
+            "you-are-buying-as": "Cumpărați în calitate de...",
+            "not-correct": "Nu corect?",
+            "your-details": "Datele Dvs.",
+            "first-name": "Prenume",
+            "email": "E-mail",
+            "address-line-1": "Adresă Linia 1",
+            "address-line-2": "Adresă Linia 2",
+            "city": "Oraș",
+            "zip-code": "Cod Poștal",
+            "state-region": "Stat/Regiune",
+            "country": "Țară"
+        },
+        "redeem-coupons-or-gift-cards": "Răscumpărați Cupoane sau Carduri Cadou",
+        "active-gift": "Cadou Activ",
+        "remove-gift": "Eliminare",
+        "redeem": "Răscumpărați",
+        "referral-code": "Cod de Recomandare",
+        "payment-method": "Metoda de Plată",
+        "privacy-statement": "Declarație de Confidențialitate",
+        "privacy-statement-description": "Toate plățile sunt finale și nu sunt rambursabile. Tentativa de reîncărcare sau deschiderea unei dispute PayPal va rezulta în interzicerea permanentă și ireversibilă de pe toate serverele noastre și alte magazine Minecraft.",
+        "agree": "Sunt de acord cu termenii și condițiile acestei achiziții.",
+        "purchase": "Achiziționare"
+    },
+    "profile": {
+        "title": "Profil",
+        "information": "Informații",
+        "registration-date": "Data Înregistrării:",
+        "money-spent": "Bani Cheltuiți:",
+        "recent-purchases": "Achiziții Recente"
+    },
+    "notifications": {
+        "not-all-detail-fields-are-filled-in": "Nu sunt completate toate câmpurile de detaliu!",
+        "accept-privacy-statement": "Acceptați Declarația de Confidențialitate!",
+        "accept-terms": "Acceptați Termenii!",
+        "subscription-item-should-be-alone-in-the-cart": "Articolul de abonament ar trebui să fie singur în coș!"
+    },
+    "footer": {
+        "useful-links": "Link-uri Utile",
+        "about-us": "Despre Noi",
+        "info": "Nu suntem afiliați cu Mojang AB. Funcționează pe platforma",
+        "description": "este o rețea Minecraft: Java Edition care oferă jucătorilor un gameplay captivant și unic. Acesta este singurul magazin oficial pentru rețea."
+    }
+}

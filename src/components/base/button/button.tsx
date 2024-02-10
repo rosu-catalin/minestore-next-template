@@ -14,7 +14,7 @@ export const Button: FC<ButtonProps> = ({ onClick, children, className, loading,
             onClick={onClick}
             {...props}
             className={joinClasses(
-                'h-[40px] w-[100px] rounded bg-[#bd1d1d] font-bold',
+                'h-[40px] min-w-[100px] rounded bg-[#bd1d1d] px-2 font-bold',
                 className,
                 loading && 'pointer-events-none cursor-not-allowed opacity-50'
             )}
