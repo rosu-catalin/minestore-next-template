@@ -11,9 +11,6 @@ export const Cart: FC = () => {
     const t = useTranslations('checkout');
     const { cart, items } = useCartStore();
 
-    console.log('cart', cart);
-    console.log('items', items);
-
     return (
         <>
             <div className="mt-12 flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">
@@ -37,24 +34,24 @@ export const Cart: FC = () => {
                     <TableHeader className="[&_tr]:border-b-4">
                         <TableRow className="border-[#202022]">
                             <TableHead className="hidden md:table-cell md:w-[100px]">
-                                <span className="sr-only">Image</span>
+                                <span className="sr-only">{t('image')}</span>
                             </TableHead>
                             <TableHead className="w-[300px] text-base font-bold text-accent md:text-lg">
-                                Name
+                                {t('name')}
                             </TableHead>
                             <TableHead className="text-base font-bold text-accent md:text-lg">
-                                Price
+                                {t('price')}
                             </TableHead>
                             <TableHead className="w-[130px] text-base font-bold text-accent md:text-lg">
-                                Quantity
+                                {t('quantity')}
                             </TableHead>
                             <TableHead>
-                                <span className="sr-only">Actions</span>
+                                <span className="sr-only">{t('actions')}</span>
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody className="[&_tr]:border-b-4">
-                        {items?.map((item, index) => <CartItem key={index} item={item} />)}
+                        {items?.map((item) => <CartItem key={item.id} item={item} />)}
                     </TableBody>
                 </Table>
             )}

@@ -44,9 +44,11 @@
     },
     "checkout": {
         "title": "Checkout",
+        "image": "Image",
         "name": "Name",
         "price": "Price",
         "quantity": "Quantity",
+        "actions": "Actions",
         "featured-deal": "Featured Deal",
         "this-item-is-popular-among-us-customers": "This item is popular among us customers. Give it a try!",
         "details": {
