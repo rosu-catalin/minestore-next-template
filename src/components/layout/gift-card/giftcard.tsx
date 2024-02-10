@@ -18,6 +18,11 @@ export const GiftCard: FC = () => {
     };
 
     const check = async () => {
+        if (!giftCode) {
+            notify('Please enter a gift code', 'red');
+            return;
+        }
+
         const response = await getGift(giftCode).catch((error: AxiosError) => {
             if (error.response?.status === 401) {
                 notify('You have to authorize before check card balance!', 'red');
