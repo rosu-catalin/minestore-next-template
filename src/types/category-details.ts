@@ -39,3 +39,10 @@ export type TCategoryDetails = {
         items: TItem[];
     }[];
 };
+
+export type TSubCategory = {
+    url?: string;
+    category: TCategory;
+    subcategories: TCategoryDetails[];
+    items: TItem[];
+};

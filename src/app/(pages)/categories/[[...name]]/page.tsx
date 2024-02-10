@@ -3,14 +3,29 @@ import { getEndpoints } from '@/api';
 import { joinClasses } from '@helpers/join-classes';
 import { Card } from '@layout/card/card';
 import { Alert } from '@layout/alert/alert';
-import { TCategory } from '@/types/category-details';
+import { TCategory, TSubCategory } from '@/types/category-details';
 import { Comparison } from '../comparison/comparasion';
 import { TItem } from '@/types/item';
 
 const { getCategoryDetails } = getEndpoints(fetcher);
 
-export default async function Page({ params }: { params: { name: string } }) {
-    const categoryPath = params.name;
+type TParams = {
+    name: string[];
+};
+
+type TCategoryHeader = {
+    category: TCategory;
+    subCategory?: TSubCategory;
+};
+
+type TProductListContainer = {
+    items: TItem[];
+    category: TCategory;
+    subcategory?: TSubCategory;
+};
+
+export default async function Page({ params }: { params: TParams }) {
+    const [categoryPath] = params.name;
 
     const response = await getCategoryDetails(categoryPath).catch((error) => {
         console.error('Error fetching category details:', error);
@@ -21,30 +36,35 @@ export default async function Page({ params }: { params: { name: string } }) {
         return <></>;
     }
 
-    const { category, items } = response;
+    const { category, items, subcategories } = response;
+
+    const subCategory = subcategories?.find((x) => x.category.url === params.name.join('/'));
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
-            <CategoryHeader category={category} />
+            <CategoryHeader category={category} subCategory={subCategory} />
 
             {category.is_comparison ? (
                 <Comparison items={items} />
             ) : (
-                <ProductListContainer items={items} category={category} />
+                <ProductListContainer items={items} category={category} subcategory={subCategory} />
             )}
         </div>
     );
 }
 
-function CategoryHeader({ category }: { category: TCategory }) {
+function CategoryHeader({ category, subCategory }: TCategoryHeader) {
+    const title = subCategory?.category.name || category.name;
+    const description = subCategory?.category.description || category.description;
+
     return (
         <div className="w-full flex-col p-4">
             <Alert />
 
-            <h1 className="mt-4 text-center text-[34px] text-[#dd2828]">{category.name}</h1>
+            <h1 className="mt-4 text-center text-[34px] text-[#dd2828]">{title}</h1>
             <span
                 className="text-center text-[#cfcfcf]"
-                dangerouslySetInnerHTML={{ __html: category.description || '' }}
+                dangerouslySetInnerHTML={{ __html: description }}
             />
 
             <hr className="mt-5 border-[3px] border-[#dd2828]" />
@@ -52,20 +72,24 @@ function CategoryHeader({ category }: { category: TCategory }) {
     );
 }
 
-function ProductListContainer({ items, category }: { items: TItem[]; category: TCategory }) {
+function ProductListContainer({ items, category, subcategory }: TProductListContainer) {
+    const categoryItems = subcategory?.items || items;
+    const categoryListing = subcategory?.category.is_listing || category.is_listing;
+    const categoryIsCumulative = subcategory?.category.is_cumulative || category.is_cumulative;
+
     const gridClasses = joinClasses('mt-8 grid gap-4 p-4', {
-        'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]': !category?.is_listing
+        'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]': !categoryListing
     });
 
     return (
         <div className={gridClasses}>
-            {items.map((item, index) => (
+            {categoryItems.map((item, index) => (
                 <Card
                     key={index}
                     item={item}
-                    isCumulative={!!category.is_cumulative}
-                    direction={category.is_listing ? 'row' : 'col'}
-                    className={joinClasses({ 'w-full': category.is_listing })}
+                    isCumulative={!!categoryIsCumulative}
+                    direction={categoryListing ? 'row' : 'col'}
+                    className={joinClasses({ 'w-full': categoryListing })}
                 />
             ))}
         </div>
