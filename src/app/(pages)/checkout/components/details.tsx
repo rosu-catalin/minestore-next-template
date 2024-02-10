@@ -38,8 +38,8 @@ export const Details: FC = () => {
     if (items.length === 0) return null;
 
     return (
-        <div className="flex-row">
-            <div className="w-1/2 flex-col items-center">
+        <div className="grid md:grid-cols-2">
+            <div className="flex-col items-center">
                 <span className="font-medium">{t('you-are-buying-as')}</span>
 
                 {user?.avatar && (
@@ -61,7 +61,7 @@ export const Details: FC = () => {
                 </span>
             </div>
 
-            <div className="w-1/2">
+            <div className="">
                 <span className="text-[20px] font-bold">{t('your-details')}</span>
                 <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-4">
                     <label className="flex-col">
