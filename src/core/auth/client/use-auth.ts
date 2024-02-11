@@ -3,7 +3,6 @@ import { tokenHelper } from './token';
 import { useUserStore } from '@/stores/user';
 import { fetcher } from '@/api/client/fetcher';
 import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 
 export const useAuth = () => {
     const { auth, getUser } = getEndpoints(fetcher);
@@ -19,7 +18,6 @@ export const useAuth = () => {
     const signOut = () => {
         tokenHelper.clear();
         setUser(undefined);
-        revalidatePath('/');
         redirect('/');
     };
 

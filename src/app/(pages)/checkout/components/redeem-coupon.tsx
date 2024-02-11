@@ -25,8 +25,6 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
 
     const { cart, setCart } = useCartStore();
 
-    console.log('cart', cart);
-
     const [coupon, setCoupon] = useState('');
 
     const handleCoupon = (e: React.ChangeEvent<HTMLInputElement>) => {

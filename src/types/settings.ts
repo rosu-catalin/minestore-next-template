@@ -36,8 +36,10 @@ export type TSettings = {
         username: string;
     };
     recentDonators: Array<{
-        avatar: string;
+        amount: number;
         username: string;
+        avatar: string;
+        currency: string;
     }>;
     discord_url: string;
     discord_id: string;
