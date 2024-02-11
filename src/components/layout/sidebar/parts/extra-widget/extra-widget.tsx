@@ -14,6 +14,8 @@ type ExtraWidgetProps = {
 export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
     const t = useTranslations();
 
+    const topDonator = 'TripleZone';
+
     return (
         <div className="mt-4 hidden w-full rounded-[10px] bg-[#18181d] p-8 lg:block">
             <div className="w-full flex-row items-center justify-center rounded-[10px] bg-[#202022] py-4 font-bold">
@@ -23,7 +25,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
             <div className="flex-row items-center">
                 <div className="-mt-20 h-[180px] overflow-hidden">
                     <Image
-                        src={settings.top.avatar}
+                        src={'https://mc-heads.net/player/TripleZone/100'}
                         alt="Avatar"
                         width={87}
                         height={207}
@@ -33,9 +35,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
                 <div className="mx-auto flex-1 flex-col items-center">
                     <div className="flex-row items-center">
                         <FaCrown className="h-[21px] w-[25px] fill-[#ffb829]" />
-                        <span className="ml-2 text-[20px] font-bold text-accent">
-                            {settings.top.username}
-                        </span>
+                        <span className="ml-2 text-[20px] font-bold text-accent">{topDonator}</span>
                     </div>
                     <span className="mt-2 px-4 text-center text-xs">
                         {t('sidebar.top-donator-hint')}

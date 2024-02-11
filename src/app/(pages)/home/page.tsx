@@ -54,15 +54,6 @@ export default function Home() {
                                 dangerouslySetInnerHTML={{ __html: settings?.block_2 || '' }}
                             ></div>
                         </div>
-
-                        <div className="hidden pr-8 md:flex-col">
-                            <span className="text-[20px] font-bold uppercase">
-                                {t('recent-purchases')}
-                            </span>
-                            <RecentPurchases />
-
-                            <GiftCard />
-                        </div>
                     </div>
 
                     <div className="mt-10">

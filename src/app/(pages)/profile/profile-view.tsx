@@ -51,7 +51,7 @@ export const ProfileView: FC<ProfileViewProps> = ({ profile }) => {
             <hr className="mt-5 border-[3px] border-[#dd2828]" />
 
             <div className="mt-8 grid grid-cols-3 gap-8">
-                {profile.items.map((item, index) => (
+                {profile?.items?.map((item, index) => (
                     <Card isCumulative={false} key={index} item={item} />
                 ))}
             </div>
