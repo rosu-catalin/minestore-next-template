@@ -35,11 +35,7 @@ export type TSettings = {
         avatar: string;
         username: string;
     };
-    lastPayments1: Array<{
-        avatar: string;
-        username: string;
-    }>;
-    lastPayments2: Array<{
+    recentDonators: Array<{
         avatar: string;
         username: string;
     }>;
