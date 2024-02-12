@@ -6,15 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-export const RecentPurchases = () => {
+export const RecentPurchases = ({ limit = 10 }: { limit: number }) => {
     const { settings } = useSettingsStore();
 
-    const recentDonators = settings?.recentDonators.slice(0, 10) || [];
-    const remainingDonators = 10 - recentDonators.length;
+    const recentDonators = settings?.recentDonators.slice(0, limit) || [];
+    const remainingDonators = limit - recentDonators.length;
 
     return (
         <div>
-            <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(min(52px,100%),1fr))] gap-2">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(min(57px,100%),1fr))] gap-2">
                 {recentDonators?.length ? (
                     <>
                         {recentDonators.map((item, index) => (
@@ -26,7 +26,7 @@ export const RecentPurchases = () => {
                             ))}
                     </>
                 ) : (
-                    Array.from({ length: 10 }).map((_, index) => <SkeletonDonor key={index} />)
+                    Array.from({ length: limit }).map((_, index) => <SkeletonDonor key={index} />)
                 )}
             </div>
             <ReactTooltip

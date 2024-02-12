@@ -44,7 +44,7 @@ export const Alert: FC = () => {
                 {button_url && (
                     <Link
                         href={button_url}
-                        className="mr-4 h-12 w-56 rounded bg-[url(/btn.png)] text-center text-[18px] font-bold uppercase leading-[48px]"
+                        className="mr-4 rounded-md bg-[url(/btn.png)] px-6 py-4 text-center text-base font-bold uppercase"
                     >
                         {button_name}
                     </Link>

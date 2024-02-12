@@ -16,7 +16,7 @@ export type TSettings = {
         ip: string;
         port: string;
     };
-    isFeaturedDeal: number | boolean;
+    is_FeaturedDeal: number | boolean;
     featuredDeal_items: Array<{
         name: string;
         price: number;

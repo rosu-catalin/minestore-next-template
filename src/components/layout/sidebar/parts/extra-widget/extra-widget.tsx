@@ -40,11 +40,11 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
                     </p>
                 </div>
             </div>
-            <div className="flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
+            <div className="mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
                 <span>{t('recent-purchases')}</span>
                 <FaHatWizard className="fill-white" />
             </div>
-            <RecentPurchases />
+            <RecentPurchases limit={10} />
         </div>
     );
 };
