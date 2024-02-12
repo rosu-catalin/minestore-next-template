@@ -5,7 +5,6 @@ import { fetcher } from '@/api/client/fetcher';
 import { TAnnouncement } from '@/types/announcement';
 import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
-
 const { getAnnouncement } = getEndpoints(fetcher);
 
 export const Alert: FC = () => {
@@ -15,28 +14,41 @@ export const Alert: FC = () => {
         getAnnouncement().then(setDetails);
     }, []);
 
+    console.log(details);
+
     if (!details?.is_index) return null;
 
+    const { content, title, button_name, button_url } = details;
+
     return (
-        <div className="h-[100px] flex-row overflow-clip rounded-lg bg-[#202022]">
-            <div className="w-8 bg-[#2f2f2f] text-center text-4xl font-bold leading-[100px] text-[#ff5353]">
-                !
-            </div>
-
-            <div className="flex-row items-center px-8">
-                <span className="text-[20px] font-bold text-[#bd1d1d]">{details?.title}</span>
-
-                <span
-                    className="ml-8 font-bold text-[#ff7979]"
-                    dangerouslySetInnerHTML={{ __html: details?.content || '' }}
-                />
-
-                <Link
-                    href={details?.button_url || ''}
-                    className="h-12 w-56 rounded bg-[url(/btn.png)] text-center text-[18px] font-bold uppercase leading-[48px]"
-                >
-                    {details?.button_name}
-                </Link>
+        <div className="rounded-md bg-[#202022] shadow-md" role="alert">
+            <div className="flex items-center justify-between">
+                <div className="flex">
+                    <div className="flex items-center justify-center rounded-bl-md rounded-tl-md bg-[#2f2f2f] p-4">
+                        <svg
+                            className="h-8 w-8 fill-current text-accent"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                        >
+                            <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                        </svg>
+                    </div>
+                    <div className="p-4">
+                        <p className="text-xl font-bold">{title}</p>
+                        <p
+                            className="text-sm"
+                            dangerouslySetInnerHTML={{ __html: content || '' }}
+                        ></p>
+                    </div>
+                </div>
+                {button_url && (
+                    <Link
+                        href={button_url}
+                        className="mr-4 h-12 w-56 rounded bg-[url(/btn.png)] text-center text-[18px] font-bold uppercase leading-[48px]"
+                    >
+                        {button_name}
+                    </Link>
+                )}
             </div>
         </div>
     );

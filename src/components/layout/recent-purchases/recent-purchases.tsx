@@ -14,11 +14,11 @@ export const RecentPurchases = () => {
 
     return (
         <div>
-            <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(min(52px,100%),1fr))] gap-2">
+            <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(min(52px,100%),1fr))] gap-2">
                 {recentDonators?.length ? (
                     <>
                         {recentDonators.map((item, index) => (
-                            <Donor key={index} username={item.username} />
+                            <Donor key={index} username={item.username} avatar={item.avatar} />
                         ))}
                         {remainingDonators > 0 &&
                             Array.from({ length: remainingDonators }).map((_, index) => (
@@ -26,9 +26,7 @@ export const RecentPurchases = () => {
                             ))}
                     </>
                 ) : (
-                    Array.from({ length: 10 }).map((_, index) => (
-                        <SkeletonDonor key={index} className="h-[60px] w-[60px]" />
-                    ))
+                    Array.from({ length: 10 }).map((_, index) => <SkeletonDonor key={index} />)
                 )}
             </div>
             <ReactTooltip
@@ -41,18 +39,19 @@ export const RecentPurchases = () => {
     );
 };
 
-function Donor({ username }: { username: string }) {
+function Donor({ username, avatar }: { username: string; avatar: string }) {
     return (
         <Link
             href={`/profile/${username}`}
             data-tooltip-id="username-tooltip"
             data-tooltip-content={username}
+            className="h-[60px] w-[60px] overflow-hidden rounded-md"
         >
             <Image
-                src={`https://mc-heads.net/avatar/${username}`}
+                src={avatar}
                 alt={username}
-                width={52}
-                height={52}
+                width={60}
+                height={60}
                 className="h-full w-full rounded-md object-cover"
             />
         </Link>
@@ -66,7 +65,7 @@ type SkeletonDonorProps = {
 function SkeletonDonor({ className, ...props }: SkeletonDonorProps) {
     return (
         <div
-            className={joinClasses('h-full w-full rounded-md bg-[#2c2c31]', className)}
+            className={joinClasses('h-[60px] w-[60px] rounded-md bg-[#2c2c31]', className)}
             {...props}
         />
     );

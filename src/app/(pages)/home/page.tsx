@@ -3,8 +3,6 @@
 import { useSettingsStore } from '@/stores/settings';
 import { Alert } from '@layout/alert/alert';
 import { FeaturedDeal } from '@layout/feratured-deal/featured-deal';
-import { GiftCard } from '@layout/gift-card/giftcard';
-import { RecentPurchases } from '@layout/recent-purchases/recent-purchases';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 

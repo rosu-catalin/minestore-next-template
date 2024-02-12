@@ -17,7 +17,9 @@
     "sidebar": {
         "home": "Home",
         "top-donator": "Top Donator",
-        "top-donator-hint": "Donated the most this month"
+        "top-donator-hint": "Donated the most this month",
+        "no-top-donor": "Become a Supporter",
+        "no-top-donor-description": "Become a supporter to unlock exclusive benefits!"
     },
     "card": {
         "buy": "Buy",

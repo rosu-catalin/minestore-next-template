@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import { RecentPurchases } from '@layout/recent-purchases/recent-purchases';
 import { useTranslations } from 'next-intl';
-import { FaCrown, FaGhost, FaHatWizard } from 'react-icons/fa';
+import { FaGhost, FaHatWizard } from 'react-icons/fa';
 import Image from 'next/image';
 import { TSettings } from '@/types/settings';
 
@@ -13,37 +13,35 @@ type ExtraWidgetProps = {
 
 export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
     const t = useTranslations();
-
-    const topDonator = 'TripleZone';
+    const { username, avatar } = settings?.top;
 
     return (
         <div className="mt-4 hidden w-full rounded-[10px] bg-[#18181d] p-8 lg:block">
-            <div className="w-full flex-row items-center justify-center rounded-[10px] bg-[#202022] py-4 font-bold">
-                <FaGhost className="hidden fill-white xl:block" />
-                <span className="ml-8">{t('sidebar.top-donator')}</span>
+            <div className="flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
+                <FaGhost className="fill-white" />
+                <h2>{t('sidebar.top-donator')}</h2>
             </div>
-            <div className="flex-row items-center">
-                <div className="-mt-20 h-[180px] overflow-hidden">
-                    <Image
-                        src={'https://mc-heads.net/player/TripleZone/100'}
-                        alt="Avatar"
-                        width={87}
-                        height={207}
-                        className="w-[87px] xl:h-[207px]"
-                    />
-                </div>
-                <div className="mx-auto flex-1 flex-col items-center">
-                    <div className="flex-row items-center">
-                        <FaCrown className="h-[21px] w-[25px] fill-[#ffb829]" />
-                        <span className="ml-2 text-[20px] font-bold text-accent">{topDonator}</span>
-                    </div>
-                    <span className="mt-2 px-4 text-center text-xs">
-                        {t('sidebar.top-donator-hint')}
-                    </span>
+            <div className="my-4 flex items-start justify-center">
+                <Image
+                    src={avatar || 'https://mc-heads.net/body/MHF_Question'}
+                    alt="Avatar"
+                    width={120}
+                    height={120}
+                    className="h-[120px] w-[120px] object-contain"
+                />
+                <div className="mt-4">
+                    <h3 className="text-xl font-bold text-accent">
+                        {username || t('sidebar.no-top-donor')}
+                    </h3>
+                    <p className="text-sm">
+                        {username
+                            ? t('sidebar.top-donator-hint')
+                            : t('sidebar.no-top-donor-description')}
+                    </p>
                 </div>
             </div>
-            <div className="w-full flex-row items-center justify-center rounded-[10px] bg-[#202022] py-4 font-bold">
-                <span className="mr-4">{t('recent-purchases')}</span>
+            <div className="flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
+                <span>{t('recent-purchases')}</span>
                 <FaHatWizard className="fill-white" />
             </div>
             <RecentPurchases />
