@@ -12,7 +12,6 @@ const { getGift } = getEndpoints(fetcher);
 export const GiftCard: FC = () => {
     const [giftCode, setGiftCode] = useState('');
     const [loading, setLoading] = useState(false);
-    const [balance, setBalance] = useState<string | null>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGiftCode(event.target.value);
@@ -29,10 +28,8 @@ export const GiftCard: FC = () => {
             const response = await getGift(giftCode);
 
             if (response.status) {
-                setBalance(`Current balance: ${response.end_balance}`);
                 notify(`Gift found with balance: ${response.end_balance}`, 'green');
             } else {
-                setBalance('Gift not found');
                 notify('Gift not found!', 'red');
             }
         } catch (error) {
