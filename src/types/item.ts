@@ -4,10 +4,6 @@ export type TItem = {
     image?: string;
     discount?: number;
     featured?: number;
-    comparison?: {
-        comparasion_id: number;
-        value: string;
-    };
     success?: boolean;
     description?: string;
     price: number;
@@ -17,4 +13,8 @@ export type TItem = {
     is_unavailable?: boolean;
     is_subs: boolean | number;
     original_price?: number;
+    comparison?: {
+        comparison_id: number;
+        value: string;
+    }[];
 };

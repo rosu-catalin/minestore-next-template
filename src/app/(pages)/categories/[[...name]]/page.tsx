@@ -9,10 +9,6 @@ import { TItem } from '@/types/item';
 
 const { getCategoryDetails } = getEndpoints(fetcher);
 
-type TParams = {
-    name: string[];
-};
-
 type TCategoryHeader = {
     category: TCategory;
     subCategory?: TSubCategory;
@@ -24,7 +20,7 @@ type TProductListContainer = {
     subcategory?: TSubCategory;
 };
 
-export default async function Page({ params }: { params: TParams }) {
+export default async function Page({ params }: { params: { name: string[] } }) {
     const [categoryPath] = params.name;
 
     const response = await getCategoryDetails(categoryPath).catch((error) => {
@@ -40,12 +36,14 @@ export default async function Page({ params }: { params: TParams }) {
 
     const subCategory = subcategories?.find((x) => x.category.url === params.name.join('/'));
 
+    const isComparison = subCategory?.category.is_comparison || category.is_comparison;
+
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
             <CategoryHeader category={category} subCategory={subCategory} />
 
-            {category.is_comparison ? (
-                <Comparison items={items} />
+            {isComparison ? (
+                <Comparison categoryItems={items} category={category} subCategory={subCategory} />
             ) : (
                 <ProductListContainer items={items} category={category} subcategory={subCategory} />
             )}

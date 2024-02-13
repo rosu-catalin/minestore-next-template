@@ -1,0 +1,52 @@
+{
+    "comparison": [
+        {
+            "id": 4,
+            "name": "Fly",
+            "type": 0,
+            "sorting": 0,
+            "comparisons": [
+                {
+                    "comparison_id": 4,
+                    "value": "1"
+                },
+                {
+                    "comparison_id": 4,
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Chest",
+            "type": 0,
+            "sorting": 0,
+            "comparisons": [
+                {
+                    "comparison_id": 5,
+                    "value": "0"
+                },
+                {
+                    "comparison_id": 5,
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Pussy?",
+            "type": 1,
+            "sorting": 0,
+            "comparisons": [
+                {
+                    "comparison_id": 6,
+                    "value": "Test"
+                },
+                {
+                    "comparison_id": 6,
+                    "value": "Blhyat"
+                }
+            ]
+        }
+    ]
+}

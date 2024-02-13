@@ -1,48 +1,76 @@
 import { FC } from 'react';
 import { TItem } from '@/types/item';
-import { TableValue } from './components/table-value';
 import { Card } from '@layout/card/card';
+import { TCategory, TSubCategory } from '@/types/category-details';
+import {
+    Table,
+    TableCaption,
+    TableHeader,
+    TableRow,
+    TableHead,
+    TableBody,
+    TableCell
+} from '@/components/base/table/table';
+import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 type ComparisonProps = {
-    items: TItem[];
-    comparasion?: {
-        id: number;
-        name: string;
-        type: 1 | 2;
-        sorting: number;
-    };
+    category: TCategory;
+    subCategory?: TSubCategory;
+    categoryItems: TItem[];
 };
 
-export const Comparison: FC<ComparisonProps> = ({ items }) => {
+export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCategory }) => {
+    const selectedItems = subCategory?.items || categoryItems;
+
+    const subCategoryComparisons = extractSubCategoryComparisons(subCategory) || [];
+    const categoryComparisons = extractCategoryComparisons(category, categoryItems) || [];
+
+    const comparisons = subCategory ? subCategoryComparisons : categoryComparisons;
+
     return (
-        <div className="relative mt-8 h-[1000px] w-full overflow-x-scroll">
-            <div className="absolute w-full">
-                <div className="grid grid-cols-[80px,repeat(100,minmax(180px,180px))] gap-10 p-4">
-                    <div className="w-20 flex-shrink-0" />
-                    {items.map((item, i) => (
-                        <Card isCumulative={false} key={i} item={item} />
+        <Table className="w-full table-fixed">
+            <TableCaption hidden>A list with all the comparisons</TableCaption>
+            <TableHeader>
+                <TableRow>
+                    <TableHead className="w-[200px]">
+                        <span className="sr-only">Features</span>
+                    </TableHead>
+                    {selectedItems.map((item) => (
+                        <TableHead key={item.id} className="w-[250px]">
+                            <Card isCumulative={false} item={item} />
+                        </TableHead>
                     ))}
-                </div>
-                <div className="mt-8 flex-col">
-                    {[
-                        'Chat Name Color',
-                        'Support the Server',
-                        '/fw Command',
-                        'Game Replays (/games) Command',
-                        'Private Server'
-                    ].map((item, i) => (
-                        <div
-                            key={i}
-                            className="w-fit min-w-[100%] flex-row space-x-10 p-4 even:bg-[#373737]"
-                        >
-                            <div className="w-20 flex-shrink-0">{item}</div>
-                            {items.map((item, j) => (
-                                <TableValue item={item} index={i} key={j} />
-                            ))}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {comparisons.map((comparison) => (
+                    <TableRow key={comparison.id}>
+                        <TableCell>{comparison.name}</TableCell>
+                        {comparison.comparisons.map((item) => (
+                            <TableCell key={item.comparison_id} className="text-center">
+                                <ComparisonIcon value={item.value} />
+                            </TableCell>
+                        ))}
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
     );
 };
+
+function ComparisonIcon({ value }: { value: string }) {
+    const isNumber = !isNaN(Number(value));
+
+    if (isNumber) {
+        const valueToNumber = Number(value);
+
+        if (valueToNumber === 1) {
+            return <FaCheck className="mx-auto text-xl text-green-500" />;
+        } else if (valueToNumber === 0) {
+            return <FaTimes className="mx-auto text-xl text-red-500" />;
+        }
+    }
+
+    return value;
+}
