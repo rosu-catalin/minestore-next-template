@@ -41,7 +41,7 @@ const PriceTag: FC<PriceTagProps> = ({ price, currency, isVirtual, discount, ori
         <>
             {discountedPrice ? (
                 <p className="flex items-center gap-2">
-                    <span className="text-base text-red-400 line-through">{discountedPrice}</span>
+                    <span className="text-red-400 line-through">{discountedPrice}</span>
                     <span className="text-green-400">{displayPrice}</span>
                 </p>
             ) : (

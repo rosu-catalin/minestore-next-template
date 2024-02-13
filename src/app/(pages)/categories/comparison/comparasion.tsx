@@ -37,7 +37,7 @@ export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCa
                         <span className="sr-only">Features</span>
                     </TableHead>
                     {selectedItems.map((item) => (
-                        <TableHead key={item.id} className="w-[250px]">
+                        <TableHead key={item.id} className="w-[250px] py-4">
                             <Card isCumulative={false} item={item} />
                         </TableHead>
                     ))}
@@ -45,10 +45,13 @@ export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCa
             </TableHeader>
             <TableBody>
                 {comparisons.map((comparison) => (
-                    <TableRow key={comparison.id}>
+                    <TableRow key={comparison.id} className="even:bg-[#202022]">
                         <TableCell>{comparison.name}</TableCell>
                         {comparison.comparisons.map((item) => (
-                            <TableCell key={item.comparison_id} className="text-center">
+                            <TableCell
+                                key={item.comparison_id}
+                                className="border-l border-r border-[#202022] text-center"
+                            >
                                 <ComparisonIcon value={item.value} />
                             </TableCell>
                         ))}

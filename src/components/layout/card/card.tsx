@@ -159,7 +159,7 @@ export const Card: FC<CardProps> = ({
                         discount={item.discount}
                         value={price}
                         isVirtual={isPriceVirtual}
-                        className="mx-4 my-2 text-[20px] font-bold text-[#0d7516]"
+                        className="text-sm font-bold text-[#0d7516]"
                     />
                     <Button
                         disabled={loading}
