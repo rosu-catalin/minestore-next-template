@@ -12,7 +12,7 @@ import {
     TableCell
 } from '@/components/base/table/table';
 import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import Icon from '@/components/base/icon/icon';
 
 type ComparisonProps = {
     category: TCategory;
@@ -50,7 +50,7 @@ export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCa
                         {comparison.comparisons.map((item) => (
                             <TableCell
                                 key={item.comparison_id}
-                                className="border-l border-r border-[#202022] text-center"
+                                className="border-l border-r border-[#202022] text-center last:border-r-0"
                             >
                                 <ComparisonIcon value={item.value} />
                             </TableCell>
@@ -69,9 +69,9 @@ function ComparisonIcon({ value }: { value: string }) {
         const valueToNumber = Number(value);
 
         if (valueToNumber === 1) {
-            return <FaCheck className="mx-auto text-xl text-green-500" />;
+            return <Icon name="check-circle-2" className="mx-auto text-green-500" />;
         } else if (valueToNumber === 0) {
-            return <FaTimes className="mx-auto text-xl text-red-500" />;
+            return <Icon name="x-circle" className="mx-auto text-red-500" />;
         }
     }
 
