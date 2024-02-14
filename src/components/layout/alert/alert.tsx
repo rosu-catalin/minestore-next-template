@@ -14,8 +14,6 @@ export const Alert: FC = () => {
         getAnnouncement().then(setDetails);
     }, []);
 
-    console.log(details);
-
     if (!details?.is_index) return null;
 
     const { content, title, button_name, button_url } = details;

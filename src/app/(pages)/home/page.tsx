@@ -12,8 +12,6 @@ export default function Home() {
     const { settings } = useSettingsStore();
     const t = useTranslations('home');
 
-    console.log(settings);
-
     return (
         <>
             <FeaturedDeals />
