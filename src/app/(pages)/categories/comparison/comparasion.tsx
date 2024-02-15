@@ -12,7 +12,7 @@ import {
     TableCell
 } from '@/components/base/table/table';
 import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
-import Icon from '@/components/base/icon/icon';
+import { Check, TimerReset } from 'lucide-react';
 
 type ComparisonProps = {
     category: TCategory;
@@ -69,9 +69,9 @@ function ComparisonIcon({ value }: { value: string }) {
         const valueToNumber = Number(value);
 
         if (valueToNumber === 1) {
-            return <Icon name="check-circle-2" className="mx-auto text-green-500" />;
+            return <Check className="mx-auto text-green-500" />;
         } else if (valueToNumber === 0) {
-            return <Icon name="x-circle" className="mx-auto text-red-500" />;
+            return <TimerReset className="mx-auto text-red-500" />;
         }
     }
 

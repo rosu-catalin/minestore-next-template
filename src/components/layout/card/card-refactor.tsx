@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/base/button/button';
-import Icon from '@/components/base/icon/icon';
 import { Price } from '@/components/base/price/price';
 import Image from 'next/image';
 
@@ -27,9 +26,7 @@ export default function CardRefactored() {
                 <Button
                     aria-label="Info"
                     className="flex h-[50px] min-w-[50px] items-center justify-center bg-[#38383b]"
-                >
-                    <Icon name="info" />
-                </Button>
+                ></Button>
                 <Button className="h-[50px] w-full">Add to Cart</Button>
             </div>
         </div>
