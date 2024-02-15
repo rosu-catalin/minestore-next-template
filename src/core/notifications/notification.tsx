@@ -1,8 +1,7 @@
 import { joinClasses } from '@helpers/join-classes';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { TLevel } from './level';
 import toast, { Toast, CheckmarkIcon } from 'react-hot-toast';
-import { Transition } from '@headlessui/react';
 import { IoCloseCircle } from 'react-icons/io5';
 
 type NotificationProps = {
@@ -29,34 +28,45 @@ export const Notification: FC<NotificationProps> = ({ id, message, level }) => {
         }
     };
 
+    const [isEntering, setIsEntering] = useState(true);
+    const [isLeaving, setIsLeaving] = useState(false);
+
     const remove = () => {
         toast.remove(id);
+        setIsLeaving(true);
     };
 
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsEntering(false);
+        }, 150);
+
+        return () => clearTimeout(timeoutId);
+    }, []);
+
+    const transitionClassNames = joinClasses({
+        'opacity-0 scale-50': isEntering,
+        'opacity-100 scale-100': !isEntering && !isLeaving,
+        'opacity-0 scale-75': isLeaving,
+        'transition-all duration-150': isEntering || isLeaving
+    });
+
     return (
-        <Transition
-            show={true}
-            appear
-            className=""
-            enter="transition-all duration-150"
-            enterFrom="opacity-0 scale-50"
-            enterTo="opacity-100 scale-100"
-            leave="transition-all duration-150"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-75"
+        <div
+            onClick={remove}
+            className={joinClasses(
+                styles.defaults.container,
+                styles[level].container,
+                transitionClassNames
+            )}
         >
-            <div
-                onClick={remove}
-                className={joinClasses(styles.defaults.container, styles[level].container)}
-            >
-                {level === 'green' && <CheckmarkIcon />}
-                {level === 'red' && (
-                    <div className="text-2xl">
-                        <IoCloseCircle />
-                    </div>
-                )}
-                <span className="ml-4 font-bold">{message}</span>
-            </div>
-        </Transition>
+            {level === 'green' && <CheckmarkIcon />}
+            {level === 'red' && (
+                <div className="text-2xl">
+                    <IoCloseCircle />
+                </div>
+            )}
+            <span className="ml-4 font-bold">{message}</span>
+        </div>
     );
 };
