@@ -6,6 +6,7 @@ import { Alert } from '@layout/alert/alert';
 import { TCategory, TSubCategory } from '@/types/category-details';
 import { Comparison } from '../comparison/comparasion';
 import { TItem } from '@/types/item';
+import CardRefactored from '@layout/card/card-refactor';
 
 const { getCategoryDetails } = getEndpoints(fetcher);
 
@@ -81,6 +82,7 @@ function ProductListContainer({ items, category, subcategory }: TProductListCont
 
     return (
         <div className={gridClasses}>
+            <CardRefactored />
             {categoryItems.map((item, index) => (
                 <Card
                     key={index}
