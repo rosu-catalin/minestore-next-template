@@ -26,15 +26,16 @@ export const ShoppingCartSection: FC = () => {
                     {t('cart')}
                 </Link>
                 {user ? (
-                    <span className="text-xs uppercase text-[#cfcfcf]">
+                    <div className="flex text-xs uppercase text-[#cfcfcf]">
                         {isCartEmpty ? (
                             t('empty-cart')
                         ) : (
                             <>
-                                {cart?.items} {t('cart-hint')} <Price value={cart?.price || 0} />
+                                {cart?.items} {t('cart-hint')}
+                                <Price value={cart?.price || 0} />
                             </>
                         )}
-                    </span>
+                    </div>
                 ) : (
                     <span className="text-xs uppercase text-[#cfcfcf]">{t('not-logged')}</span>
                 )}

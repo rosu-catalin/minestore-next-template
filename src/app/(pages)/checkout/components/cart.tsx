@@ -11,6 +11,8 @@ export const Cart: FC = () => {
     const t = useTranslations('checkout');
     const { cart, items } = useCartStore();
 
+    console.log(items);
+
     return (
         <>
             <div className="mt-12 flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">

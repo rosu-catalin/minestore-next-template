@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { TItem } from '@/types/item';
 import { Card } from '@layout/card/card';
 import { TCategory, TSubCategory } from '@/types/category-details';
@@ -12,7 +11,7 @@ import {
     TableCell
 } from '@/components/base/table/table';
 import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
-import { Check, TimerReset } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 type ComparisonProps = {
     category: TCategory;
@@ -20,7 +19,7 @@ type ComparisonProps = {
     categoryItems: TItem[];
 };
 
-export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCategory }) => {
+export const Comparison = ({ categoryItems, category, subCategory }: ComparisonProps) => {
     const selectedItems = subCategory?.items || categoryItems;
 
     const subCategoryComparisons = extractSubCategoryComparisons(subCategory) || [];
@@ -37,7 +36,7 @@ export const Comparison: FC<ComparisonProps> = ({ categoryItems, category, subCa
                         <span className="sr-only">Features</span>
                     </TableHead>
                     {selectedItems.map((item) => (
-                        <TableHead key={item.id} className="w-[250px] py-4">
+                        <TableHead key={item.id} className="w-[300px] py-4">
                             <Card isCumulative={false} item={item} />
                         </TableHead>
                     ))}
@@ -69,9 +68,9 @@ function ComparisonIcon({ value }: { value: string }) {
         const valueToNumber = Number(value);
 
         if (valueToNumber === 1) {
-            return <Check className="mx-auto text-green-500" />;
+            return <CheckCircle2 className="mx-auto text-green-500" />;
         } else if (valueToNumber === 0) {
-            return <TimerReset className="mx-auto text-red-500" />;
+            return <XCircle className="mx-auto text-red-500" />;
         }
     }
 

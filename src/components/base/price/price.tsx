@@ -17,9 +17,17 @@ type PriceTagProps = {
     isVirtual: boolean;
     discount?: number;
     originalPrice?: number;
+    className?: string;
 };
 
-const PriceTag: FC<PriceTagProps> = ({ price, currency, isVirtual, discount, originalPrice }) => {
+const PriceTag: FC<PriceTagProps> = ({
+    price,
+    currency,
+    isVirtual,
+    discount,
+    originalPrice,
+    className
+}) => {
     const { settings } = useSettingsStore();
 
     let displayPrice = 'Free';
@@ -40,12 +48,14 @@ const PriceTag: FC<PriceTagProps> = ({ price, currency, isVirtual, discount, ori
     return (
         <>
             {discountedPrice ? (
-                <p className="flex items-center gap-2">
-                    <span className="text-red-400 line-through">{discountedPrice}</span>
+                <p className={className}>
+                    <s className="text-red-400 line-through">{discountedPrice}</s>
                     <span className="text-green-400">{displayPrice}</span>
                 </p>
             ) : (
-                <span className="text-green-400">{displayPrice}</span>
+                <p className={className}>
+                    <span className="text-green-400">{displayPrice}</span>
+                </p>
             )}
         </>
     );
@@ -63,14 +73,13 @@ export const Price: FC<PriceProps> = ({
     const localPrice = convertToLocalCurrency(value);
 
     return (
-        <span className={className}>
-            <PriceTag
-                originalPrice={originalPrice}
-                price={localPrice}
-                currency={localCurrencyName}
-                isVirtual={isVirtual}
-                discount={discount}
-            />
-        </span>
+        <PriceTag
+            originalPrice={originalPrice}
+            price={localPrice}
+            currency={localCurrencyName}
+            isVirtual={isVirtual}
+            discount={discount}
+            className={className}
+        />
     );
 };

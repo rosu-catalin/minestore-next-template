@@ -1,18 +1,29 @@
 export type TItem = {
-    id: number;
+    // Required properties
     name: string;
-    image?: string;
-    discount?: number;
-    featured?: number;
-    success?: boolean;
-    description?: string;
     price: number;
-    virtual_price: number | null;
-    is_virtual_currency_only: number;
-    in_cart?: boolean;
-    is_unavailable?: boolean;
-    is_subs: boolean | number;
+    discount: number;
+    active: boolean;
+    is_subs: boolean;
+    custom_price: number;
+    min_price: number;
+    image: string | null;
+    id: number;
+    featured: boolean;
+    is_unavailable: boolean;
+
+    // Optional properties with clear types
+    allow_select_server?: boolean;
+    allowed_servers?: string[];
+    virtual_price?: number | null;
+    is_virtual_currency_only?: boolean;
+    quantityGlobalLimit?: number;
+    quantityCurrentLimit?: number;
+    quantityUserLimit?: number;
     original_price?: number;
+    description?: string;
+
+    // Optional nested array with more explicit types
     comparison?: {
         comparison_id: number;
         value: string;

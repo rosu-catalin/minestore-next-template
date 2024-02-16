@@ -1,4 +1,5 @@
 import { joinClasses } from '@helpers/join-classes';
+import { Loader2 } from 'lucide-react';
 import { FC, PropsWithChildren } from 'react';
 
 type ButtonProps = PropsWithChildren<{
@@ -13,13 +14,14 @@ export const Button: FC<ButtonProps> = ({ onClick, children, className, loading,
         <button
             onClick={onClick}
             {...props}
+            disabled={loading}
             className={joinClasses(
-                'h-[40px] min-w-[100px] rounded bg-[#bd1d1d] px-2 font-bold',
+                'h-[40px] min-w-[100px] rounded bg-[#bd1d1d] px-2 font-bold transition-all hover:opacity-90',
                 className,
                 loading && 'pointer-events-none cursor-not-allowed opacity-50'
             )}
         >
-            {children}
+            {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : children}
         </button>
     );
 };
