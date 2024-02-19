@@ -34,6 +34,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, available }) =
 
     useEffect(() => {
         getItem(id).then((data) => {
+            console.log('ItemDetails:', data);
             setDetails(data);
         });
     }, [id]);

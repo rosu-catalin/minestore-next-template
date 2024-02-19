@@ -25,8 +25,6 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
         }
     };
 
-    console.log('FeaturedDeal:', item);
-
     return (
         <>
             <div

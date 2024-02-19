@@ -17,8 +17,6 @@ export default async function Checkout() {
     const user = await getUser().catch(handleUnauthorized);
     const { id } = user;
 
-    // TODO: Add input for custom price
-
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d] p-4">
             <Alert />
