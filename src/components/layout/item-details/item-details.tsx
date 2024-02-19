@@ -1,59 +1,58 @@
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
+import { useCartActions } from '@/app/(pages)/categories/utils/use-cart-actions';
 import { Button } from '@/components/base/button/button';
 import { Modal } from '@/components/base/modal/modal';
 import { Price } from '@/components/base/price/price';
-import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 import { TItem } from '@/types/item';
-import { useTranslations } from 'next-intl';
+import { joinClasses } from '@helpers/join-classes';
+import { ButtonIcon } from '@layout/card/card-actions';
 import { FC, useEffect, useState } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 
-const { getItem, addToCart, getCart, removeItemFromCart } = getEndpoints(fetcher);
+const { getItem } = getEndpoints(fetcher);
 
 type DetailsProps = {
-    id: number;
     show: boolean;
+    id: number;
     onHide(): void;
+    available?: boolean;
 };
 
-export const ItemDetails: FC<DetailsProps> = ({ id, show, onHide }) => {
-    const { items, setCart } = useCartStore();
+export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, available }) => {
+    const { items } = useCartStore();
+    const { handleAddItem, handleRemoveItem } = useCartActions();
 
     const isItemInCart = items.some((x) => x.id === id);
 
     const [details, setDetails] = useState<TItem>();
 
+    const [loading, setLoading] = useState(false);
+
+    const actionText = isItemInCart ? 'Remove' : 'Add to cart';
+
     useEffect(() => {
-        getItem(id).then(setDetails);
+        getItem(id).then((data) => {
+            setDetails(data);
+        });
     }, [id]);
 
     const handleCartItem = async () => {
+        setLoading(true);
         try {
             if (isItemInCart) {
-                await removeItemFromCart(id);
+                await handleRemoveItem(id);
             } else {
-                await addToCart(id);
+                await handleAddItem(id, false);
             }
-
-            const response = await getCart();
-            setCart(response);
-
-            onHide();
-
-            const notificationMessage = isItemInCart
-                ? 'Item was deleted from cart!'
-                : 'Item added to cart!';
-            const notificationColor = isItemInCart ? 'red' : 'green';
-
-            notify(notificationMessage, notificationColor);
         } catch (error) {
             console.error('Error while adding/removing item:', error);
+        } finally {
+            onHide();
+            setLoading(false);
         }
     };
-
-    const t = useTranslations('item-details');
 
     return (
         <Modal
@@ -77,14 +76,22 @@ export const ItemDetails: FC<DetailsProps> = ({ id, show, onHide }) => {
                 dangerouslySetInnerHTML={{ __html: details?.description || '' }}
             />
 
-            <div className="flex-col items-end border-t border-[#303030] p-4">
+            <div className="flex items-center justify-between border-t border-[#303030] p-4">
                 <Price
                     value={details?.price || 0}
-                    isVirtual={details?.is_virtual_currency_only === 1}
+                    isVirtual={details?.is_virtual_currency_only}
                     className="font-bold text-[#02a603]"
                 />
-                <Button onClick={handleCartItem} className="mt-2 w-[140px] px-4 py-1">
-                    {isItemInCart ? t('remove') : t('add')}
+                <Button
+                    loading={loading}
+                    onClick={handleCartItem}
+                    className={joinClasses(
+                        'flex h-[50px] min-w-[150px] items-center justify-center gap-2',
+                        !available && 'pointer-events-none cursor-not-allowed opacity-50'
+                    )}
+                >
+                    <ButtonIcon isItemInCart={isItemInCart} />
+                    {available ? actionText : 'Unavailable'}
                 </Button>
             </div>
         </Modal>

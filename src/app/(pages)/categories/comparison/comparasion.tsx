@@ -28,7 +28,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
     const comparisons = subCategory ? subCategoryComparisons : categoryComparisons;
 
     return (
-        <Table className="w-full table-fixed">
+        <Table className="w-full table-fixed snap-x">
             <TableCaption hidden>A list with all the comparisons</TableCaption>
             <TableHeader>
                 <TableRow>
@@ -36,7 +36,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
                         <span className="sr-only">Features</span>
                     </TableHead>
                     {selectedItems.map((item) => (
-                        <TableHead key={item.id} className="w-[300px] py-4">
+                        <TableHead key={item.id} className="w-[300px] snap-center py-4">
                             <Card isCumulative={false} item={item} />
                         </TableHead>
                     ))}

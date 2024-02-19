@@ -1,26 +1,43 @@
+import { useCartActions } from '@/app/(pages)/categories/utils/use-cart-actions';
 import { Button } from '@/components/base/button/button';
+import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
 import { InfoIcon, Trash2, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 
 type CardActionsProps = {
     direction?: 'row' | 'col';
     isItemInCart: boolean;
-    loading: boolean;
-    addItem: () => void;
-    removeItem: () => void;
     setShowModal: (value: boolean) => void;
     available?: boolean;
+    item: TItem;
 };
 
 export function CardActions({
     direction = 'col',
     isItemInCart,
-    loading,
-    addItem,
-    removeItem,
     setShowModal,
-    available
+    available,
+    item
 }: CardActionsProps) {
+    const [loading, setLoading] = useState(false);
+    const { handleAddItem, handleRemoveItem } = useCartActions();
+
+    const handleItem = async () => {
+        try {
+            setLoading(true);
+            if (isItemInCart && available) {
+                await handleRemoveItem(item.id);
+            } else {
+                await handleAddItem(item.id, false);
+            }
+        } catch (error) {
+            console.error('Error while adding/removing item:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const actionText = isItemInCart ? 'Remove' : 'Add to cart';
 
     return (
@@ -39,7 +56,7 @@ export function CardActions({
             </Button>
             <Button
                 loading={loading}
-                onClick={isItemInCart && available ? removeItem : addItem}
+                onClick={handleItem}
                 className={joinClasses(
                     'flex h-[50px] w-full items-center justify-center gap-2',
                     !available && 'pointer-events-none cursor-not-allowed opacity-50',
@@ -53,7 +70,7 @@ export function CardActions({
     );
 }
 
-function ButtonIcon({ isItemInCart }: { isItemInCart: boolean }) {
+export function ButtonIcon({ isItemInCart }: { isItemInCart: boolean }) {
     if (isItemInCart) {
         return <Trash2 aria-hidden={true} />;
     }

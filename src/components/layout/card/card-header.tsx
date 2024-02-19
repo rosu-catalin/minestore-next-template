@@ -21,6 +21,7 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 
     return (
         <div className={cardHeaderClasses}>
+            <p>Item id: {item.id}</p>
             <CardHeaderImage item={item} direction={direction} />
             <div className={direction === 'col' ? 'text-center' : ''}>
                 <h3 className="text-xl font-bold text-white">{item.name}</h3>
