@@ -10,7 +10,7 @@ import { SumMenuItem } from './sub-menu-item';
 
 type MenuItemProps = {
     name: string;
-    image: string;
+    image: string | null;
     url: string;
     subItems?: TSubCategories;
 };

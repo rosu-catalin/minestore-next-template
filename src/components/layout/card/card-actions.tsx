@@ -3,6 +3,7 @@ import { Button } from '@/components/base/button/button';
 import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
 import { InfoIcon, Trash2, ShoppingCart } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 type CardActionsProps = {
@@ -22,6 +23,7 @@ export function CardActions({
 }: CardActionsProps) {
     const [loading, setLoading] = useState(false);
     const { handleAddItem, handleRemoveItem } = useCartActions();
+    const path = usePathname();
 
     const handleItem = async () => {
         try {
@@ -29,7 +31,7 @@ export function CardActions({
             if (isItemInCart && available) {
                 await handleRemoveItem(item.id);
             } else {
-                await handleAddItem(item.id, false);
+                await handleAddItem(item.id, path === '/checkout' ? true : false);
             }
         } catch (error) {
             console.error('Error while adding/removing item:', error);

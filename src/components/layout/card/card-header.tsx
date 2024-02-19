@@ -1,5 +1,6 @@
 import { Price } from '@/components/base/price/price';
 import { TItem } from '@/types/item';
+import { imagePath } from '@helpers/image-path';
 import { joinClasses } from '@helpers/join-classes';
 import Image from 'next/image';
 
@@ -21,7 +22,6 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 
     return (
         <div className={cardHeaderClasses}>
-            <p>Item id: {item.id}</p>
             <CardHeaderImage item={item} direction={direction} />
             <div className={direction === 'col' ? 'text-center' : ''}>
                 <h3 className="text-xl font-bold text-white">{item.name}</h3>
@@ -38,9 +38,8 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 }
 
 function CardHeaderImage({ item, direction }: { item: TItem; direction?: 'row' | 'col' }) {
-    if (!item.image) return null;
-
-    const image = (process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || '') + item.image;
+    const image = imagePath(item.image);
+    if (!image) return null;
 
     const imageSize = direction === 'row' ? 64 : 140;
 

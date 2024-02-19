@@ -28,7 +28,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
     const comparisons = subCategory ? subCategoryComparisons : categoryComparisons;
 
     return (
-        <Table className="w-full table-fixed snap-x">
+        <Table className="w-full table-fixed">
             <TableCaption hidden>A list with all the comparisons</TableCaption>
             <TableHeader>
                 <TableRow>
@@ -36,7 +36,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
                         <span className="sr-only">Features</span>
                     </TableHead>
                     {selectedItems.map((item) => (
-                        <TableHead key={item.id} className="w-[300px] snap-center py-4">
+                        <TableHead key={item.id} className="w-[300px] py-4">
                             <Card isCumulative={false} item={item} />
                         </TableHead>
                     ))}
@@ -44,13 +44,13 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
             </TableHeader>
             <TableBody>
                 {comparisons.map((comparison) => (
-                    <TableRow key={comparison.id} className="even:bg-[#202022]">
+                    <TableRow
+                        key={comparison.id}
+                        className="divide-x divide-[#202022] even:bg-[#202022]"
+                    >
                         <TableCell>{comparison.name}</TableCell>
                         {comparison.comparisons.map((item) => (
-                            <TableCell
-                                key={item.comparison_id}
-                                className="border-l border-r border-[#202022] text-center last:border-r-0"
-                            >
+                            <TableCell key={item.comparison_id} className="text-center">
                                 <ComparisonIcon value={item.value} />
                             </TableCell>
                         ))}

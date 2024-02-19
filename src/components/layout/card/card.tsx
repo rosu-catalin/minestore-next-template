@@ -7,6 +7,7 @@ import { ItemDetails } from '@layout/item-details/item-details';
 import { CardLayout } from './card-layout';
 import { CardHeader } from './card-header';
 import { CardActions } from './card-actions';
+import { usePathname } from 'next/navigation';
 
 type CardProps = {
     item: TItem;
@@ -23,6 +24,8 @@ export function Card({ item, direction = 'col', isCumulative }: CardProps) {
 
     const isItemInCart = items.some((x) => x.id === item.id);
     const isItemUnavailable = !isCumulative || !item.is_unavailable;
+
+    const path = usePathname();
 
     return (
         <div>
@@ -41,6 +44,7 @@ export function Card({ item, direction = 'col', isCumulative }: CardProps) {
                 onHide={() => setShowModal(false)}
                 id={item.id}
                 available={isItemUnavailable}
+                route={path === '/checkout' ? 'checkout' : undefined}
             />
         </div>
     );

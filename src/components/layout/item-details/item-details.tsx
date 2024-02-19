@@ -18,9 +18,10 @@ type DetailsProps = {
     id: number;
     onHide(): void;
     available?: boolean;
+    route?: 'checkout';
 };
 
-export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, available }) => {
+export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
     const { items } = useCartStore();
     const { handleAddItem, handleRemoveItem } = useCartActions();
 
@@ -33,11 +34,13 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, available }) =
     const actionText = isItemInCart ? 'Remove' : 'Add to cart';
 
     useEffect(() => {
-        getItem(id).then((data) => {
+        getItem(id, route).then((data) => {
             console.log('ItemDetails:', data);
             setDetails(data);
         });
-    }, [id]);
+    }, [id, route]);
+
+    const available = !details?.is_unavailable;
 
     const handleCartItem = async () => {
         setLoading(true);

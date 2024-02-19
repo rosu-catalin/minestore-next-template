@@ -31,7 +31,7 @@ export const ShoppingCartSection: FC = () => {
                             t('empty-cart')
                         ) : (
                             <>
-                                {cart?.items} {t('cart-hint')}
+                                {cart?.items} {t('cart-hint')}&nbsp;
                                 <Price value={cart?.price || 0} />
                             </>
                         )}

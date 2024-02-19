@@ -133,7 +133,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                 </TableCell>
             </TableRow>
 
-            <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} />
+            <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} route="checkout" />
         </>
     );
 };

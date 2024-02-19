@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { MenuItem } from './components/menu-item';
 import { TCategories } from '@/types/categories';
 import { useTranslations } from 'next-intl';
+import { imagePath } from '@helpers/image-path';
 
 type CategoryMenuProps = {
     categories: TCategories;
@@ -11,6 +12,8 @@ type CategoryMenuProps = {
 
 export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
     const t = useTranslations('sidebar');
+
+    console.log(categories);
 
     return (
         <aside className="h-fit rounded-[10px] bg-[#18181d] p-6">
@@ -21,7 +24,7 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
                     <MenuItem
                         key={category.idx}
                         name={category.name}
-                        image={category.img ? `/media/categories/${category.img}` : ''}
+                        image={imagePath(category.img)}
                         url={`/categories/${category.url}`}
                         subItems={category.subcategories}
                     />
