@@ -3,6 +3,7 @@ import { useCartStore } from '@/stores/cart';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { useUserStore } from '@/stores/user';
+import { TItem } from '@/types/item';
 
 const { addToCart, getCart, removeItemFromCart, getItem } = getEndpoints(fetcher);
 
@@ -11,35 +12,23 @@ export const useCartActions = () => {
     const { items, setCart } = useCartStore();
 
     const handleAddItem = async (id: number, calledFromCheckout: boolean) => {
-        const cartContainsSubs = items.some((x) => x.is_subs);
-        const cartContainsRegular = items.some((x) => !x.is_subs);
-
         const currentItem = await getItem(id);
-
-        if (!currentItem) {
-            notify('Item not found!', 'red');
-            return;
-        }
-
-        if (
-            (cartContainsSubs && !currentItem.is_subs) ||
-            (cartContainsRegular && currentItem.is_subs)
-        ) {
-            notify('You cannot mix regular and subscription items!', 'red');
-            return;
-        }
 
         if (!user) {
             notify('Please authorize!', 'red');
             return;
         }
 
+        if (!isCartCompatibleForItem(currentItem)) {
+            return;
+        }
+
         try {
-            await addToCart(
+            await addToCart({
                 id,
-                currentItem.is_subs ? 'subscription' : 'regular',
-                calledFromCheckout ? 1 : 0
-            );
+                payment_type: calledFromCheckout ? 'subscription' : 'regular',
+                promoted: calledFromCheckout
+            });
 
             const response = await getCart();
 
@@ -53,6 +42,42 @@ export const useCartActions = () => {
             console.error('Error while adding item:', error);
         }
     };
+
+    function isCartCompatibleForItem(currentItem: TItem) {
+        const cartContainsSubs = items.some((x) => x.is_subs);
+        const cartContainsRegular = items.some((x) => !x.is_subs);
+
+        const showError = (message: string) => {
+            notify(message, 'red');
+            return false;
+        };
+
+        if (!currentItem) {
+            return showError('Item not found!');
+        }
+
+        if (currentItem.is_subs && cartContainsRegular) {
+            return showError("Can't add a subscription to cart with a regular item!");
+        }
+
+        if (!currentItem.is_subs && cartContainsSubs) {
+            return showError("Can't add a regular item to cart with a subscription!");
+        }
+
+        if (currentItem.is_subs && cartContainsSubs) {
+            return showError("Can't add a subscription to cart with another subscription!");
+        }
+
+        // if (currentItem.quantityGlobalCurrentLimit === currentItem.quantityGlobalLimit) {
+        //     return showError('Item is out of stock!');
+        // }
+
+        // if (currentItem.quantityUserLimit === 0) {
+        //     return showError('You have reached the limit for this item!');
+        // }
+
+        return true;
+    }
 
     const handleRemoveItem = async (id: number) => {
         try {

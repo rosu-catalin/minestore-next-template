@@ -2,6 +2,8 @@ import { Price } from '@/components/base/price/price';
 import { TItem } from '@/types/item';
 import { imagePath } from '@helpers/image-path';
 import { joinClasses } from '@helpers/join-classes';
+import { Badge } from '@layout/badge/badge';
+import { AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 
 type CardHeaderProps = {
@@ -22,6 +24,13 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 
     return (
         <div className={cardHeaderClasses}>
+            {item.quantityGlobalLimit && (
+                <Badge variant="destructive" className="mx-auto w-[150px] justify-center gap-2 p-2">
+                    <AlertTriangle size={16} />
+                    <p>{item.quantityGlobalLimit} items left</p>
+                </Badge>
+            )}
+
             <CardHeaderImage item={item} direction={direction} />
             <div className={direction === 'col' ? 'text-center' : ''}>
                 <h3 className="text-xl font-bold text-white">{item.name}</h3>

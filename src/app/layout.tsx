@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={montserrat.className}>
+            <body className={`${montserrat.className} text-[#cfcfcf]`}>
                 <App>{children}</App>
             </body>
         </html>

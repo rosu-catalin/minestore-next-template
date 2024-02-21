@@ -14,7 +14,7 @@ type NotificationProps = {
 export const Notification: FC<NotificationProps> = ({ id, message, level }) => {
     const styles = {
         defaults: {
-            container: 'rounded w-96 py-4 px-6 border-b-4 flex-row'
+            container: 'rounded w-96 py-4 px-6 border-b-4 flex-row text-white'
         },
 
         basic: {

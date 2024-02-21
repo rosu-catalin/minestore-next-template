@@ -37,7 +37,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
                     </TableHead>
                     {selectedItems.map((item) => (
                         <TableHead key={item.id} className="w-[300px] py-4">
-                            <Card isCumulative={false} item={item} />
+                            <Card item={item} />
                         </TableHead>
                     ))}
                 </TableRow>

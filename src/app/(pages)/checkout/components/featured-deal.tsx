@@ -34,7 +34,6 @@ export const FeaturedDeal: FC = () => {
                 {recommends.map((item, index) => (
                     <Card
                         calledFromCheckout={true}
-                        isCumulative={false}
                         key={index}
                         direction="row"
                         item={{

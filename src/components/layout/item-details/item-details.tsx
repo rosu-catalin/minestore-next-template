@@ -8,6 +8,7 @@ import { useCartStore } from '@/stores/cart';
 import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
 import { ButtonIcon } from '@layout/card/card-actions';
+import { usePathname } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 
@@ -22,6 +23,8 @@ type DetailsProps = {
 };
 
 export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
+    const path = usePathname();
+
     const { items } = useCartStore();
     const { handleAddItem, handleRemoveItem } = useCartActions();
 
@@ -34,9 +37,13 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
     const actionText = isItemInCart ? 'Remove' : 'Add to cart';
 
     useEffect(() => {
+        console.log('Fetching item details');
+    }, []);
+
+    useEffect(() => {
         getItem(id, route).then((data) => {
-            console.log('ItemDetails:', data);
             setDetails(data);
+            console.log('Data from getItem:');
         });
     }, [id, route]);
 
@@ -48,7 +55,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
             if (isItemInCart) {
                 await handleRemoveItem(id);
             } else {
-                await handleAddItem(id, false);
+                await handleAddItem(id, path === '/checkout' ? true : false);
             }
         } catch (error) {
             console.error('Error while adding/removing item:', error);
@@ -65,6 +72,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
             backgroundColor="rgb(0 0 0 / 0.25)"
             className="fixed left-1/2 top-1/2 z-40 m-auto w-[700px] -translate-x-1/2 -translate-y-1/2 rounded bg-[#222222]"
         >
+            <pre>{JSON.stringify(details, null, 2)}</pre>
             <div className="flex-row items-center rounded bg-[#181818] px-5 py-4 font-bold">
                 {details?.name}
                 <div
@@ -76,7 +84,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
             </div>
 
             <div
-                className="w-full p-4"
+                className="prose max-h-[600px] w-full overflow-y-auto p-4"
                 dangerouslySetInnerHTML={{ __html: details?.description || '' }}
             />
 

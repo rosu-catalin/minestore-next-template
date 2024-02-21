@@ -72,7 +72,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                         <div className="h-20 w-20"></div>
                     )}
                 </TableCell>
-                <TableCell className="text-balance text-sm font-bold md:text-lg">
+                <TableCell className="text-balance text-sm font-bold text-white md:text-lg">
                     {item.name}
                 </TableCell>
                 <TableCell>

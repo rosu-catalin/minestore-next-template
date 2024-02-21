@@ -19,7 +19,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
         <div className="mt-4 hidden w-full rounded-[10px] bg-[#18181d] p-8 lg:block">
             <div className="flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
                 <FaGhost className="fill-white" />
-                <h2>{t('sidebar.top-donator')}</h2>
+                <h3 className="text-white">{t('sidebar.top-donator')}</h3>
             </div>
             <div className="my-4 flex items-start justify-center">
                 <Image
@@ -41,7 +41,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
                 </div>
             </div>
             <div className="mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-[#202022] py-4 font-bold">
-                <span>{t('recent-purchases')}</span>
+                <h3 className="text-white">{t('recent-purchases')}</h3>
                 <FaHatWizard className="fill-white" />
             </div>
             <RecentPurchases limit={10} />

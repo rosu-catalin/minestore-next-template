@@ -18,8 +18,9 @@ export type TItem = {
     virtual_price?: number | null;
     is_virtual_currency_only?: boolean;
     quantityGlobalLimit?: number;
-    quantityCurrentLimit?: number;
+    quantityGlobalCurrentLimit?: number;
     quantityUserLimit?: number;
+    quantityUserCurrentLimit?: number;
     original_price?: number;
     description?: string;
 

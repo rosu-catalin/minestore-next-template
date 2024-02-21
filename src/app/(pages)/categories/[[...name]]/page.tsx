@@ -73,11 +73,12 @@ function CategoryHeader({ category, subCategory }: TCategoryHeader) {
 function ProductListContainer({ items, category, subcategory }: TProductListContainer) {
     const categoryItems = subcategory?.items || items;
     const categoryListing = subcategory?.category.is_listing || category.is_listing;
-    const categoryIsCumulative = subcategory?.category.is_cumulative || category.is_cumulative;
 
     const gridClasses = joinClasses('mt-8 grid gap-4 p-4', {
         'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]': !categoryListing
     });
+
+    console.log('categoryItems:', categoryItems);
 
     return (
         <div className={gridClasses}>
@@ -85,7 +86,6 @@ function ProductListContainer({ items, category, subcategory }: TProductListCont
                 <Card
                     key={index}
                     item={item}
-                    isCumulative={!!categoryIsCumulative}
                     direction={categoryListing ? 'row' : 'col'}
                     className={joinClasses({ 'w-full': categoryListing })}
                 />

@@ -2,9 +2,15 @@ import { AxiosInstance } from 'axios';
 
 type ReturnType = void;
 
+type RequestParams = {
+    id: number;
+    payment_type: 'regular' | 'subscription';
+    promoted?: number | boolean;
+};
+
 export const addToCart =
     (fetcher: AxiosInstance) =>
-    async (id: number, payment_type: 'regular' | 'subscription', promoted?: number | boolean) => {
+    async ({ id, payment_type, promoted }: RequestParams) => {
         const url = `/cart/add/${id}`;
         return (
             await fetcher.post<ReturnType>(url, {

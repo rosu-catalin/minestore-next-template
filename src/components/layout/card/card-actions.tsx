@@ -23,6 +23,7 @@ export function CardActions({
 }: CardActionsProps) {
     const [loading, setLoading] = useState(false);
     const { handleAddItem, handleRemoveItem } = useCartActions();
+
     const path = usePathname();
 
     const handleItem = async () => {
@@ -46,7 +47,7 @@ export function CardActions({
         <div
             className={joinClasses(
                 'flex items-center justify-center gap-2',
-                direction === 'col' && 'mt-auto'
+                direction === 'col' && 'mt-auto grid grid-cols-[50px,1fr]'
             )}
         >
             <Button
@@ -68,6 +69,20 @@ export function CardActions({
                 <ButtonIcon isItemInCart={isItemInCart} />
                 {available ? actionText : 'Unavailable'}
             </Button>
+            {item.is_subs ? (
+                <Button
+                    loading={loading}
+                    onClick={handleItem}
+                    className={joinClasses(
+                        'col-span-2 flex h-[50px] w-full items-center justify-center gap-2',
+                        !available && 'pointer-events-none cursor-not-allowed opacity-50',
+                        direction === 'row' && 'min-w-[200px]'
+                    )}
+                >
+                    <ButtonIcon isItemInCart={isItemInCart} />
+                    Subscribe
+                </Button>
+            ) : null}
         </div>
     );
 }

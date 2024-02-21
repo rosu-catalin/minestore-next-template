@@ -32,7 +32,7 @@ export const Alert: FC = () => {
                         </svg>
                     </div>
                     <div className="p-4">
-                        <p className="text-xl font-bold">{title}</p>
+                        <p className="text-xl font-bold text-white">{title}</p>
                         <p
                             className="text-sm"
                             dangerouslySetInnerHTML={{ __html: content || '' }}
@@ -42,7 +42,7 @@ export const Alert: FC = () => {
                 {button_url && (
                     <Link
                         href={button_url}
-                        className="mr-4 rounded-md bg-[url(/btn.png)] px-6 py-4 text-center text-base font-bold uppercase"
+                        className="mr-4 rounded-md bg-[url(/btn.png)] px-6 py-4 text-center text-base font-bold uppercase text-white"
                     >
                         {button_name}
                     </Link>
