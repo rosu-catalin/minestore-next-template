@@ -85,7 +85,7 @@ function AddToCartButton({ isItemInCart, item }: CardActionButtonProps) {
             loading={loading}
             onClick={handleItem}
             disabled={!isAvailable}
-            className={joinClasses('flex h-[50px] w-full items-center justify-center gap-2')}
+            className="flex h-[50px] w-full items-center justify-center gap-2"
         >
             <ButtonIcon isItemInCart={isItemInCart} />
             {actionText}

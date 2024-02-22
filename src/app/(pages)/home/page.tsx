@@ -2,8 +2,8 @@ import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/server/fetcher';
 import { Alert } from '@layout/alert/alert';
 import { FeaturedDeals } from './components/featured-deals';
-import { Modules } from './components/Modules';
 import { Content } from './components/content';
+import { Modules } from './components/modules';
 
 const { getFeaturedDeals } = getEndpoints(fetcher);
 

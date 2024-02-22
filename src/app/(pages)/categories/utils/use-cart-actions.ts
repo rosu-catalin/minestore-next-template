@@ -68,14 +68,28 @@ export const useCartActions = () => {
             return showError('Item not found!');
         }
 
-        const { quantityGlobalCurrentLimit, quantityGlobalLimit, quantityUserLimit } = currentItem;
+        const {
+            quantityGlobalCurrentLimit,
+            quantityGlobalLimit,
+            quantityUserLimit,
+            quantityUserCurrentLimit
+        } = currentItem;
 
         const isSubscription = itemType === 'subscription';
 
         const isQuantityGlobalLimitReached =
             quantityGlobalLimit !== null && quantityGlobalCurrentLimit === quantityGlobalLimit;
 
-        const isQuantityUserLimitReached = quantityUserLimit !== null && quantityUserLimit === 0;
+        const isQuantityUserLimitReached =
+            quantityUserLimit !== null && quantityUserCurrentLimit === quantityUserLimit;
+
+        if (isQuantityGlobalLimitReached) {
+            return showError('Item is out of stock!');
+        }
+
+        if (isQuantityUserLimitReached) {
+            return showError('You have reached the limit for this item!');
+        }
 
         if (isSubscription && cartContainsRegular) {
             return showError("Can't add a subscription to cart with a regular item!");
@@ -87,14 +101,6 @@ export const useCartActions = () => {
 
         if (isSubscription && cartContainsSubs) {
             return showError("Can't add a subscription to cart with another subscription!");
-        }
-
-        if (isQuantityGlobalLimitReached) {
-            return showError('Item is out of stock!');
-        }
-
-        if (isQuantityUserLimitReached) {
-            return showError('You have reached the limit for this item!');
         }
 
         return true;

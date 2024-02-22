@@ -14,9 +14,9 @@ export const Button: FC<ButtonProps> = ({ onClick, children, className, loading,
         <button
             onClick={onClick}
             {...props}
-            disabled={loading}
+            disabled={loading || props.disabled}
             className={joinClasses(
-                'h-[40px] min-w-[100px] rounded bg-[#bd1d1d] px-2 font-bold text-white transition-all hover:opacity-90',
+                'h-[40px] min-w-[100px] rounded bg-[#bd1d1d] px-2 font-bold text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:bg-[#bd1d1d] disabled:text-white disabled:opacity-50',
                 className,
                 loading && 'pointer-events-none cursor-not-allowed opacity-50'
             )}
