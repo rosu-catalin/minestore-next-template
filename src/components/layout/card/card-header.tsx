@@ -24,12 +24,7 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 
     return (
         <div className={cardHeaderClasses}>
-            {item.quantityGlobalLimit && (
-                <Badge variant="destructive" className="mx-auto w-[150px] justify-center gap-2 p-2">
-                    <AlertTriangle size={16} />
-                    <p>{item.quantityGlobalLimit} items left</p>
-                </Badge>
-            )}
+            <QuantityBadge item={item} />
 
             <CardHeaderImage item={item} direction={direction} />
             <div className={direction === 'col' ? 'text-center' : ''}>
@@ -43,6 +38,20 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
                 />
             </div>
         </div>
+    );
+}
+
+function QuantityBadge({ item }: { item: TItem }) {
+    if (!item.quantityGlobalLimit || !item.quantityGlobalCurrentLimit) return null;
+
+    const { quantityGlobalLimit, quantityGlobalCurrentLimit } = item;
+    const quantityLeft = quantityGlobalLimit - quantityGlobalCurrentLimit;
+
+    return (
+        <Badge variant="destructive" className="mx-auto w-[150px] justify-center gap-2 p-2">
+            <AlertTriangle size={16} />
+            <p>{quantityLeft} items left</p>
+        </Badge>
     );
 }
 

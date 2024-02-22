@@ -14,35 +14,14 @@ type CardActionsProps = {
     item: TItem;
 };
 
+type CardActionButtonProps = Omit<CardActionsProps, 'direction' | 'setShowModal'>;
+
 export function CardActions({
     direction = 'col',
     isItemInCart,
     setShowModal,
-    available,
     item
 }: CardActionsProps) {
-    const [loading, setLoading] = useState(false);
-    const { handleAddItem, handleRemoveItem } = useCartActions();
-
-    const path = usePathname();
-
-    const handleItem = async () => {
-        try {
-            setLoading(true);
-            if (isItemInCart && available) {
-                await handleRemoveItem(item.id);
-            } else {
-                await handleAddItem(item.id, path === '/checkout' ? true : false);
-            }
-        } catch (error) {
-            console.error('Error while adding/removing item:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const actionText = isItemInCart ? 'Remove' : 'Add to cart';
-
     return (
         <div
             className={joinClasses(
@@ -57,33 +36,126 @@ export function CardActions({
             >
                 <InfoIcon />
             </Button>
-            <Button
-                loading={loading}
-                onClick={handleItem}
-                className={joinClasses(
-                    'flex h-[50px] w-full items-center justify-center gap-2',
-                    !available && 'pointer-events-none cursor-not-allowed opacity-50',
-                    direction === 'row' && 'min-w-[200px]'
-                )}
-            >
-                <ButtonIcon isItemInCart={isItemInCart} />
-                {available ? actionText : 'Unavailable'}
-            </Button>
-            {item.is_subs ? (
-                <Button
-                    loading={loading}
-                    onClick={handleItem}
-                    className={joinClasses(
-                        'col-span-2 flex h-[50px] w-full items-center justify-center gap-2',
-                        !available && 'pointer-events-none cursor-not-allowed opacity-50',
-                        direction === 'row' && 'min-w-[200px]'
-                    )}
-                >
-                    <ButtonIcon isItemInCart={isItemInCart} />
-                    Subscribe
-                </Button>
-            ) : null}
+
+            <CardActionButtons isItemInCart={isItemInCart} item={item} />
         </div>
+    );
+}
+
+export function CardActionButtons({ isItemInCart, item }: CardActionButtonProps) {
+    return (
+        <>
+            <AddToCartButton isItemInCart={isItemInCart} item={item} />
+            <SubscriptionsButton isItemInCart={isItemInCart} item={item} />
+            <RemoveFromCartButton isItemInCart={isItemInCart} item={item} />
+        </>
+    );
+}
+
+function AddToCartButton({ isItemInCart, item }: CardActionButtonProps) {
+    const isAvailable = item.is_unavailable ? false : true;
+
+    const [loading, setLoading] = useState(false);
+    const { handleAddItem } = useCartActions();
+
+    const path = usePathname();
+
+    const handleItem = async () => {
+        try {
+            setLoading(true);
+            await handleAddItem({
+                id: item.id,
+                calledFromCheckout: path === '/checkout',
+                payment_type: 'regular',
+                itemType: 'regular'
+            });
+        } catch (error) {
+            console.error('Error while adding item:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (isItemInCart) return null;
+
+    const actionText = isAvailable ? 'Add to cart' : 'Unavailable';
+
+    return (
+        <Button
+            loading={loading}
+            onClick={handleItem}
+            disabled={!isAvailable}
+            className={joinClasses('flex h-[50px] w-full items-center justify-center gap-2')}
+        >
+            <ButtonIcon isItemInCart={isItemInCart} />
+            {actionText}
+        </Button>
+    );
+}
+
+function SubscriptionsButton({ isItemInCart, item }: CardActionButtonProps) {
+    const [loading, setLoading] = useState(false);
+    const { handleAddItem } = useCartActions();
+
+    const path = usePathname();
+
+    const handleItem = async () => {
+        try {
+            setLoading(true);
+            await handleAddItem({
+                id: item.id,
+                calledFromCheckout: path === '/checkout',
+                payment_type: 'subscription',
+                itemType: 'subscription'
+            });
+        } catch (error) {
+            console.error('Error while adding item:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (isItemInCart) return null;
+    if (!item.is_subs) return null;
+
+    return (
+        <Button
+            loading={loading}
+            onClick={handleItem}
+            className="col-span-2 flex h-[50px] w-full items-center justify-center gap-2"
+        >
+            <ButtonIcon isItemInCart={isItemInCart} />
+            Subscribe
+        </Button>
+    );
+}
+
+function RemoveFromCartButton({ isItemInCart, item }: CardActionButtonProps) {
+    const [loading, setLoading] = useState(false);
+    const { handleRemoveItem } = useCartActions();
+
+    const handleItem = async () => {
+        try {
+            setLoading(true);
+            await handleRemoveItem(item.id);
+        } catch (error) {
+            console.error('Error while removing item:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!isItemInCart) return null;
+
+    return (
+        <Button
+            loading={loading}
+            onClick={handleItem}
+            className={joinClasses('flex h-[50px] w-full items-center justify-center gap-2')}
+        >
+            <ButtonIcon isItemInCart={isItemInCart} />
+            Remove
+        </Button>
     );
 }
 

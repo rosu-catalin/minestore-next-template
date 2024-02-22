@@ -1,14 +1,10 @@
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
-import { useCartActions } from '@/app/(pages)/categories/utils/use-cart-actions';
-import { Button } from '@/components/base/button/button';
 import { Modal } from '@/components/base/modal/modal';
 import { Price } from '@/components/base/price/price';
 import { useCartStore } from '@/stores/cart';
 import { TItem } from '@/types/item';
-import { joinClasses } from '@helpers/join-classes';
-import { ButtonIcon } from '@layout/card/card-actions';
-import { usePathname } from 'next/navigation';
+import { CardActionButtons } from '@layout/card/card-actions';
 import { FC, useEffect, useState } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 
@@ -23,47 +19,21 @@ type DetailsProps = {
 };
 
 export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
-    const path = usePathname();
-
     const { items } = useCartStore();
-    const { handleAddItem, handleRemoveItem } = useCartActions();
 
     const isItemInCart = items.some((x) => x.id === id);
 
     const [details, setDetails] = useState<TItem>();
 
-    const [loading, setLoading] = useState(false);
-
-    const actionText = isItemInCart ? 'Remove' : 'Add to cart';
-
-    useEffect(() => {
-        console.log('Fetching item details');
-    }, []);
-
     useEffect(() => {
         getItem(id, route).then((data) => {
             setDetails(data);
-            console.log('Data from getItem:');
         });
+
+        return () => {
+            setDetails(undefined);
+        };
     }, [id, route]);
-
-    const available = !details?.is_unavailable;
-
-    const handleCartItem = async () => {
-        setLoading(true);
-        try {
-            if (isItemInCart) {
-                await handleRemoveItem(id);
-            } else {
-                await handleAddItem(id, path === '/checkout' ? true : false);
-            }
-        } catch (error) {
-            console.error('Error while adding/removing item:', error);
-        } finally {
-            onHide();
-            setLoading(false);
-        }
-    };
 
     return (
         <Modal
@@ -72,7 +42,6 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
             backgroundColor="rgb(0 0 0 / 0.25)"
             className="fixed left-1/2 top-1/2 z-40 m-auto w-[700px] -translate-x-1/2 -translate-y-1/2 rounded bg-[#222222]"
         >
-            <pre>{JSON.stringify(details, null, 2)}</pre>
             <div className="flex-row items-center rounded bg-[#181818] px-5 py-4 font-bold">
                 {details?.name}
                 <div
@@ -94,17 +63,8 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
                     isVirtual={details?.is_virtual_currency_only}
                     className="font-bold text-[#02a603]"
                 />
-                <Button
-                    loading={loading}
-                    onClick={handleCartItem}
-                    className={joinClasses(
-                        'flex h-[50px] min-w-[150px] items-center justify-center gap-2',
-                        !available && 'pointer-events-none cursor-not-allowed opacity-50'
-                    )}
-                >
-                    <ButtonIcon isItemInCart={isItemInCart} />
-                    {available ? actionText : 'Unavailable'}
-                </Button>
+
+                <CardActionButtons isItemInCart={isItemInCart} item={details as TItem} />
             </div>
         </Modal>
     );

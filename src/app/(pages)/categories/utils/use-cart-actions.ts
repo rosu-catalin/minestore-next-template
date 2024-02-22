@@ -7,11 +7,23 @@ import { TItem } from '@/types/item';
 
 const { addToCart, getCart, removeItemFromCart, getItem } = getEndpoints(fetcher);
 
+type THandleAddItem = {
+    id: number;
+    calledFromCheckout: boolean;
+    payment_type: 'regular' | 'subscription';
+    itemType: 'regular' | 'subscription';
+};
+
 export const useCartActions = () => {
     const { user } = useUserStore();
     const { items, setCart } = useCartStore();
 
-    const handleAddItem = async (id: number, calledFromCheckout: boolean) => {
+    const handleAddItem = async ({
+        id,
+        calledFromCheckout,
+        payment_type,
+        itemType
+    }: THandleAddItem) => {
         const currentItem = await getItem(id);
 
         if (!user) {
@@ -19,14 +31,14 @@ export const useCartActions = () => {
             return;
         }
 
-        if (!isCartCompatibleForItem(currentItem)) {
+        if (!isCartCompatibleForItem(currentItem, itemType)) {
             return;
         }
 
         try {
             await addToCart({
                 id,
-                payment_type: calledFromCheckout ? 'subscription' : 'regular',
+                payment_type,
                 promoted: calledFromCheckout
             });
 
@@ -43,9 +55,9 @@ export const useCartActions = () => {
         }
     };
 
-    function isCartCompatibleForItem(currentItem: TItem) {
-        const cartContainsSubs = items.some((x) => x.is_subs);
-        const cartContainsRegular = items.some((x) => !x.is_subs);
+    function isCartCompatibleForItem(currentItem: TItem, itemType: 'regular' | 'subscription') {
+        const cartContainsSubs = items.some((x) => x.payment_type === 1);
+        const cartContainsRegular = items.some((x) => x.payment_type === 0);
 
         const showError = (message: string) => {
             notify(message, 'red');
@@ -56,25 +68,34 @@ export const useCartActions = () => {
             return showError('Item not found!');
         }
 
-        if (currentItem.is_subs && cartContainsRegular) {
+        const { quantityGlobalCurrentLimit, quantityGlobalLimit, quantityUserLimit } = currentItem;
+
+        const isSubscription = itemType === 'subscription';
+
+        const isQuantityGlobalLimitReached =
+            quantityGlobalLimit !== null && quantityGlobalCurrentLimit === quantityGlobalLimit;
+
+        const isQuantityUserLimitReached = quantityUserLimit !== null && quantityUserLimit === 0;
+
+        if (isSubscription && cartContainsRegular) {
             return showError("Can't add a subscription to cart with a regular item!");
         }
 
-        if (!currentItem.is_subs && cartContainsSubs) {
+        if (!isSubscription && cartContainsSubs) {
             return showError("Can't add a regular item to cart with a subscription!");
         }
 
-        if (currentItem.is_subs && cartContainsSubs) {
+        if (isSubscription && cartContainsSubs) {
             return showError("Can't add a subscription to cart with another subscription!");
         }
 
-        // if (currentItem.quantityGlobalCurrentLimit === currentItem.quantityGlobalLimit) {
-        //     return showError('Item is out of stock!');
-        // }
+        if (isQuantityGlobalLimitReached) {
+            return showError('Item is out of stock!');
+        }
 
-        // if (currentItem.quantityUserLimit === 0) {
-        //     return showError('You have reached the limit for this item!');
-        // }
+        if (isQuantityUserLimitReached) {
+            return showError('You have reached the limit for this item!');
+        }
 
         return true;
     }

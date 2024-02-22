@@ -28,6 +28,7 @@ export type TCart = {
         virtual_price: number;
         is_virtual_currency_only: number;
         id: number;
+        payment_type: number;
         vars: Array<{
             id: number;
             description: string;
