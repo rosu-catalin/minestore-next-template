@@ -12,6 +12,7 @@ type CardActionsProps = {
     setShowModal: (value: boolean) => void;
     available?: boolean;
     item: TItem;
+    displayFull?: boolean;
 };
 
 type CardActionButtonProps = Omit<CardActionsProps, 'direction' | 'setShowModal'>;
@@ -20,7 +21,8 @@ export function CardActions({
     direction = 'col',
     isItemInCart,
     setShowModal,
-    item
+    item,
+    displayFull = true
 }: CardActionsProps) {
     return (
         <div
@@ -37,22 +39,30 @@ export function CardActions({
                 <InfoIcon />
             </Button>
 
-            <CardActionButtons isItemInCart={isItemInCart} item={item} />
+            <CardActionButtons isItemInCart={isItemInCart} item={item} displayFull={displayFull} />
         </div>
     );
 }
 
-export function CardActionButtons({ isItemInCart, item }: CardActionButtonProps) {
+export function CardActionButtons({ isItemInCart, item, displayFull }: CardActionButtonProps) {
     return (
         <>
-            <AddToCartButton isItemInCart={isItemInCart} item={item} />
-            <SubscriptionsButton isItemInCart={isItemInCart} item={item} />
-            <RemoveFromCartButton isItemInCart={isItemInCart} item={item} />
+            <AddToCartButton isItemInCart={isItemInCart} item={item} displayFull={displayFull} />
+            <SubscriptionsButton
+                isItemInCart={isItemInCart}
+                item={item}
+                displayFull={displayFull}
+            />
+            <RemoveFromCartButton
+                isItemInCart={isItemInCart}
+                item={item}
+                displayFull={displayFull}
+            />
         </>
     );
 }
 
-function AddToCartButton({ isItemInCart, item }: CardActionButtonProps) {
+function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
     const isAvailable = item.is_unavailable ? false : true;
 
     const [loading, setLoading] = useState(false);
@@ -85,7 +95,10 @@ function AddToCartButton({ isItemInCart, item }: CardActionButtonProps) {
             loading={loading}
             onClick={handleItem}
             disabled={!isAvailable}
-            className="flex h-[50px] w-full items-center justify-center gap-2"
+            className={joinClasses(
+                'flex h-[50px] items-center justify-center gap-2',
+                displayFull && 'w-full'
+            )}
         >
             <ButtonIcon isItemInCart={isItemInCart} />
             {actionText}
@@ -93,7 +106,7 @@ function AddToCartButton({ isItemInCart, item }: CardActionButtonProps) {
     );
 }
 
-function SubscriptionsButton({ isItemInCart, item }: CardActionButtonProps) {
+function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
     const [loading, setLoading] = useState(false);
     const { handleAddItem } = useCartActions();
 
@@ -122,7 +135,10 @@ function SubscriptionsButton({ isItemInCart, item }: CardActionButtonProps) {
         <Button
             loading={loading}
             onClick={handleItem}
-            className="col-span-2 flex h-[50px] w-full items-center justify-center gap-2"
+            className={joinClasses(
+                'col-span-2 flex h-[50px] items-center justify-center gap-2',
+                displayFull && 'w-full'
+            )}
         >
             <ButtonIcon isItemInCart={isItemInCart} />
             Subscribe
@@ -130,7 +146,7 @@ function SubscriptionsButton({ isItemInCart, item }: CardActionButtonProps) {
     );
 }
 
-function RemoveFromCartButton({ isItemInCart, item }: CardActionButtonProps) {
+function RemoveFromCartButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
     const [loading, setLoading] = useState(false);
     const { handleRemoveItem } = useCartActions();
 
@@ -151,7 +167,10 @@ function RemoveFromCartButton({ isItemInCart, item }: CardActionButtonProps) {
         <Button
             loading={loading}
             onClick={handleItem}
-            className={joinClasses('flex h-[50px] w-full items-center justify-center gap-2')}
+            className={joinClasses(
+                'flex h-[50px] items-center justify-center gap-2',
+                displayFull && 'w-full'
+            )}
         >
             <ButtonIcon isItemInCart={isItemInCart} />
             Remove

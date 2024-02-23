@@ -20,6 +20,8 @@ export const FeaturedDeal: FC = () => {
         });
     }, []);
 
+    console.log(recommends);
+
     if (recommends.length === 0) return null;
 
     return (

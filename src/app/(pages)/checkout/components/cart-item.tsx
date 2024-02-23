@@ -19,6 +19,8 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
     const [quantity, setQuantity] = useState(item.count);
     const [loading, setLoading] = useState(false);
 
+    console.log('item', item);
+
     useEffect(() => {
         updateItemCount(item.id, quantity);
     }, [quantity, item.id]);
@@ -131,6 +133,9 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                         </button>
                     </div>
                 </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell colSpan={4}>Here will be variables</TableCell>
             </TableRow>
 
             <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} route="checkout" />

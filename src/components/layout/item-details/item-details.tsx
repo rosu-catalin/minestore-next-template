@@ -29,10 +29,6 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
         getItem(id, route).then((data) => {
             setDetails(data);
         });
-
-        return () => {
-            setDetails(undefined);
-        };
     }, [id, route]);
 
     return (
@@ -64,7 +60,13 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
                     className="font-bold text-[#02a603]"
                 />
 
-                <CardActionButtons isItemInCart={isItemInCart} item={details as TItem} />
+                <div className="flex gap-2">
+                    <CardActionButtons
+                        isItemInCart={isItemInCart}
+                        item={details as TItem}
+                        displayFull={false}
+                    />
+                </div>
             </div>
         </Modal>
     );
