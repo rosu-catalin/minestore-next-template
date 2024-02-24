@@ -78,7 +78,6 @@ function ProductListContainer({ items, category, subcategory }: TProductListCont
         'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]': !categoryListing
     });
 
-    console.log('categoryItems:', categoryItems);
 
     return (
         <div className={gridClasses}>

@@ -7,6 +7,7 @@ import { ItemDetails } from '@layout/item-details/item-details';
 import Image from 'next/image';
 import { useUserStore } from '@/stores/user';
 import { notify } from '@/core/notifications';
+import { imagePath } from '@helpers/image-path';
 
 type FeaturedDealProps = {
     item: TSettings['featuredDeal_items'][number];
@@ -31,7 +32,7 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
                 onClick={handleClick}
                 className="w-full flex-1 cursor-pointer flex-col items-center rounded border-2 border-[#d7042c] bg-[#e924495c] p-3 md:flex-row md:p-6"
             >
-                {item.image && <Image src={item.image} width={64} height={64} alt="" />}
+                <FeaturedImage item={item} />
 
                 <div className="mt-4 h-full flex-col text-center md:ml-10 md:mt-0 md:text-left">
                     <span className="font-bold text-[#ffa5a5]">{item.name}</span>
@@ -39,7 +40,15 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
                 </div>
             </div>
 
-            <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} />
+            {user && <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} />}
         </>
     );
 };
+
+function FeaturedImage({ item }: FeaturedDealProps) {
+    if (!item.image) return null;
+
+    const imageSRC = imagePath(item.image) as string;
+
+    return <Image src={imageSRC} width={64} height={64} alt="" />;
+}

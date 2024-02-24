@@ -2,42 +2,20 @@
 
 import { useUserStore } from '@/stores/user';
 import { TUser } from '@/types/user';
-import { usePathname, useRouter } from 'next/navigation';
-import { FC, PropsWithChildren, useEffect, useLayoutEffect } from 'react';
+import { FC, PropsWithChildren, useEffect } from 'react';
 
 type AuthProviderProps = PropsWithChildren<{
     initialUser?: TUser;
 }>;
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children, initialUser }) => {
-    const pathname = usePathname();
-    const router = useRouter();
-
-    const { user, setUser } = useUserStore();
-
-    const isAuthorized = !!(initialUser || user);
-
-    useLayoutEffect(() => {
-        setUser(initialUser);
-    }, [initialUser, setUser]);
+    const { setUser } = useUserStore();
 
     useEffect(() => {
-        if (isAuthorized && pathname === '/auth') {
-            router.push('/');
+        if (initialUser) {
+            setUser(initialUser);
         }
-
-        if (!isAuthorized && pathname !== '/auth' && pathname.startsWith('/categories/')) {
-            router.push('/auth');
-        }
-    }, [isAuthorized, pathname, router]);
-
-    if (isAuthorized && pathname === '/auth') {
-        return (
-            <div className="center">
-                <div className="loader"></div>
-            </div>
-        );
-    }
+    }, [initialUser, setUser]);
 
     return children;
 };

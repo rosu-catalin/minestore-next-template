@@ -1,21 +1,29 @@
 import { FC } from 'react';
-import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/core/auth/client/use-auth';
-import { useTranslations } from 'next-intl';
+import { removeToken } from '@/api/server/create-test';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/stores/user';
+import { LogoutButton } from './logout-btn';
 
 export const UserSection: FC = () => {
-    const { user, signOut } = useAuth();
+    const { user } = useAuth();
 
-    const t = useTranslations('navbar');
+    const { setUser } = useUserStore();
+    const router = useRouter();
 
     if (user) {
         return (
-            <div className="glow-text red-glow flex-row" onClick={signOut}>
-                <ReactSVG className="text-white" src="/icons/logout.svg" />
-                <span className="ml-4 cursor-pointer font-bold uppercase">{t('logout')}</span>
-            </div>
+            <form
+                action={async () => {
+                    await removeToken();
+                    setUser(undefined);
+                    router.push('/');
+                }}
+            >
+                <LogoutButton />
+            </form>
         );
     }
 

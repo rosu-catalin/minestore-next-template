@@ -19,8 +19,6 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
     const [quantity, setQuantity] = useState(item.count);
     const [loading, setLoading] = useState(false);
 
-    console.log('item', item);
-
     useEffect(() => {
         updateItemCount(item.id, quantity);
     }, [quantity, item.id]);

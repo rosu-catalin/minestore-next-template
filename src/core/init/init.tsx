@@ -7,10 +7,12 @@ import { useCartStore } from '@/stores/cart';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { TSettings } from '@/types/settings';
+import { useUserStore } from '@/stores/user';
 
 const { getCart } = getEndpoints(fetcher);
 
 export const Init: FC<{ settings: TSettings }> = ({ settings }) => {
+    const { user } = useUserStore();
     const { setCurrency } = useCurrencyStore();
     const { setSettings } = useSettingsStore();
     const { setCart } = useCartStore();
@@ -34,8 +36,11 @@ export const Init: FC<{ settings: TSettings }> = ({ settings }) => {
         };
 
         initializeCurrency();
-        getCart().then(setCart);
-    }, [settings.currencies, settings.system_currency, setCurrency, setCart]);
+
+        if (user) {
+            getCart().then(setCart);
+        }
+    }, [settings.currencies, settings.system_currency, setCurrency, setCart, user]);
 
     return <></>;
 };

@@ -7,14 +7,13 @@ import { RedeemCoupon } from './components/redeem-coupon';
 import { Purchase } from './components/purchase';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/server/fetcher';
-import { handleUnauthorized } from '@/api/server/handlers';
 import { ReferralCode } from './components/referral-code';
 import { Vars } from './components/variables/vars';
 
 const { getUser } = getEndpoints(fetcher);
 
 export default async function Checkout() {
-    const user = await getUser().catch(handleUnauthorized);
+    const user = await getUser();
     const { id } = user;
 
     return (

@@ -15,6 +15,17 @@ export const ShoppingCartSection: FC = () => {
 
     const isCartEmpty = cart?.items === 0;
 
+    if (!user) {
+        return (
+            <>
+                <ReactSVG src="/icons/shopping-cart.svg" />
+                <div className="ml-4 flex-col">
+                    <span className="text-xs uppercase text-[#cfcfcf]">{t('not-logged')}</span>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <ReactSVG src="/icons/shopping-cart.svg" />
