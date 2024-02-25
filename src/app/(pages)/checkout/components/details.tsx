@@ -2,7 +2,6 @@
 
 import { Input } from '@/components/base/input/input';
 import { countries } from '@/constants/countries';
-import { useAuth } from '@/core/auth/client/use-auth';
 import { useCartStore } from '@/stores/cart';
 import { useCheckoutStore } from '@/stores/checkout';
 import { useSettingsStore } from '@/stores/settings';
@@ -20,7 +19,6 @@ export const Details: FC = () => {
 
     const { user } = useUserStore();
     const { details, setDetails } = useCheckoutStore();
-    const { signOut } = useAuth();
 
     const set = (values: Partial<TCheckoutRequest['details']>) => {
         setDetails({ ...details, ...values });
@@ -53,12 +51,6 @@ export const Details: FC = () => {
                 )}
 
                 <span className="mt-8 text-[20px] font-bold">{user?.username}</span>
-                <span
-                    onClick={signOut}
-                    className="cursor-pointer text-[#656565] hover:text-[#838383]"
-                >
-                    {t('not-correct')}
-                </span>
             </div>
 
             <div className="">
