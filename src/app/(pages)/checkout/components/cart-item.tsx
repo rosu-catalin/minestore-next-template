@@ -83,7 +83,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                     />
                 </TableCell>
                 <TableCell className="text-right">
-                    <div className="flex-row items-center space-x-2">
+                    <div className="flex items-center justify-center gap-2">
                         <div>
                             <button
                                 aria-label="Decrease quantity"
