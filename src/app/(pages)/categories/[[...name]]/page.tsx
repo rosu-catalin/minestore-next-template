@@ -6,6 +6,8 @@ import { TCategory, TSubCategory } from '@/types/category-details';
 import { Comparison } from '../comparison/comparasion';
 import { TItem } from '@/types/item';
 import { Card } from '@layout/card/card';
+import { Suspense } from 'react';
+import { SkeletonCategory } from '../components/skeleton-category';
 
 const { getCategoryDetails } = getEndpoints(fetcher);
 
@@ -40,13 +42,23 @@ export default async function Page({ params }: { params: { name: string[] } }) {
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
-            <CategoryHeader category={category} subCategory={subCategory} />
+            <Suspense fallback={<SkeletonCategory />}>
+                <CategoryHeader category={category} subCategory={subCategory} />
 
-            {isComparison ? (
-                <Comparison categoryItems={items} category={category} subCategory={subCategory} />
-            ) : (
-                <ProductListContainer items={items} category={category} subcategory={subCategory} />
-            )}
+                {isComparison ? (
+                    <Comparison
+                        categoryItems={items}
+                        category={category}
+                        subCategory={subCategory}
+                    />
+                ) : (
+                    <ProductListContainer
+                        items={items}
+                        category={category}
+                        subcategory={subCategory}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 }
@@ -77,7 +89,6 @@ function ProductListContainer({ items, category, subcategory }: TProductListCont
     const gridClasses = joinClasses('mt-8 grid gap-4 p-4', {
         'grid-cols-[repeat(auto-fill,minmax(min(16rem,100%),1fr))]': !categoryListing
     });
-
 
     return (
         <div className={gridClasses}>
