@@ -1,5 +1,3 @@
-import { FC } from "react"
+import { FC } from 'react';
 
-export const Divider: FC = () => (
-   <div className="w-[1px] bg-[#cfcfcf] h-8 mx-4" />
-)
+export const Divider: FC = () => <div className="mx-4 h-8 w-[1px] bg-accent-foreground/40" />;

@@ -21,14 +21,14 @@ export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
 
     return (
         <>
-            <span className="uppercase text-[#cfcfcf]">{t('language')}</span>
+            <span className="uppercase text-muted-foreground">{t('language')}</span>
             <div className="relative ml-4">
                 <div
                     onClick={() => setDisplayLanguage((x) => !x)}
                     className="cursor-pointer flex-row items-center"
                 >
                     <CountryFlag lang={lang} className="mb-[3px]" />
-                    <div className="glow-text red-glow flex-row">
+                    <div className="flex-row text-accent-foreground">
                         <span className="ml-1 font-bold uppercase">
                             {languages?.find((x) => x.code === lang)?.name}
                         </span>
@@ -38,7 +38,7 @@ export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
                 <Modal
                     show={displayLanguage}
                     onClickOutside={() => setDisplayLanguage(false)}
-                    className="absolute -ml-4 mt-[19px] w-max bg-[#202022] px-4"
+                    className="absolute -ml-4 mt-[19px] w-max bg-muted px-4"
                 >
                     {languages.map((lang, index) => (
                         <div
@@ -46,7 +46,7 @@ export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
                                 setLang(lang.code);
                                 setDisplayLanguage(false);
                             }}
-                            className="glow-text red-glow cursor-pointer flex-row items-center font-bold leading-10"
+                            className="cursor-pointer flex-row items-center font-bold leading-10 text-accent-foreground"
                             key={index}
                         >
                             <CountryFlag lang={lang.code} />

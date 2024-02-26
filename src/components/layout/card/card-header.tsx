@@ -19,16 +19,17 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
         'gap-4',
         direction === 'col' && 'grid',
         direction === 'col' && !item.image && 'mt-auto',
-        direction === 'row' && 'flex-row items-center'
+        direction === 'row' && 'flex-col md:flex-row items-center'
     );
 
     return (
         <div className={cardHeaderClasses}>
-            <QuantityBadge item={item} />
+            {direction === 'col' ? <QuantityBadge item={item} /> : null}
 
             <CardHeaderImage item={item} direction={direction} />
-            <div className={direction === 'col' ? 'text-center' : ''}>
-                <h3 className="text-xl font-bold text-white">{item.name}</h3>
+            <div className={direction === 'col' ? 'text-center' : 'text-center md:text-start'}>
+                {direction === 'row' ? <QuantityBadge item={item} className="mb-2" /> : null}
+                <h3 className="text-xl font-bold text-accent-foreground">{item.name}</h3>
                 <Price
                     originalPrice={item.original_price}
                     discount={item.discount}
@@ -41,14 +42,17 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
     );
 }
 
-function QuantityBadge({ item }: { item: TItem }) {
+function QuantityBadge({ item, className }: { item: TItem; className?: string }) {
     if (!item.quantityGlobalLimit || !item.quantityGlobalCurrentLimit) return null;
 
     const { quantityGlobalLimit, quantityGlobalCurrentLimit } = item;
     const quantityLeft = quantityGlobalLimit - quantityGlobalCurrentLimit;
 
     return (
-        <Badge variant="destructive" className="mx-auto w-[150px] justify-center gap-2 p-2">
+        <Badge
+            variant="destructive"
+            className={joinClasses('mx-auto w-[150px] justify-center gap-2 p-2', className)}
+        >
             <AlertTriangle size={16} />
             <p>{quantityLeft} items left</p>
         </Badge>

@@ -89,7 +89,7 @@ export const Details: FC = () => {
                         <select
                             defaultValue={countries[countries.length - 1]}
                             onChange={handleCountry}
-                            className="mt-2 w-full rounded-[10px] bg-[#303437] p-1 shadow-md shadow-black/25 outline-none"
+                            className="mt-2 w-full rounded-[10px] bg-accent p-1 shadow-md shadow-black/10 outline-none"
                         >
                             {countries.map((country, index) => (
                                 <option key={index} value={country}>

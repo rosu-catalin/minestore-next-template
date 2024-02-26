@@ -1,22 +1,28 @@
-import { FC } from "react"
-import { joinClasses } from "@helpers/join-classes"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { FC } from 'react';
+import { joinClasses } from '@helpers/join-classes';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type SubMenuItemProps = {
-   name: string
-   url: string
-}
+    name: string;
+    url: string;
+};
 
 export const SumMenuItem: FC<SubMenuItemProps> = ({ name, url }) => {
+    const pathname = usePathname();
+    const isActive = pathname === url;
 
-   const pathname = usePathname()
-   const isActive = pathname === url
-
-   return (
-      <Link className="group flex-row h-12 items-center" href={url}>
-         <div className={joinClasses("w-1 h-7 rounded-r-lg", isActive ? "bg-accent" : "group-hover:bg-accent bg-white")} />
-         <span className={joinClasses("ml-8", isActive ? "text-accent" : "glow-text red-glow")}>{name}</span>
-      </Link>
-   )
-}
+    return (
+        <Link className="group h-12 flex-row items-center" href={url}>
+            <div
+                className={joinClasses(
+                    'h-7 w-1 rounded-r-lg transition-all',
+                    isActive
+                        ? 'bg-primary'
+                        : 'bg-accent-foreground/60 group-hover:bg-accent-foreground'
+                )}
+            />
+            <span className="ml-4">{name}</span>
+        </Link>
+    );
+};

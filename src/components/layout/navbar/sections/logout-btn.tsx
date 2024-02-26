@@ -12,10 +12,12 @@ export function LogoutButton() {
         <button
             type="submit"
             disabled={pending}
-            className="glow-text red-glow flex-row disabled:pointer-events-none disabled:select-none"
+            className="flex-row text-accent-foreground disabled:pointer-events-none disabled:select-none"
         >
             <ReactSVG className="text-white" src="/icons/logout.svg" />
-            <span className="ml-4 cursor-pointer font-bold uppercase">{t('logout')}</span>
+            <span className="ml-4 cursor-pointer font-bold uppercase text-accent-foreground">
+                {t('logout')}
+            </span>
         </button>
     );
 }

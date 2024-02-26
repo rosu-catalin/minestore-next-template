@@ -32,8 +32,13 @@ export const RecentPurchases = ({ limit = 10 }: { limit: number }) => {
             <ReactTooltip
                 id="username-tooltip"
                 place="top"
-                className="bg-red-500"
-                style={{ backgroundColor: 'red', borderRadius: 10, padding: 2, fontWeight: 'bold' }}
+                style={{
+                    borderRadius: 10,
+                    padding: 2,
+                    fontWeight: 'bold',
+                    backgroundColor: 'hsl(var(--primary))',
+                    color: 'hsl(var(--primary-foreground))'
+                }}
             />
         </div>
     );
@@ -65,7 +70,7 @@ type SkeletonDonorProps = {
 function SkeletonDonor({ className, ...props }: SkeletonDonorProps) {
     return (
         <div
-            className={joinClasses('h-[60px] w-[60px] rounded-md bg-[#2c2c31]', className)}
+            className={joinClasses('h-[60px] w-[60px] rounded-md bg-accent', className)}
             {...props}
         />
     );

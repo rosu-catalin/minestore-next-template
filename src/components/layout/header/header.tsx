@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
             <div className="relative">
                 <Image
                     src="/background.png"
-                    className="absolute -z-10 h-full w-full object-cover"
+                    className="absolute -z-10 h-full w-full object-cover opacity-60"
                     width={1590}
                     height={352}
                     alt=""
@@ -44,10 +44,12 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
                     {user && (
                         <>
                             <div className="ml-auto mr-8 flex-col">
-                                <span className="glow-text text-[25px] font-bold">
+                                <span className="text-[25px] font-bold text-accent-foreground">
                                     {user.username}
                                 </span>
-                                <span className="ml-4">{user.virtual_currency} QQ</span>
+                                <span className="ml-4 text-accent-foreground/80">
+                                    {user.virtual_currency} QQ
+                                </span>
                             </div>
 
                             <div className="relative top-[-45px] hidden h-[200px] overflow-hidden md:block">
@@ -93,7 +95,7 @@ function DonationGoal({ goal }: { goal: TSettings['goals'] }) {
                 </span>
                 <span className="ml-auto mr-6 hidden md:inline">{percent.toFixed(0)}%</span>
             </div>
-            <div className="mt-4 hidden h-2 w-[300px] overflow-hidden rounded-full bg-[#363636] p-[1px] md:block">
+            <div className="mt-4 hidden h-2 w-[300px] overflow-hidden rounded-full bg-accent p-[1px] md:block">
                 <div
                     className="h-1.5 rounded-full bg-white shadow shadow-white"
                     style={{ width: `${percent}%` }}

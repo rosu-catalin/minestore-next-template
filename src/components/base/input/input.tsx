@@ -10,7 +10,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <input
                 type={type}
                 className={joinClasses(
-                    'rounded-[10px] bg-[#303437] px-2 py-1.5 font-bold shadow-md shadow-black/25',
+                    'rounded-[10px] bg-accent px-2 py-1.5 font-bold shadow-md shadow-black/10',
                     className
                 )}
                 ref={ref}

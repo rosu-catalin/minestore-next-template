@@ -30,7 +30,7 @@ export const UserSection: FC = () => {
     return (
         <Link href="/auth" className="flex-row items-center">
             <Image src="https://minotar.net/helm/steve/30.png" alt="" width={32} height={32} />
-            <span className="glow-text red-glow ml-4 cursor-pointer font-bold uppercase">
+            <span className="ml-4 cursor-pointer font-bold uppercase text-accent-foreground">
                 guest
             </span>
         </Link>

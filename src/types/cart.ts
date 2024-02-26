@@ -29,15 +29,31 @@ export type TCart = {
         is_virtual_currency_only: number;
         id: number;
         payment_type: number;
-        vars: Array<{
-            id: number;
-            description: string;
-            type: number;
-            lines: Line[] | null;
-            use: string;
-        }>;
+        vars: Array<CartItemsVar>;
         count: number;
-        quantityLimit: number | null;
+        quantityGlobalLimit: number | null;
+        quantityGlobalCurrentLimit: number | null;
+        quantityUserLimit: number | null;
+        quantityUserCurrentLimit: number | null;
+        is_unavailable: boolean;
+        allow_select_server: number;
+        allowed_servers: string[];
+        is_any_price: number;
+        min_price: number;
         is_subs: number;
     }>;
+};
+
+type CartItemsVar = {
+    id: number;
+    name: string;
+    identifier: string;
+    description: string;
+    type: 0 | 1 | 2;
+    variables: Array<{
+        name: string;
+        price: string;
+        value: string;
+    }>;
+    use: string | number;
 };

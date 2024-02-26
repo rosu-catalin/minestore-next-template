@@ -19,12 +19,14 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
     const t = useTranslations('footer');
 
     return (
-        <div className="bg-[#090911]">
+        <div className="bg-card/60">
             <Container className="-mt-4 flex flex-col items-center pt-20">
                 <div className="grid w-full grid-cols-12 items-center gap-10">
                     <div className="col-span-12 text-center md:col-span-3 md:max-w-[300px]">
-                        <h2 className="text-3xl font-bold">{t('useful-links')}</h2>
-                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-red-600" />
+                        <h2 className="text-3xl font-bold text-card-foreground">
+                            {t('useful-links')}
+                        </h2>
+                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-primary" />
                         <Link href={settings.footer?.[0]?.url || ''} target="_blank">
                             <p className="py-3 !text-base font-bold">YouTube</p>
                         </Link>
@@ -36,13 +38,13 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
                     <div className="col-span-12 flex w-full max-w-[750px] flex-col items-center justify-center px-[100px] text-center md:col-span-6">
                         <Image src="/logo.png" width={165} height={145} alt="logo" />
                         <p className="mt-1 text-xs font-bold text-white">2023 ©</p>
-                        <h2 className="mt-1 text-3xl font-bold text-[#dd2828]">
+                        <h2 className="mt-1 text-3xl font-bold text-card-foreground">
                             {settings.website_name}
                         </h2>
                         <p className="mt-5 !text-lg font-bold">All Rights Reserved.</p>
                         <p className="">
                             {t('info')}{' '}
-                            <span className="text-[#dd2828]">{settings.website_name}</span>
+                            <span className="text-primary">{settings.website_name}</span>
                         </p>
                         <div className="flex w-full items-center justify-between py-8">
                             <Link href={settings.socials?.facebook || ''} target="_blank">
@@ -61,8 +63,8 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
                     </div>
 
                     <div className="col-span-12 max-w-[300px] text-center md:col-span-3">
-                        <h2 className="text-3xl font-bold">{t('about-us')}</h2>
-                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-red-600" />
+                        <h2 className="text-3xl font-bold text-card-foreground">{t('about-us')}</h2>
+                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-primary" />
                         <p className="mt-2">
                             {settings.website_name} {t('description')}
                         </p>

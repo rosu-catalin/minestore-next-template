@@ -24,12 +24,12 @@ export const FeaturedDeal: FC = () => {
     if (recommends.length === 0) return null;
 
     return (
-        <>
-            <span className="mt-8 text-center text-[30px] uppercase text-[#dd2828]">
+        <div className="mb-8">
+            <span className="mt-8 text-center text-[30px] uppercase text-primary">
                 {t('featured-deal')}
             </span>
 
-            <hr className="border-2 border-[#dd2828]" />
+            <hr className="border-2 border-primary" />
 
             <div className="mt-6 grid gap-4">
                 {recommends.map((item, index) => (
@@ -44,8 +44,6 @@ export const FeaturedDeal: FC = () => {
                     />
                 ))}
             </div>
-
-            <hr className="my-8 border-2 border-[#dd2828]" />
-        </>
+        </div>
     );
 };

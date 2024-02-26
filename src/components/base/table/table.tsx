@@ -37,7 +37,7 @@ const TableFooter = React.forwardRef<
     <tfoot
         ref={ref}
         className={joinClasses(
-            'bg-muted/50 border-t font-medium [&>tr]:last:border-b-0',
+            'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0',
             className
         )}
         {...props}
@@ -50,7 +50,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
         <tr
             ref={ref}
             className={joinClasses(
-                'data-[state=selected]:bg-muted border-b border-[#202022] transition-colors',
+                'border-b border-accent transition-colors data-[state=selected]:bg-muted',
                 className
             )}
             {...props}
@@ -66,7 +66,7 @@ const TableHead = React.forwardRef<
     <th
         ref={ref}
         className={joinClasses(
-            'text-muted-foreground h-16 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0',
+            'h-16 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
             className
         )}
         {...props}
@@ -92,7 +92,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <caption
         ref={ref}
-        className={joinClasses('text-muted-foreground mt-4 text-sm', className)}
+        className={joinClasses('mt-4 text-sm text-muted-foreground', className)}
         {...props}
     />
 ));

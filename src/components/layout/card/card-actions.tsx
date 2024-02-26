@@ -34,7 +34,7 @@ export function CardActions({
             <Button
                 aria-label="Info"
                 onClick={() => setShowModal(true)}
-                className="flex h-[50px] min-w-[50px] items-center justify-center bg-[#38383b]"
+                className="flex h-[50px] min-w-[50px] items-center justify-center bg-accent-foreground/10 text-accent-foreground/70"
             >
                 <InfoIcon />
             </Button>

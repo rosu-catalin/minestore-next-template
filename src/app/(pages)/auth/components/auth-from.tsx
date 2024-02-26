@@ -2,19 +2,22 @@
 
 import { createToken } from '@/api/server/create-test';
 import { SubmitButton } from './submit-button';
+import { Input } from '@/components/base/input/input';
 
 export const AuthForm = () => {
     return (
         <form className="flex flex-col" action={createToken}>
             <div className="flex flex-col">
-                <h1 className="mb-4 text-center text-2xl font-bold text-white">Login</h1>
+                <h1 className="mb-4 text-center text-2xl font-bold text-accent-foreground">
+                    Login
+                </h1>
 
                 <div className="flex flex-col">
-                    <input
+                    <Input
                         name="username"
                         type="text"
                         placeholder="Username..."
-                        className="mx-auto mt-2 w-96 rounded bg-[#303437] p-1 outline-none"
+                        className="mx-auto mt-2 w-96 rounded bg-accent p-4 outline-none"
                     />
                 </div>
             </div>

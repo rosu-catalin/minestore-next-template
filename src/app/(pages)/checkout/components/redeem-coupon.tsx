@@ -77,7 +77,9 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
 
     return (
         <div className="mt-10 flex-col">
-            <span className="text-[20px] font-bold">{t('redeem-coupons-or-gift-cards')}</span>
+            <span className="text-[20px] font-bold text-accent-foreground">
+                {t('redeem-coupons-or-gift-cards')}
+            </span>
             {cart?.gift_id || cart?.coupon_id ? (
                 <div className="flex gap-4">
                     <span>
@@ -90,7 +92,7 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
             ) : (
                 <div className="mt-5">
                     <Input
-                        className="h-10 w-[150px]"
+                        className="h-10 w-[250px]"
                         placeholder="0XXX-00XX-0XXX"
                         onChange={handleCoupon}
                     />

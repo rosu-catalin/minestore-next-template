@@ -3,53 +3,85 @@
 @tailwind utilities;
 
 @layer base {
-   .flex-row {
-      display: flex;
-      flex-direction: row;
-   }
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
 
-   .flex-col {
-      display: flex;
-      flex-direction: column;
-   }
-}
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+    }
 
-* {
-   outline: none;
+    :root {
+        --hue: 0;
+
+        /* Used for body */
+        --background: var(--hue) 0% 3.9%;
+
+        --foreground: var(--hue) 0% 98%;
+
+        --card: var(--hue) 0% 7.9%;
+        --card-foreground: var(--hue) 0% 98%;
+
+        --popover: var(--hue) 0% 3.9%;
+        --popover-foreground: var(--hue) 0% 98%;
+
+        --primary: var(--hue) 72.2% 50.6%;
+        --primary-foreground: var(--hue) 85.7% 97.3%;
+
+        --secondary: var(--hue) 0% 10%;
+        --secondary-foreground: var(--hue) 0% 98%;
+
+        --muted: var(--hue) 0% 10%;
+        --muted-foreground: var(--hue) 0% 63.9%;
+
+        --accent: var(--hue) 0% 10%;
+        --accent-foreground: var(--hue) 0% 98%;
+
+        --destructive: var(--hue) 62.8% 30.6%;
+        --destructive-foreground: var(--hue) 0% 98%;
+
+        --border: var(--hue) 0% 10%;
+
+        --input: var(--hue) 0% 10%;
+        --ring: var(--hue) 72.2% 50.6%;
+
+        /* Border radius */
+        --radius: 0.5rem;
+    }
 }
 
 html,
 body {
-   @apply h-full;
-}
-
-body {
-   @apply bg-[#0a0a16] text-white;
+    @apply h-full;
 }
 
 ::-webkit-scrollbar {
-   width: 6px;
-   height: 9px;
+    width: 6px;
+    height: 9px;
 }
 
 ::-webkit-scrollbar-track {
-   border-radius: 10px;
-   -webkit-border-radius: 10px;
-   border: 0px solid transparent;
-   box-shadow: inset 0 0 2, 5px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 0px solid transparent;
+    box-shadow:
+        inset 0 0 2,
+        5px 2px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-   -webkit-border-radius: 45px;
-   background: linear-gradient(360deg, #d7042c, #8a0821);
-   border-radius: 45px;
+    -webkit-border-radius: 45px;
+    background: linear-gradient(360deg, hsl(var(--primary)), hsl(var(--primary) / 0.5));
+    border-radius: 45px;
 }
 
 .loader {
-   border: 4px solid #f3f3f3;
-   border-top: 4px solid #d7042c;
-   border-radius: 50%;
-   width: 120px;
-   height: 120px;
-   @apply animate-spin;
+    border: 4px solid hsl(var(--accent));
+    border-top: 4px solid hsl(var(--primary));
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    @apply animate-spin;
 }

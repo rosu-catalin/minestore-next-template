@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { name: string[] } }) {
     const isComparison = subCategory?.category.is_comparison || category.is_comparison;
 
     return (
-        <div className="w-full flex-col rounded-[10px] bg-[#18181d]">
+        <div className="w-full flex-col rounded-[10px] bg-card">
             <Suspense fallback={<SkeletonCategory />}>
                 <CategoryHeader category={category} subCategory={subCategory} />
 
@@ -71,13 +71,13 @@ function CategoryHeader({ category, subCategory }: TCategoryHeader) {
         <div className="w-full flex-col p-4">
             <Alert />
 
-            <h1 className="mt-4 text-center text-[34px] text-[#dd2828]">{title}</h1>
+            <h1 className="mt-4 text-center text-[34px] text-primary">{title}</h1>
             <span
-                className="text-center text-[#cfcfcf]"
+                className="text-center text-muted-foreground"
                 dangerouslySetInnerHTML={{ __html: description }}
             />
 
-            <hr className="mt-5 border-[3px] border-[#dd2828]" />
+            <hr className="mt-5 border-[3px] border-primary" />
         </div>
     );
 }

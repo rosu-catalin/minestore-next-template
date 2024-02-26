@@ -19,10 +19,16 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
     const { user } = useUserStore();
 
     const handleClick = () => {
-        if (user) {
-            setShow(true);
-        } else {
+        if (!user) {
             notify('Please authorize!', 'red');
+            return;
+        }
+        setShow(true);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            handleClick();
         }
     };
 
@@ -30,13 +36,16 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
         <>
             <div
                 onClick={handleClick}
-                className="w-full flex-1 cursor-pointer flex-col items-center rounded border-2 border-[#d7042c] bg-[#e924495c] p-3 md:flex-row md:p-6"
+                role="button"
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
+                className="cursor-pointer flex-col items-center gap-2 rounded border-2 border-accent-foreground/10 bg-accent p-3 md:flex-row md:gap-4 md:p-6"
             >
                 <FeaturedImage item={item} />
 
-                <div className="mt-4 h-full flex-col text-center md:ml-10 md:mt-0 md:text-left">
-                    <span className="font-bold text-[#ffa5a5]">{item.name}</span>
-                    <Price className="mt-auto" value={item.price} />
+                <div className="flex-col text-center md:text-left">
+                    <h3 className="text-xl font-bold text-accent-foreground">{item.name}</h3>
+                    <Price value={item.price} />
                 </div>
             </div>
 

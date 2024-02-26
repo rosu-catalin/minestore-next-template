@@ -42,9 +42,9 @@ export const GiftCard: FC = () => {
 
     return (
         <div className="flex-col gap-4">
-            <h3 className="text-xl font-bold">
+            <h3 className="text-xl font-bold text-accent-foreground">
                 Gift Card
-                <hr className="mt-2 h-1 w-12 rounded border-0 bg-[#2f2f2f]" />
+                <hr className="mt-2 h-1 w-12 rounded border-0 bg-accent" />
             </h3>
             <div className="flex h-full gap-2">
                 <Input
@@ -53,7 +53,11 @@ export const GiftCard: FC = () => {
                     value={giftCode}
                     onChange={handleInputChange}
                 />
-                <Button onClick={handleCheckClick} loading={loading} className="h-full">
+                <Button
+                    onClick={handleCheckClick}
+                    loading={loading}
+                    className="flex h-full items-center justify-center"
+                >
                     Check
                 </Button>
             </div>

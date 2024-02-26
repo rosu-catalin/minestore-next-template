@@ -20,7 +20,9 @@ export const ReferralCode: FC = () => {
 
     return (
         <div className="mt-10 flex-col">
-            <span className="text-[20px] font-bold">{t('referral-code')}</span>
+            <span className="text-[20px] font-bold text-accent-foreground">
+                {t('referral-code')}
+            </span>
             <div className="mt-5">
                 <Input
                     className="h-10 w-[150px]"

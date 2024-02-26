@@ -37,8 +37,8 @@ export const Payments: FC = () => {
     if (items.length === 0) return null;
 
     return (
-        <div className="mt-10 bg-[#202022] p-4">
-            <span className="text-[20px] font-bold">{t('payment-method')}</span>
+        <div className="mt-10 rounded-md bg-accent p-4">
+            <h3 className="text-[20px] font-bold text-accent-foreground">{t('payment-method')}</h3>
 
             <div className="mt-5 grid grid-cols-3 gap-8">
                 {paymentMethods.map((method, index) => (
@@ -46,8 +46,8 @@ export const Payments: FC = () => {
                         onClick={() => setPaymentMethod(method.name)}
                         key={index}
                         className={joinClasses(
-                            'flex-col items-center rounded bg-[#292929] py-8 hover:bg-[#303437]',
-                            { 'ring-2 ring-red-500': method.name === paymentMethod }
+                            'flex-col items-center rounded bg-accent-foreground/5 py-8 hover:bg-accent-foreground/10',
+                            { 'ring-2 ring-primary': method.name === paymentMethod }
                         )}
                     >
                         <Image
@@ -69,9 +69,9 @@ export const Payments: FC = () => {
                         onChange={(e) => setAcceptPrivacy(e.target.checked)}
                         checked={acceptPrivacy}
                     />
-                    <span className="ml-4">{t('privacy-statement')}</span>
+                    <span className="ml-4 text-accent-foreground">{t('privacy-statement')}</span>
                 </label>
-                <p className="mt-2 text-[#ccc]">{t('privacy-statement-description')}</p>
+                <p className="mt-2 text-muted-foreground">{t('privacy-statement-description')}</p>
             </div>
         </div>
     );

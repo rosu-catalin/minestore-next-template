@@ -52,12 +52,14 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
         <div className="w-full flex-row items-center justify-center">
             <div
                 onClick={() => sweetAlert(`${settings.server.ip}`)}
-                className="-mt-20 hidden cursor-pointer items-center transition duration-300 hover:scale-110 lg:flex"
+                className="-mt-20 hidden cursor-pointer items-center gap-2 transition duration-300 hover:scale-110 lg:flex"
             >
-                <ReactSVG className="h-12 w-12 text-[#e43c3c]" src="/icons/play.svg" />
+                <ReactSVG className="h-12 w-12 text-primary" src="/icons/play.svg" />
                 <div className="ml-0.5 flex-col">
-                    <span className="glow-text text-lg font-bold">{settings.server.ip}</span>
-                    <span className="glow-text text-sm">
+                    <span className="text-lg font-bold text-accent-foreground">
+                        {settings.server.ip}
+                    </span>
+                    <span className="text-sm text-foreground">
                         {serverOnline} {t('players-online')}
                     </span>
                 </div>
@@ -80,12 +82,14 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
                 className="-mt-20 hidden items-center transition duration-300 hover:scale-110 lg:flex"
             >
                 <div className="ml-0.5 flex-col">
-                    <span className="glow-text text-lg font-bold">{t('discord-server')}</span>
-                    <span className="glow-text text-sm">
+                    <span className="text-lg font-bold text-accent-foreground">
+                        {t('discord-server')}
+                    </span>
+                    <span className="text-sm text-foreground">
                         {discordOnline} {t('members-online')}
                     </span>
                 </div>
-                <ReactSVG className="h-12 w-12 text-[#e43c3c]" src="/icons/discord.svg" />
+                <ReactSVG className="h-12 w-12 text-primary" src="/icons/discord.svg" />
             </Link>
         </div>
     );

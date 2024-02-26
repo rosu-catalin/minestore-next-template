@@ -33,19 +33,19 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
     };
 
     return (
-        <li className="cursor-pointer overflow-hidden rounded-[10px] bg-[#242426]">
+        <li className="cursor-pointer overflow-hidden rounded-[10px] bg-accent/90">
             <div
                 onClick={handleClick}
                 className={joinClasses(
-                    "before:content-[' '] h-20 flex-row items-center bg-[#202022] before:absolute before:-m-6 before:h-10 before:w-1.5 before:rounded-r-lg before:bg-white hover:before:bg-accent",
-                    { 'before:bg-accent': isActive }
+                    "before:content-[' '] h-20 flex-row items-center bg-accent before:absolute before:-m-6 before:h-10 before:w-1.5 before:rounded-r-lg before:bg-accent before:transition-all hover:text-accent-foreground hover:before:bg-accent-foreground",
+                    { 'before:bg-primary': isActive }
                 )}
             >
                 {image && (
                     <div
                         className={joinClasses(
                             'flex h-16 w-20 border-r border-transparent px-3 py-1',
-                            { 'border-[#5c5c5c33]': image }
+                            { 'border-accent-foreground/10': image }
                         )}
                     >
                         <Image
@@ -57,12 +57,7 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
                         />
                     </div>
                 )}
-                <span
-                    className={joinClasses(
-                        'ml-6 font-bold',
-                        isActive ? 'text-accent' : 'glow-text red-glow'
-                    )}
-                >
+                <span className={joinClasses('ml-6 font-bold', isActive && 'text-primary')}>
                     {name}
                 </span>
                 {isSubMenu && (

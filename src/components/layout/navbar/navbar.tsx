@@ -8,7 +8,6 @@ import { LanguageSection } from './sections/language-section';
 import { ShoppingCartSection } from './sections/shopping-cart-section';
 import { UserSection } from './sections/user-section';
 
-import './Navbar.css';
 import { Divider } from './components/divider';
 
 type NavbarProps = {

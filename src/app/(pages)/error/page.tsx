@@ -1,7 +1,7 @@
 export default function Error() {
     return (
-        <div className="flex-col rounded-[10px] bg-[#18181d] p-6">
-            <span className="text-center text-[28px] text-accent">OOOPPSS!</span>
+        <div className="bg-card flex-col rounded-[10px] p-6">
+            <span className="text-primary text-center text-[28px]">OOOPPSS!</span>
 
             <span className="text-center">Something went wrong or our servers are offline!</span>
 

@@ -11,10 +11,12 @@ export function Content() {
     return (
         <div className="">
             <div className="mt-12 flex-col items-center space-x-5 md:flex-row">
-                <div className="flex-col rounded-lg bg-[#631c2d] p-2.5 text-center md:max-w-[300px]">
-                    <span className="glow-text text-[40px] font-bold">{t('welcome')}</span>
+                <div className="flex-col rounded-md bg-primary/20 p-2.5 text-center md:max-w-[300px]">
+                    <span className="text-[40px] font-bold text-foreground">{t('welcome')}</span>
 
-                    <span className="mt-5 text-[20px]">{t('to-the-official-server-store')}</span>
+                    <span className="mt-5 text-[20px] text-foreground/80">
+                        {t('to-the-official-server-store')}
+                    </span>
 
                     <span
                         className="mt-5 text-[14px]"

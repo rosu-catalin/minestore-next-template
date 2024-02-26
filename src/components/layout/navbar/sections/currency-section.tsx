@@ -19,12 +19,12 @@ export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
 
     return (
         <>
-            <span className="uppercase text-[#cfcfcf]">{t('currency')}</span>
+            <span className="uppercase text-muted-foreground">{t('currency')}</span>
 
             <div className="relative ml-4">
                 <div
                     onClick={() => setDisplayCurrency((value) => !value)}
-                    className="glow-text red-glow cursor-pointer flex-row"
+                    className="cursor-pointer flex-row text-accent-foreground"
                 >
                     <span className="cursor-pointer font-bold uppercase">{currency?.name}</span>
                     <ReactSVG src="/icons/expand-more.svg" />
@@ -32,7 +32,7 @@ export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
                 <Modal
                     show={displayCurrency}
                     onClickOutside={() => setDisplayCurrency(false)}
-                    className="absolute -ml-4 mt-[19px] w-max flex-col bg-[#202022] px-4"
+                    className="absolute -ml-4 mt-[19px] w-max flex-col bg-muted px-4"
                 >
                     {currencies.map((currency, index) => (
                         <span
@@ -40,7 +40,7 @@ export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
                                 setCurrency(currency);
                                 setDisplayCurrency(false);
                             }}
-                            className="glow-text red-glow h-10 cursor-pointer font-bold leading-10"
+                            className="h-10 cursor-pointer font-bold leading-10 text-accent-foreground"
                             key={index}
                         >
                             {currency.name}

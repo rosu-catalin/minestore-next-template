@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { ReactSVG } from 'react-svg';
 import Link from 'next/link';
-import { appSettings } from '@/settings';
 import { useAuth } from '@/core/auth/client/use-auth';
 import { useCartStore } from '@/stores/cart';
 import { Price } from '@/components/base/price/price';
@@ -20,7 +19,9 @@ export const ShoppingCartSection: FC = () => {
             <>
                 <ReactSVG src="/icons/shopping-cart.svg" />
                 <div className="ml-4 flex-col">
-                    <span className="text-xs uppercase text-[#cfcfcf]">{t('not-logged')}</span>
+                    <span className="text-xs uppercase text-muted-foreground">
+                        {t('not-logged')}
+                    </span>
                 </div>
             </>
         );
@@ -32,12 +33,12 @@ export const ShoppingCartSection: FC = () => {
             <div className="ml-4 flex-col">
                 <Link
                     href="/checkout"
-                    className="glow-text red-glow cursor-pointer font-bold uppercase"
+                    className="cursor-pointer font-bold uppercase text-accent-foreground"
                 >
                     {t('cart')}
                 </Link>
                 {user ? (
-                    <div className="flex text-xs uppercase text-[#cfcfcf]">
+                    <div className="flex text-xs uppercase text-muted-foreground">
                         {isCartEmpty ? (
                             t('empty-cart')
                         ) : (
@@ -48,7 +49,9 @@ export const ShoppingCartSection: FC = () => {
                         )}
                     </div>
                 ) : (
-                    <span className="text-xs uppercase text-[#cfcfcf]">{t('not-logged')}</span>
+                    <span className="text-xs uppercase text-muted-foreground">
+                        {t('not-logged')}
+                    </span>
                 )}
             </div>
         </>

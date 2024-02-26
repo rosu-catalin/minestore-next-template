@@ -28,7 +28,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
     const comparisons = subCategory ? subCategoryComparisons : categoryComparisons;
 
     return (
-        <Table className="w-full table-fixed">
+        <Table className="w-full table-fixed text-muted-foreground">
             <TableCaption hidden>A list with all the comparisons</TableCaption>
             <TableHeader>
                 <TableRow>
@@ -44,10 +44,7 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
             </TableHeader>
             <TableBody>
                 {comparisons.map((comparison) => (
-                    <TableRow
-                        key={comparison.id}
-                        className="divide-x divide-[#202022] even:bg-[#202022]"
-                    >
+                    <TableRow key={comparison.id} className="divide-x divide-accent even:bg-accent">
                         <TableCell>{comparison.name}</TableCell>
                         {comparison.comparisons.map((item) => (
                             <TableCell key={item.comparison_id} className="text-center">

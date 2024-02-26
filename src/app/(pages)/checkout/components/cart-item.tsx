@@ -7,6 +7,15 @@ import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
 import { useCartStore } from '@/stores/cart';
 import { TableRow, TableCell } from '@/components/base/table/table';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue
+} from '@layout/select/select';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -72,7 +81,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                         <div className="h-20 w-20"></div>
                     )}
                 </TableCell>
-                <TableCell className="text-balance text-sm font-bold text-white md:text-lg">
+                <TableCell className="text-balance text-sm font-bold text-card-foreground md:text-lg">
                     {item.name}
                 </TableCell>
                 <TableCell>
@@ -88,7 +97,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                             <button
                                 aria-label="Decrease quantity"
                                 hidden={!!item.is_subs}
-                                className="h-6 w-6 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50"
+                                className="h-6 w-6 rounded text-xl font-bold leading-6 text-primary transition disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={quantity === 1 || loading}
                                 onClick={() => {
                                     if (quantity === 1) return;
@@ -98,14 +107,14 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                                 -
                             </button>
                         </div>
-                        <div className="flex h-6 w-6 items-center justify-center rounded bg-[#303437] text-center text-sm font-bold md:h-8 md:w-8 md:text-lg">
+                        <div className="flex h-6 w-6 items-center justify-center rounded bg-accent text-center text-sm font-bold md:h-8 md:w-8 md:text-lg">
                             {quantity}
                         </div>
                         <div>
                             <button
                                 aria-label="Increase quantity"
                                 hidden={!!item.is_subs}
-                                className="h-4 w-4 rounded text-xl font-bold leading-6 text-accent transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8"
+                                className="h-4 w-4 rounded text-xl font-bold leading-6 text-primary transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8"
                                 disabled={loading}
                                 onClick={() => handleQuantity(item.id, quantity + 1)}
                             >
@@ -118,7 +127,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                     <div className="flex justify-end gap-2">
                         <button
                             onClick={() => setShow(true)}
-                            className="h-6 w-6 rounded bg-gray-400 text-base font-bold md:h-8 md:w-8 md:text-lg"
+                            className="h-6 w-6 rounded bg-accent text-base font-bold md:h-8 md:w-8 md:text-lg"
                         >
                             i
                         </button>
@@ -133,10 +142,41 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell colSpan={4}>Here will be variables</TableCell>
+                <TableCell colSpan={2}>
+                    <SelectItemVariable item={item} />
+                </TableCell>
             </TableRow>
 
             <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} route="checkout" />
         </>
     );
 };
+
+function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
+    const { vars } = item;
+
+    const dropdownVariables = vars.filter((v) => v.type === 0);
+    if (dropdownVariables.length === 0) return null;
+
+    return (
+        <div className="flex items-center gap-2">
+            {dropdownVariables.map((variable) => (
+                <Select key={variable.id}>
+                    <SelectTrigger>
+                        <SelectValue placeholder={variable.name} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>{variable.name}</SelectLabel>
+                            {variable.variables.map((v) => (
+                                <SelectItem key={v.value} value={v.value}>
+                                    {v.name}
+                                </SelectItem>
+                            ))}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            ))}
+        </div>
+    );
+}

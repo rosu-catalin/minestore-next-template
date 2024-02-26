@@ -27,7 +27,6 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
 
     useEffect(() => {
         getItem(id, route).then((data) => {
-            console.log('data', data);
             setDetails(data);
         });
     }, [id, route]);
@@ -37,28 +36,29 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
             show={show}
             onClickOutside={onHide}
             backgroundColor="rgb(0 0 0 / 0.25)"
-            className="fixed left-1/2 top-1/2 z-40 m-auto w-[700px] -translate-x-1/2 -translate-y-1/2 rounded bg-[#222222]"
+            className="fixed left-1/2 top-1/2 z-40 m-auto w-[700px] -translate-x-1/2 -translate-y-1/2 rounded bg-card"
         >
-            <div className="flex-row items-center rounded bg-[#181818] px-5 py-4 font-bold">
-                {details?.name}
-                <div
+            <div className="flex-row items-center rounded bg-accent px-5 py-4 font-bold">
+                <p className="text-accent-foreground">{details?.name}</p>
+                <button
+                    aria-label="Close modal"
                     onClick={onHide}
-                    className="ml-auto flex h-6 w-6 items-center justify-center rounded bg-[#303437] hover:bg-[#202022]"
+                    className="ml-auto flex h-6 w-6 items-center justify-center rounded bg-accent-foreground/10 transition-colors duration-200 hover:bg-accent-foreground/20 focus:outline-none focus:ring-2 focus:ring-accent-foreground/50 focus:ring-offset-2 focus:ring-offset-accent-foreground/10"
                 >
                     <RiCloseFill />
-                </div>
+                </button>
             </div>
 
             <div
-                className="prose max-h-[600px] w-full overflow-y-auto p-4"
+                className="prose max-h-[600px] w-full overflow-y-auto p-4 text-muted-foreground prose-headings:text-accent-foreground"
                 dangerouslySetInnerHTML={{ __html: details?.description || '' }}
             />
 
-            <div className="flex items-center justify-between border-t border-[#303030] p-4">
+            <div className="flex items-center justify-between border-t border-accent p-4">
                 <Price
                     value={details?.price || 0}
                     isVirtual={details?.is_virtual_currency_only}
-                    className="font-bold text-[#02a603]"
+                    className="font-bold"
                 />
 
                 <div className="flex gap-2">

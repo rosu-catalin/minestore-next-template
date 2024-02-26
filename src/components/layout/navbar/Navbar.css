@@ -1,9 +1,0 @@
-.glow-text {
-   color: white;
-   text-shadow: 0 0 5px white;
-}
-
-.red-glow.glow-text:hover {
-   color: #ff7777;
-   text-shadow: 0 0 5px #ff2e2e80;
-}
