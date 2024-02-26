@@ -5,5 +5,5 @@ type ReturnType = Array<TItem>;
 
 export const getRecommends = (fetcher: AxiosInstance) => async () => {
     const url = '/cart/getPromoted';
-    return (await fetcher.get<ReturnType>(url)).data;
+    return (await fetcher.post<ReturnType>(url)).data;
 };

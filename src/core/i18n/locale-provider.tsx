@@ -21,7 +21,9 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({ children, initialMessa
             try {
                 const messages = await getDictionary(lang as string);
                 setMessages(messages);
-            } catch {
+            } catch (err) {
+                console.error('Error loading dictionary', err);
+
                 const messages = await getDictionary('en');
                 setMessages(messages);
             }

@@ -11,9 +11,11 @@ export const Cart: FC = () => {
     const t = useTranslations('checkout');
     const { cart, items } = useCartStore();
 
+    console.log('cart', items);
+
     return (
         <>
-            <div className="mt-12 flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">
+            <div className="flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">
                 <span className="glow-text text-[25px] font-bold">{t('title')}</span>
                 <span className="glow-text ml-auto text-[25px] font-bold">
                     <Price value={cart?.price || 0} />

@@ -27,6 +27,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
 
     useEffect(() => {
         getItem(id, route).then((data) => {
+            console.log('data', data);
             setDetails(data);
         });
     }, [id, route]);

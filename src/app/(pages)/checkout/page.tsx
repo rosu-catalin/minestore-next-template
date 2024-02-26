@@ -1,4 +1,3 @@
-import { Alert } from '@layout/alert/alert';
 import { Payments } from './components/payments';
 import { Cart } from './components/cart';
 import { FeaturedDeal } from './components/featured-deal';
@@ -18,7 +17,6 @@ export default async function Checkout() {
 
     return (
         <div className="w-full flex-col rounded-[10px] bg-[#18181d] p-4">
-            <Alert />
             <Cart />
             <Vars />
             <FeaturedDeal />

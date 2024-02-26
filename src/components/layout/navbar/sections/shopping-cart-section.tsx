@@ -31,7 +31,7 @@ export const ShoppingCartSection: FC = () => {
             <ReactSVG src="/icons/shopping-cart.svg" />
             <div className="ml-4 flex-col">
                 <Link
-                    href={appSettings.routes.checkout}
+                    href="/checkout"
                     className="glow-text red-glow cursor-pointer font-bold uppercase"
                 >
                     {t('cart')}
