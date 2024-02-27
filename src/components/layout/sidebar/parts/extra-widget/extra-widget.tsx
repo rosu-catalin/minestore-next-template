@@ -18,7 +18,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
     return (
         <div className="mt-4 hidden w-full rounded-[10px] bg-card p-8 lg:block">
             <div className="flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
-                <FaGhost className="fill-white" />
+                <FaGhost className="fill-accent-foreground" />
                 <h3 className="text-accent-foreground">{t('sidebar.top-donator')}</h3>
             </div>
             <div className="my-4 flex items-start justify-center">
@@ -42,7 +42,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
             </div>
             <div className="mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
                 <h3 className="text-accent-foreground">{t('recent-purchases')}</h3>
-                <FaHatWizard className="fill-white" />
+                <FaHatWizard className="fill-accent-foreground" />
             </div>
             <RecentPurchases limit={10} />
         </div>

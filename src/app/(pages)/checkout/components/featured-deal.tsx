@@ -25,9 +25,9 @@ export const FeaturedDeal: FC = () => {
 
     return (
         <div className="mb-8">
-            <span className="mt-8 text-center text-[30px] uppercase text-primary">
+            <h3 className="mt-8 text-center text-[30px] uppercase text-primary">
                 {t('featured-deal')}
-            </span>
+            </h3>
 
             <hr className="border-2 border-primary" />
 

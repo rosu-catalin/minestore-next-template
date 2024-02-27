@@ -32,7 +32,7 @@ export const Alert: FC = () => {
                         </svg>
                     </div>
                     <div className="p-4">
-                        <p className="text-xl font-bold text-white">{title}</p>
+                        <p className="text-xl font-bold text-accent-foreground">{title}</p>
                         <p
                             className="text-sm"
                             dangerouslySetInnerHTML={{ __html: content || '' }}

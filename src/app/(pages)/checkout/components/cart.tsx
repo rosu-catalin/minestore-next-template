@@ -17,8 +17,8 @@ export const Cart: FC = () => {
     return (
         <>
             <div className="flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">
-                <span className="glow-text text-[25px] font-bold">{t('title')}</span>
-                <span className="glow-text ml-auto text-[25px] font-bold">
+                <span className="text-[25px] font-bold text-accent-foreground">{t('title')}</span>
+                <span className="ml-auto text-[25px] font-bold">
                     <Price value={cart?.price || 0} />
                     {cart?.virtual_price ? ` / ${cart.virtual_price} QQ` : ''}
                     {cart?.tax ? (

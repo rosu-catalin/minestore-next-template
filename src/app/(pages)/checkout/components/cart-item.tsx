@@ -16,6 +16,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@layout/select/select';
+import { InfoIcon, Trash2 } from 'lucide-react';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -78,7 +79,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                             className="h-20 w-20 object-contain"
                         />
                     ) : (
-                        <div className="h-20 w-20"></div>
+                        <div className="h-20 w-20 rounded-md bg-card-foreground/5"></div>
                     )}
                 </TableCell>
                 <TableCell className="text-balance text-sm font-bold text-card-foreground md:text-lg">
@@ -107,7 +108,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                                 -
                             </button>
                         </div>
-                        <div className="flex h-6 w-6 items-center justify-center rounded bg-accent text-center text-sm font-bold md:h-8 md:w-8 md:text-lg">
+                        <div className="flex h-6 w-6 items-center justify-center rounded bg-accent text-center text-sm font-bold text-accent-foreground md:h-8 md:w-8 md:text-lg">
                             {quantity}
                         </div>
                         <div>
@@ -126,26 +127,25 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
                 <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                         <button
+                            aria-label="Show item details"
                             onClick={() => setShow(true)}
-                            className="h-6 w-6 rounded bg-accent text-base font-bold md:h-8 md:w-8 md:text-lg"
+                            className="flex h-6 w-6 items-center justify-center rounded bg-card-foreground/10 text-base font-bold text-card-foreground md:h-8 md:w-8 md:text-lg"
                         >
-                            i
+                            <InfoIcon aria-hidden={true} size={20} />
                         </button>
                         <button
                             onClick={() => handleRemoveItemFromCart(item.id)}
-                            className="h-6 w-6 rounded bg-accent text-base font-bold transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8 md:text-lg"
+                            aria-label="Remove item from cart"
+                            className="flex h-6 w-6 items-center justify-center rounded bg-red-500 text-base font-bold text-red-900 transition disabled:cursor-not-allowed disabled:opacity-50 md:h-8 md:w-8 md:text-lg"
                             disabled={loading}
                         >
-                            x
+                            <Trash2 aria-hidden={true} size={20} />
                         </button>
                     </div>
                 </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell colSpan={2}>
-                    <SelectItemVariable item={item} />
-                </TableCell>
-            </TableRow>
+
+            <ItemPreferences item={item} />
 
             <ItemDetails show={show} onHide={() => setShow(false)} id={item.id} route="checkout" />
         </>
@@ -178,5 +178,19 @@ function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
                 </Select>
             ))}
         </div>
+    );
+}
+
+function ItemPreferences({ item }: { item: TCart['items'][number] }) {
+    if (item.vars.length === 0) return null;
+
+    console.log('item.vars', item.vars);
+
+    return (
+        <TableRow>
+            <TableCell colSpan={2}>
+                <SelectItemVariable item={item} />
+            </TableCell>
+        </TableRow>
     );
 }
