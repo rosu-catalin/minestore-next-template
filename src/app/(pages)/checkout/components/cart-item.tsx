@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
+import { FC, useDeferredValue, useEffect, useState } from 'react';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { TCart } from '@/types/cart';
@@ -21,6 +21,8 @@ import {
     TSetProductVariable,
     useCartItemPreferences
 } from '../../categories/utils/use-cart-item-preferences';
+import { Input } from '@/components/base/input/input';
+import { Label } from '@layout/label/label';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -161,10 +163,33 @@ function ItemPreferences({ item }: { item: TCart['items'][number] }) {
 
     return (
         <TableRow>
-            <TableCell colSpan={2}>
-                <SelectItemVariable item={item} />
+            <TableCell colSpan={6}>
+                <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+                    <SelectItemVariable item={item} />
+                    <InputItemVariable item={item} />
+                </div>
             </TableCell>
         </TableRow>
+    );
+}
+
+function InputItemVariable({ item }: { item: TCart['items'][number] }) {
+    const { vars } = item;
+    const { handleSetProductVariable } = useCartItemPreferences();
+
+    const inputVariables = vars.filter((v) => v.type === 1 || v.type === 2);
+
+    if (inputVariables.length === 0) return null;
+
+    return (
+        <>
+            {inputVariables.map((variable) => (
+                <div key={variable.id} className="space-y-2">
+                    <Label htmlFor={variable.identifier}>{variable.name}</Label>
+                    <Input type="text" id={variable.identifier} placeholder={variable.name} />
+                </div>
+            ))}
+        </>
     );
 }
 
@@ -175,38 +200,39 @@ function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
     const dropdownVariables = vars.filter((v) => v.type === 0);
     if (dropdownVariables.length === 0) return null;
 
-    const handleSelectVariable = ({ id, var_id, var_value }: TSetProductVariable) => {
-        handleSetProductVariable({ id, var_id, var_value });
-    };
-
     return (
-        <div className="flex items-center gap-2">
+        <>
             {dropdownVariables.map((variable) => (
-                <Select
-                    key={variable.id}
-                    onValueChange={(value) =>
-                        handleSelectVariable({
-                            id: item.id,
-                            var_id: variable.id,
-                            var_value: value
-                        })
-                    }
-                >
-                    <SelectTrigger>
-                        <SelectValue placeholder={variable.name} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>{variable.name}</SelectLabel>
-                            {variable.variables.map((v) => (
-                                <SelectItem key={v.value} value={v.value}>
-                                    {v.name}
-                                </SelectItem>
-                            ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+                <div key={variable.id} className="space-y-2">
+                    <Label htmlFor={variable.identifier}>{variable.name}</Label>
+                    <Select
+                        onValueChange={(value) =>
+                            handleSetProductVariable({
+                                id: item.id,
+                                var_id: variable.id,
+                                var_value: value
+                            })
+                        }
+                    >
+                        <SelectTrigger>
+                            <SelectValue placeholder={variable.name} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>{variable.name}</SelectLabel>
+                                {variable.variables.map((v) => (
+                                    <SelectItem key={v.value} value={v.value}>
+                                        {v.name}{' '}
+                                        <span className="text-muted-foreground">
+                                            ({v.price} USD)
+                                        </span>
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
             ))}
-        </div>
+        </>
     );
 }
