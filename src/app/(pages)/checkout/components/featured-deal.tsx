@@ -16,7 +16,6 @@ export const FeaturedDeal: FC = () => {
 
     useEffect(() => {
         getRecommends().then((data) => {
-            console.log('data for featured deal', data);
             setRecommends(data);
         });
     }, []);

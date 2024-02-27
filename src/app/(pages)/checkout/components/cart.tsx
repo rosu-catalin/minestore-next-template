@@ -12,7 +12,7 @@ export const Cart: FC = () => {
     const t = useTranslations('checkout');
     const { cart, items } = useCartStore();
 
-    console.log('cart', items);
+    console.log('cart items', items);
 
     return (
         <>

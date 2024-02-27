@@ -2,7 +2,7 @@ import { useCartActions } from '@/app/(pages)/categories/utils/use-cart-actions'
 import { Button } from '@/components/base/button/button';
 import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
-import { InfoIcon, Trash2, ShoppingCart } from 'lucide-react';
+import { InfoIcon, Trash2, ShoppingCart, Loader2 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -34,9 +34,11 @@ export function CardActions({
             <Button
                 aria-label="Info"
                 onClick={() => setShowModal(true)}
-                className="flex h-[50px] min-w-[50px] items-center justify-center bg-accent-foreground/10 text-accent-foreground/70"
+                variant="secondary"
+                size="icon"
+                className="h-[50px] w-[50px]"
             >
-                <InfoIcon />
+                <InfoIcon size={24} aria-hidden={true} />
             </Button>
 
             <CardActionButtons isItemInCart={isItemInCart} item={item} displayFull={displayFull} />
@@ -92,15 +94,11 @@ function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonPr
 
     return (
         <Button
-            loading={loading}
             onClick={handleItem}
-            disabled={!isAvailable}
-            className={joinClasses(
-                'flex h-[50px] items-center justify-center gap-2',
-                displayFull && 'w-full'
-            )}
+            disabled={!isAvailable || loading}
+            className={joinClasses('h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
-            <ButtonIcon isItemInCart={isItemInCart} />
+            <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
             {actionText}
         </Button>
     );
@@ -133,14 +131,11 @@ function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButt
 
     return (
         <Button
-            loading={loading}
+            disabled={loading}
             onClick={handleItem}
-            className={joinClasses(
-                'col-span-2 flex h-[50px] items-center justify-center gap-2',
-                displayFull && 'w-full'
-            )}
+            className={joinClasses('col-span-2 h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
-            <ButtonIcon isItemInCart={isItemInCart} />
+            <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
             Subscribe
         </Button>
     );
@@ -165,23 +160,30 @@ function RemoveFromCartButton({ isItemInCart, item, displayFull }: CardActionBut
 
     return (
         <Button
-            loading={loading}
+            disabled={loading}
             onClick={handleItem}
-            className={joinClasses(
-                'flex h-[50px] items-center justify-center gap-2',
-                displayFull && 'w-full'
-            )}
+            className={joinClasses('h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
-            <ButtonIcon isItemInCart={isItemInCart} />
+            <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
             Remove
         </Button>
     );
 }
 
-export function ButtonIcon({ isItemInCart }: { isItemInCart: boolean }) {
-    if (isItemInCart) {
-        return <Trash2 aria-hidden={true} />;
+export function ButtonIcon({
+    isItemInCart,
+    loading
+}: {
+    isItemInCart: boolean;
+    loading?: boolean;
+}) {
+    if (loading) {
+        return <Loader2 className="animate-spin" size={24} />;
     }
 
-    return <ShoppingCart aria-hidden={true} />;
+    if (isItemInCart) {
+        return <Trash2 aria-hidden={true} size={24} />;
+    }
+
+    return <ShoppingCart aria-hidden={true} size={24} />;
 }

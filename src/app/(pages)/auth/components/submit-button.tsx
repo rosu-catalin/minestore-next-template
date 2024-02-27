@@ -10,7 +10,6 @@ export function SubmitButton() {
         <Button
             type="submit"
             disabled={pending}
-            loading={pending}
             className="mx-auto mt-4 flex w-96 items-center justify-center"
         >
             Continue

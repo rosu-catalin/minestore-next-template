@@ -7,6 +7,13 @@ import { useCheckoutStore } from '@/stores/checkout';
 import { useSettingsStore } from '@/stores/settings';
 import { useUserStore } from '@/stores/user';
 import { TCheckoutRequest } from '@/types/requests/checkout';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from '@layout/select/select';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -28,9 +35,7 @@ export const Details: FC = () => {
         set({ [e.target.name]: e.target.value });
     };
 
-    const handleCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        set({ country: e.target.value });
-    };
+    console.log('details', details);
 
     if (!settings?.settings?.details) return null;
     if (items.length === 0) return null;
@@ -54,7 +59,9 @@ export const Details: FC = () => {
             </div>
 
             <div className="">
-                <span className="text-[20px] font-bold">{t('your-details')}</span>
+                <span className="text-[20px] font-bold text-accent-foreground">
+                    {t('your-details')}
+                </span>
                 <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-4">
                     <label className="flex-col">
                         <span>{t('first-name')} *</span>
@@ -86,17 +93,18 @@ export const Details: FC = () => {
                     </label>
                     <label className="flex-col">
                         <span>{t('country')} *</span>
-                        <select
-                            defaultValue={countries[countries.length - 1]}
-                            onChange={handleCountry}
-                            className="mt-2 w-full rounded-[10px] bg-accent p-1 shadow-md shadow-black/10 outline-none"
-                        >
-                            {countries.map((country, index) => (
-                                <option key={index} value={country}>
-                                    {country}
-                                </option>
-                            ))}
-                        </select>
+                        <Select onValueChange={(value) => set({ country: value })}>
+                            <SelectTrigger className="mt-2 w-[180px]">
+                                <SelectValue placeholder="Select country" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {countries.map((country, index) => (
+                                    <SelectItem key={index} value={country}>
+                                        {country}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </label>
                 </div>
             </div>

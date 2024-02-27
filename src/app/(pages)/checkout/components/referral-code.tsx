@@ -23,10 +23,10 @@ export const ReferralCode: FC = () => {
             <span className="text-[20px] font-bold text-accent-foreground">
                 {t('referral-code')}
             </span>
-            <div className="mt-5">
+            <div className="mt-2">
                 <Input
-                    className="h-10 w-[150px]"
-                    placeholder="--- --- ---"
+                    className="h-10 w-[250px]"
+                    placeholder="Enter referral code..."
                     onChange={handleReferral}
                 />
             </div>

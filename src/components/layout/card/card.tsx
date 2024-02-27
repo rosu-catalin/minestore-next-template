@@ -36,6 +36,7 @@ export function Card({ item, direction = 'col' }: CardProps) {
                     isItemInCart={isItemInCart}
                     setShowModal={setShowModal}
                     available={isItemUnavailable}
+                    displayFull={direction === 'col'}
                 />
             </CardLayout>
             <ItemDetails

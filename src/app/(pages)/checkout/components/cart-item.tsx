@@ -17,6 +17,10 @@ import {
     SelectValue
 } from '@layout/select/select';
 import { InfoIcon, Trash2 } from 'lucide-react';
+import {
+    TSetProductVariable,
+    useCartItemPreferences
+} from '../../categories/utils/use-cart-item-preferences';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -152,16 +156,42 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
     );
 };
 
+function ItemPreferences({ item }: { item: TCart['items'][number] }) {
+    if (item.vars.length === 0) return null;
+
+    return (
+        <TableRow>
+            <TableCell colSpan={2}>
+                <SelectItemVariable item={item} />
+            </TableCell>
+        </TableRow>
+    );
+}
+
 function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
     const { vars } = item;
+    const { handleSetProductVariable } = useCartItemPreferences();
 
     const dropdownVariables = vars.filter((v) => v.type === 0);
     if (dropdownVariables.length === 0) return null;
 
+    const handleSelectVariable = ({ id, var_id, var_value }: TSetProductVariable) => {
+        handleSetProductVariable({ id, var_id, var_value });
+    };
+
     return (
         <div className="flex items-center gap-2">
             {dropdownVariables.map((variable) => (
-                <Select key={variable.id}>
+                <Select
+                    key={variable.id}
+                    onValueChange={(value) =>
+                        handleSelectVariable({
+                            id: item.id,
+                            var_id: variable.id,
+                            var_value: value
+                        })
+                    }
+                >
                     <SelectTrigger>
                         <SelectValue placeholder={variable.name} />
                     </SelectTrigger>
@@ -178,19 +208,5 @@ function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
                 </Select>
             ))}
         </div>
-    );
-}
-
-function ItemPreferences({ item }: { item: TCart['items'][number] }) {
-    if (item.vars.length === 0) return null;
-
-    console.log('item.vars', item.vars);
-
-    return (
-        <TableRow>
-            <TableCell colSpan={2}>
-                <SelectItemVariable item={item} />
-            </TableCell>
-        </TableRow>
     );
 }

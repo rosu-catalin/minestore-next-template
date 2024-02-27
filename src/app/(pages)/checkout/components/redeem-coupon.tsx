@@ -85,18 +85,18 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
                     <span>
                         {t('active-gift')}: {cart.gift_id} (<Price value={cart.gift_sum} />)
                     </span>
-                    <Button loading={loading} onClick={remove}>
+                    <Button disabled={loading} onClick={remove}>
                         {t('remove-gift')}
                     </Button>
                 </div>
             ) : (
-                <div className="mt-5">
+                <div className="mt-2 flex gap-2">
                     <Input
                         className="h-10 w-[250px]"
-                        placeholder="0XXX-00XX-0XXX"
+                        placeholder="Enter the coupon code..."
                         onChange={handleCoupon}
                     />
-                    <Button onClick={accept} loading={loading} className="ml-4">
+                    <Button onClick={accept} disabled={loading || !coupon.length}>
                         {t('redeem')}
                     </Button>
                 </div>

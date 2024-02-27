@@ -5,6 +5,7 @@ import { fetcher } from '@/api/client/fetcher';
 import { Button } from '@/components/base/button/button';
 import { Input } from '@/components/base/input/input';
 import { notify } from '@/core/notifications';
+import { Loader2 } from 'lucide-react';
 import { FC, useState } from 'react';
 
 const { getGift } = getEndpoints(fetcher);
@@ -49,15 +50,16 @@ export const GiftCard: FC = () => {
             <div className="flex h-full gap-2">
                 <Input
                     placeholder="Card Code"
-                    className="w-full"
+                    className="h-full w-full"
                     value={giftCode}
                     onChange={handleInputChange}
                 />
                 <Button
                     onClick={handleCheckClick}
-                    loading={loading}
-                    className="flex h-full items-center justify-center"
+                    disabled={loading || !giftCode}
+                    className="h-full min-w-[120px] gap-2"
                 >
+                    {loading && <Loader2 size={24} className="animate-spin" />}
                     Check
                 </Button>
             </div>
