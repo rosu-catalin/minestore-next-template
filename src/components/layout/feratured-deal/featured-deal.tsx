@@ -45,7 +45,7 @@ export const FeaturedDeal: FC<FeaturedDealProps> = ({ item }) => {
 
                 <div className="flex-col text-center md:text-left">
                     <h3 className="text-xl font-bold text-accent-foreground">{item.name}</h3>
-                    <Price value={item.price} />
+                    <Price value={item.price} className="font-bold" />
                 </div>
             </div>
 

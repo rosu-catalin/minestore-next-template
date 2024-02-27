@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useDeferredValue, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { TCart } from '@/types/cart';

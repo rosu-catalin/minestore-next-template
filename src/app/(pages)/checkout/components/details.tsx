@@ -35,8 +35,6 @@ export const Details: FC = () => {
         set({ [e.target.name]: e.target.value });
     };
 
-    console.log('details', details);
-
     if (!settings?.settings?.details) return null;
     if (items.length === 0) return null;
 
@@ -55,7 +53,9 @@ export const Details: FC = () => {
                     />
                 )}
 
-                <span className="mt-8 text-[20px] font-bold">{user?.username}</span>
+                <span className="mt-8 text-[20px] font-bold text-accent-foreground">
+                    {user?.username}
+                </span>
             </div>
 
             <div className="">
