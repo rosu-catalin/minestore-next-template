@@ -186,7 +186,18 @@ function InputItemVariable({ item }: { item: TCart['items'][number] }) {
             {inputVariables.map((variable) => (
                 <div key={variable.id} className="space-y-2">
                     <Label htmlFor={variable.identifier}>{variable.name}</Label>
-                    <Input type="text" id={variable.identifier} placeholder={variable.name} />
+                    <Input
+                        type="text"
+                        id={variable.identifier}
+                        placeholder={variable.name}
+                        onChange={(e) =>
+                            handleSetProductVariable({
+                                id: item.id,
+                                var_id: variable.id,
+                                var_value: e.target.value
+                            })
+                        }
+                    />
                 </div>
             ))}
         </>
