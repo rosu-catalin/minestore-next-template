@@ -37,7 +37,11 @@ export type TCart = {
         quantityUserCurrentLimit: number | null;
         is_unavailable: boolean;
         allow_select_server: number;
-        allowed_servers: string[];
+        allowed_servers: Array<{
+            server_id: number;
+            server_name: string;
+        }>;
+        selected_server: number;
         is_any_price: number;
         min_price: number;
         is_subs: number;

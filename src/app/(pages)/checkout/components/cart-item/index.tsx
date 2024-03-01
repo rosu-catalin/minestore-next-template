@@ -7,22 +7,8 @@ import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
 import { useCartStore } from '@/stores/cart';
 import { TableRow, TableCell } from '@/components/base/table/table';
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue
-} from '@layout/select/select';
 import { InfoIcon, Trash2 } from 'lucide-react';
-import {
-    TSetProductVariable,
-    useCartItemPreferences
-} from '../../categories/utils/use-cart-item-preferences';
-import { Input } from '@/components/base/input/input';
-import { Label } from '@layout/label/label';
+import { ItemPreferences } from './item-preferences';
 
 const { updateItemCount, removeItemFromCart, getCart } = getEndpoints(fetcher);
 
@@ -157,93 +143,3 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
         </>
     );
 };
-
-function ItemPreferences({ item }: { item: TCart['items'][number] }) {
-    if (item.vars.length === 0) return null;
-
-    return (
-        <TableRow>
-            <TableCell colSpan={6}>
-                <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-                    <SelectItemVariable item={item} />
-                    <InputItemVariable item={item} />
-                </div>
-            </TableCell>
-        </TableRow>
-    );
-}
-
-function InputItemVariable({ item }: { item: TCart['items'][number] }) {
-    const { vars } = item;
-    const { handleSetProductVariable } = useCartItemPreferences();
-
-    const inputVariables = vars.filter((v) => v.type === 1 || v.type === 2);
-
-    if (inputVariables.length === 0) return null;
-
-    return (
-        <>
-            {inputVariables.map((variable) => (
-                <div key={variable.id} className="space-y-2">
-                    <Label htmlFor={variable.identifier}>{variable.name}</Label>
-                    <Input
-                        type="text"
-                        id={variable.identifier}
-                        placeholder={variable.name}
-                        onChange={(e) =>
-                            handleSetProductVariable({
-                                id: item.id,
-                                var_id: variable.id,
-                                var_value: e.target.value
-                            })
-                        }
-                    />
-                </div>
-            ))}
-        </>
-    );
-}
-
-function SelectItemVariable({ item }: { item: TCart['items'][number] }) {
-    const { vars } = item;
-    const { handleSetProductVariable } = useCartItemPreferences();
-
-    const dropdownVariables = vars.filter((v) => v.type === 0);
-    if (dropdownVariables.length === 0) return null;
-
-    return (
-        <>
-            {dropdownVariables.map((variable) => (
-                <div key={variable.id} className="space-y-2">
-                    <Label htmlFor={variable.identifier}>{variable.name}</Label>
-                    <Select
-                        onValueChange={(value) =>
-                            handleSetProductVariable({
-                                id: item.id,
-                                var_id: variable.id,
-                                var_value: value
-                            })
-                        }
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={variable.name} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>{variable.name}</SelectLabel>
-                                {variable.variables.map((v) => (
-                                    <SelectItem key={v.value} value={v.value}>
-                                        {v.name}{' '}
-                                        <span className="text-muted-foreground">
-                                            ({v.price} USD)
-                                        </span>
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-            ))}
-        </>
-    );
-}

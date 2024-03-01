@@ -1,7 +1,10 @@
+/** @type {import('tailwindcss').Config} */
+
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
     content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+    darkMode: ['class'],
     theme: {
         container: {
             center: true,
@@ -11,6 +14,71 @@ const config: Config = {
             }
         },
         extend: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            typography: (theme: any) => ({
+                DEFAULT: {
+                    css: {
+                        color: theme('colors.foreground'),
+                        a: {
+                            color: theme('colors.primary.DEFAULT'),
+                            textDecoration: 'none',
+                            '&:hover': {
+                                color: theme('colors.primary.foreground')
+                            }
+                        },
+                        'h1, h2, h3, h4': {
+                            color: theme('colors.foreground')
+                        },
+                        'ul > li::before': {
+                            backgroundColor: theme('colors.primary.DEFAULT')
+                        },
+                        'ol > li::before': {
+                            color: theme('colors.primary.DEFAULT')
+                        },
+                        'a code': {
+                            color: theme('colors.primary.DEFAULT')
+                        },
+                        code: {
+                            color: theme('colors.primary.DEFAULT')
+                        },
+                        'pre code': {
+                            color: theme('colors.primary.DEFAULT')
+                        },
+                        'blockquote p:first-of-type::before': {
+                            content: 'none'
+                        },
+                        'blockquote p:last-of-type::after': {
+                            content: 'none'
+                        },
+                        img: {
+                            borderRadius: theme('borderRadius.lg')
+                        },
+                        'figure figcaption': {
+                            color: theme('colors.foreground')
+                        },
+                        'figure figcaption a': {
+                            color: theme('colors.primary.DEFAULT')
+                        },
+                        'figure figcaption a:hover': {
+                            color: theme('colors.primary.foreground')
+                        },
+                        table: {
+                            color: theme('colors.foreground')
+                        },
+                        th: {
+                            color: theme('colors.foreground')
+                        },
+                        td: {
+                            color: theme('colors.foreground')
+                        },
+                        'th, td': {
+                            borderColor: theme('colors.border')
+                        },
+                        '--tw-prose-bullets': theme('colors.foreground'),
+                        '--tw-prose-counters': theme('colors.foreground')
+                    }
+                }
+            }),
             colors: {
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',

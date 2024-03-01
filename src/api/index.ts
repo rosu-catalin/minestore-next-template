@@ -22,6 +22,8 @@ import { removeFromCart } from './endpoints/remove-from-cart';
 import { removeCoupon } from './endpoints/remove-coupon';
 import { getFeaturedDeals } from './endpoints/get-featured-deals';
 import { setProductVariable } from './endpoints/set-product-variable';
+import { setSelectedServer } from './endpoints/set-selected-server';
+import { setCustomPrice } from './endpoints/set-custom-price';
 
 export const getEndpoints = (fetcher: AxiosInstance) => {
     return {
@@ -46,6 +48,8 @@ export const getEndpoints = (fetcher: AxiosInstance) => {
         acceptCoupon: acceptCoupon(fetcher),
         removeCoupon: removeCoupon(fetcher),
         getFeaturedDeals: getFeaturedDeals(fetcher),
-        setProductVariable: setProductVariable(fetcher)
+        setProductVariable: setProductVariable(fetcher),
+        setSelectedServer: setSelectedServer(fetcher),
+        setCustomPrice: setCustomPrice(fetcher)
     };
 };
