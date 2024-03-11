@@ -1,8 +1,8 @@
 import { Price } from '@/components/base/price/price';
+import { Badge } from '@/components/ui/badge';
 import { TItem } from '@/types/item';
 import { imagePath } from '@helpers/image-path';
 import { joinClasses } from '@helpers/join-classes';
-import { Badge } from '@layout/badge/badge';
 import { AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 

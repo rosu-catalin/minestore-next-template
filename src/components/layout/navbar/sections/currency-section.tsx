@@ -24,7 +24,7 @@ export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
             <div className="relative ml-4">
                 <div
                     onClick={() => setDisplayCurrency((value) => !value)}
-                    className="cursor-pointer flex-row text-accent-foreground"
+                    className="cursor-pointer flex-row text-white dark:text-accent-foreground"
                 >
                     <span className="cursor-pointer font-bold uppercase">{currency?.name}</span>
                     <ReactSVG src="/icons/expand-more.svg" />

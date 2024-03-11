@@ -1,3 +1,14 @@
 {
-    "color": "blue"
+    "Moderators": [
+        {
+            "username": "TripleZone",
+            "displayName": "TripleZone"
+        }
+    ],
+    "Admins": [
+        {
+            "username": "TripleZone",
+            "displayName": "TripleZone"
+        }
+    ]
 }

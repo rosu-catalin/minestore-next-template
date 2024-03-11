@@ -7,7 +7,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue
-} from '@layout/select/select';
+} from '@/components/ui/select';
 import { useCartItemPreferences } from '@/app/(pages)/categories/utils/use-cart-item-preferences';
 import { DescriptionTooltip } from './item-description-tooltip';
 

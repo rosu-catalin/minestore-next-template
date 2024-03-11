@@ -15,7 +15,7 @@ export function LogoutButton() {
             className="flex-row text-accent-foreground disabled:pointer-events-none disabled:select-none"
         >
             <ReactSVG className="text-white" src="/icons/logout.svg" />
-            <span className="ml-4 cursor-pointer font-bold uppercase text-accent-foreground">
+            <span className="ml-4 cursor-pointer font-bold uppercase text-white dark:text-accent-foreground">
                 {t('logout')}
             </span>
         </button>

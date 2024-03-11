@@ -1,4 +1,4 @@
-import { Skeleton } from '@layout/skeleton/skeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function SkeletonCategory() {
     return (

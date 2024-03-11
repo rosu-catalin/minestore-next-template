@@ -10,6 +10,7 @@ import { FaInstagram } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
 import { Container } from '@/components/base/container/container';
 import { useTranslations } from 'next-intl';
+import { ModeToggle } from '@layout/theme-selector/theme-selector';
 
 export type FooterProps = {
     settings: TSettings;
@@ -21,6 +22,7 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
     return (
         <div className="bg-card/60">
             <Container className="-mt-4 flex flex-col items-center pt-20">
+                <ModeToggle />
                 <div className="grid w-full grid-cols-12 items-center gap-10">
                     <div className="col-span-12 text-center md:col-span-3 md:max-w-[300px]">
                         <h2 className="text-3xl font-bold text-card-foreground">

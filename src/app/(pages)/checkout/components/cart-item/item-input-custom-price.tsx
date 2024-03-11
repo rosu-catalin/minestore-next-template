@@ -1,10 +1,10 @@
 import { TCart } from '@/types/cart';
-import { Input } from '@/components/base/input/input';
-import { Label } from '@layout/label/label';
+import { Input } from '@/components/ui/input';
 import { useCartItemPreferences } from '@/app/(pages)/categories/utils/use-cart-item-preferences';
 import { DescriptionTooltip } from './item-description-tooltip';
 import { useDebounceCallback } from 'usehooks-ts';
 import { notify } from '@/core/notifications';
+import { Label } from '@/components/ui/label';
 
 export function InputItemCustomPrice({ item }: { item: TCart['items'][number] }) {
     const { handleSetCustomPrice } = useCartItemPreferences();

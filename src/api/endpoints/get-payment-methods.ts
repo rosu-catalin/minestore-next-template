@@ -1,10 +1,9 @@
-import { AxiosInstance } from "axios"
-import { TPayments } from "@/types/payments"
+import { AxiosInstance } from 'axios';
+import { TPayments } from '@/types/payments';
 
-type ReturnType = TPayments
+type ReturnType = TPayments;
 
-export const getPaymentMethods = (fetcher: AxiosInstance) =>
-   async (subs: number) => {
-      const url = `/payments/get?subs=${subs}`
-      return (await fetcher.post<ReturnType>(url)).data
-   }
+export const getPaymentMethods = (fetcher: AxiosInstance) => async () => {
+    const url = `/payments/get`;
+    return (await fetcher.post<ReturnType>(url)).data;
+};

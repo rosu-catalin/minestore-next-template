@@ -2,8 +2,8 @@
 
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
-import { Button } from '@/components/base/button/button';
-import { Input } from '@/components/base/input/input';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { notify } from '@/core/notifications';
 import { Loader2 } from 'lucide-react';
 import { FC, useState } from 'react';
@@ -14,11 +14,9 @@ export const GiftCard: FC = () => {
     const [giftCode, setGiftCode] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setGiftCode(event.target.value);
-    };
+    const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
-    const handleCheckClick = async () => {
         try {
             setLoading(true);
 
@@ -41,28 +39,32 @@ export const GiftCard: FC = () => {
         }
     };
 
+    const handleGiftCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGiftCode(event.target.value);
+    };
+
     return (
         <div className="flex-col gap-4">
             <h3 className="text-xl font-bold text-accent-foreground">
                 Gift Card
                 <hr className="mt-2 h-1 w-12 rounded border-0 bg-accent" />
             </h3>
-            <div className="flex h-full gap-2">
+            <form className="flex h-full gap-2" onSubmit={handleFormSubmit}>
                 <Input
                     placeholder="Card Code"
                     className="h-full w-full"
-                    value={giftCode}
-                    onChange={handleInputChange}
+                    name="giftCode"
+                    onChange={handleGiftCodeChange}
                 />
                 <Button
-                    onClick={handleCheckClick}
+                    type="submit"
                     disabled={loading || !giftCode}
                     className="h-full min-w-[120px] gap-2"
                 >
                     {loading && <Loader2 size={24} className="animate-spin" />}
                     Check
                 </Button>
-            </div>
+            </form>
         </div>
     );
 };

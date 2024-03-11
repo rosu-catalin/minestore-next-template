@@ -9,7 +9,7 @@ import {
     TableHead,
     TableBody,
     TableCell
-} from '@/components/base/table/table';
+} from '@/components/ui/table';
 import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
 import { CheckCircle2, XCircle } from 'lucide-react';
 

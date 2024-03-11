@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/base/button/button';
-import { Input } from '@/components/base/input/input';
+import { Input } from '@/components/ui/input';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
 import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 import { Price } from '@/components/base/price/price';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
 
 const { acceptCoupon, getCart, removeCoupon } = getEndpoints(fetcher);
 
@@ -76,7 +76,7 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
     if (items.length === 0) return null;
 
     return (
-        <div className="mt-10 flex-col">
+        <div className="flex-col">
             <span className="text-[20px] font-bold text-accent-foreground">
                 {t('redeem-coupons-or-gift-cards')}
             </span>

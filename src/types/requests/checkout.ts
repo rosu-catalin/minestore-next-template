@@ -1,5 +1,3 @@
-import { Line } from '../cart';
-
 export type TCheckoutRequest = {
     currency: string;
     paymentMethod: string;
@@ -13,14 +11,4 @@ export type TCheckoutRequest = {
         region: string;
         zipcode: string;
     };
-    ref: string;
-    vars: Vars[];
-};
-
-type Vars = {
-    id: number;
-    description: string;
-    type: number;
-    lines: Line[] | null;
-    use: string;
 };

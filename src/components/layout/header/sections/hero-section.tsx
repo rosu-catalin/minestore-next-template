@@ -56,10 +56,10 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
             >
                 <ReactSVG className="h-12 w-12 text-primary" src="/icons/play.svg" />
                 <div className="ml-0.5 flex-col">
-                    <span className="text-lg font-bold text-accent-foreground">
+                    <span className="text-lg font-bold text-white dark:text-accent-foreground">
                         {settings.server.ip}
                     </span>
-                    <span className="text-sm text-foreground">
+                    <span className="text-sm text-white/80 dark:text-foreground">
                         {serverOnline} {t('players-online')}
                     </span>
                 </div>
@@ -82,10 +82,10 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
                 className="-mt-20 hidden items-center transition duration-300 hover:scale-110 lg:flex"
             >
                 <div className="ml-0.5 flex-col">
-                    <span className="text-lg font-bold text-accent-foreground">
+                    <span className="text-lg font-bold text-white dark:text-accent-foreground">
                         {t('discord-server')}
                     </span>
-                    <span className="text-sm text-foreground">
+                    <span className="text-sm text-white/80 dark:text-foreground">
                         {discordOnline} {t('members-online')}
                     </span>
                 </div>

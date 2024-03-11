@@ -61,7 +61,14 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
                     {name}
                 </span>
                 {isSubMenu && (
-                    <ReactSVG src="/icons/expand-more.svg" color="white" className="ml-auto mr-4" />
+                    <ReactSVG
+                        src="/icons/expand-more.svg"
+                        color="white"
+                        className={joinClasses(
+                            'ml-auto mr-4 h-6 w-6 transition-transform',
+                            expand && 'rotate-180 transform'
+                        )}
+                    />
                 )}
             </div>
 

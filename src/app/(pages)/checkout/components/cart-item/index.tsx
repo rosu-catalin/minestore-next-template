@@ -6,7 +6,7 @@ import { TCart } from '@/types/cart';
 import { Price } from '@/components/base/price/price';
 import { ItemDetails } from '@layout/item-details/item-details';
 import { useCartStore } from '@/stores/cart';
-import { TableRow, TableCell } from '@/components/base/table/table';
+import { TableRow, TableCell } from '@/components/ui/table';
 import { InfoIcon, Trash2 } from 'lucide-react';
 import { ItemPreferences } from './item-preferences';
 

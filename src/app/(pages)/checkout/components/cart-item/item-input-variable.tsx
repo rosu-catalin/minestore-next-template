@@ -1,7 +1,7 @@
 import { useCartItemPreferences } from '@/app/(pages)/categories/utils/use-cart-item-preferences';
-import { Input } from '@/components/base/input/input';
+import { Input } from '@/components/ui/input';
 import { TCart } from '@/types/cart';
-import { Label } from '@layout/label/label';
+import { Label } from '@/components/ui/label';
 import { useDebounceCallback } from 'usehooks-ts';
 import { DescriptionTooltip } from './item-description-tooltip';
 

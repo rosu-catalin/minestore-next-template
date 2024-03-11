@@ -24,13 +24,29 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
     return (
         <header>
             <div className="relative">
-                <Image
-                    src="/background.png"
-                    className="absolute -z-10 h-full w-full object-cover opacity-60"
-                    width={1590}
-                    height={352}
-                    alt=""
-                />
+                <div className="h-full">
+                    <div className="hero-image">
+                        <Image
+                            src="/background.png"
+                            className="absolute -z-10 h-full w-full object-cover opacity-60"
+                            width={1590}
+                            height={352}
+                            alt=""
+                        />
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 1440 320"
+                            className="absolute inset-0 top-[150px] z-[-1] h-full w-full"
+                            preserveAspectRatio="xMidYMid slice"
+                        >
+                            <path
+                                className="fill-background"
+                                fillOpacity="1"
+                                d="M0,128L120,144C240,160,480,192,720,186.7C960,181,1200,139,1320,117.3L1440,96L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
 
                 <Navbar settings={settings} />
 
@@ -44,7 +60,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
                     {user && (
                         <>
                             <div className="ml-auto mr-8 flex-col">
-                                <span className="text-[25px] font-bold text-accent-foreground">
+                                <span className="text-[25px] font-bold text-white dark:text-accent-foreground">
                                     {user.username}
                                 </span>
                                 <span className="ml-4 text-accent-foreground/80">

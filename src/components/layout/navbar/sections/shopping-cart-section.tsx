@@ -29,11 +29,14 @@ export const ShoppingCartSection: FC = () => {
 
     return (
         <>
-            <ReactSVG src="/icons/shopping-cart.svg" />
+            <ReactSVG
+                src="/icons/shopping-cart.svg"
+                className="text-white dark:text-accent-foreground"
+            />
             <div className="ml-4 flex-col">
                 <Link
                     href="/checkout"
-                    className="cursor-pointer font-bold uppercase text-accent-foreground"
+                    className="cursor-pointer font-bold uppercase text-white dark:text-accent-foreground"
                 >
                     {t('cart')}
                 </Link>

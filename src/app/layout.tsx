@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { App } from './app';
 import { Montserrat } from 'next/font/google';
+import { ThemeProvider } from './providers/theme-provider';
 
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -13,9 +14,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={`${montserrat.className} bg-background text-foreground/70`}>
-                <App>{children}</App>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <App>{children}</App>
+                </ThemeProvider>
             </body>
         </html>
     );

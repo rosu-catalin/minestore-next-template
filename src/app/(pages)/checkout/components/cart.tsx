@@ -5,7 +5,7 @@ import { CartItem } from './cart-item';
 import { Price } from '@/components/base/price/price';
 import { useCartStore } from '@/stores/cart';
 import { useTranslations } from 'next-intl';
-import { Table, TableHeader, TableRow, TableHead, TableBody } from '@/components/base/table/table';
+import { Table, TableHeader, TableRow, TableHead, TableBody } from '@/components/ui/table';
 import { TCart } from '@/types/cart';
 
 export const Cart: FC = () => {
@@ -48,9 +48,9 @@ function CartItems({ items }: { items: TCart['items'] }) {
     }
 
     return (
-        <Table className="my-4 border-4 border-accent">
+        <Table className="my-4 border-4">
             <TableHeader className="[&_tr]:border-b-4">
-                <TableRow className="border-accent">
+                <TableRow className="">
                     <TableHead className="hidden md:table-cell md:w-[100px]">
                         <span className="sr-only">{t('image')}</span>
                     </TableHead>

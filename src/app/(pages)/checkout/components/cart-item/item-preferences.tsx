@@ -1,4 +1,4 @@
-import { TableRow, TableCell } from '@/components/base/table/table';
+import { TableRow, TableCell } from '@/components/ui/table';
 import { TCart } from '@/types/cart';
 import { InputItemCustomPrice } from './item-input-custom-price';
 import { InputItemVariable } from './item-input-variable';

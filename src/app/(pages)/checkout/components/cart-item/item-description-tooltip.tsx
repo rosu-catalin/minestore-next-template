@@ -1,10 +1,5 @@
 import { HelpCircle } from 'lucide-react';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger
-} from '@/components/layout/tooltip/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function DescriptionTooltip({ description }: { description: string }) {
     if (!description) return null;

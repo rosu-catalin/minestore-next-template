@@ -2,7 +2,7 @@
 
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
-import { Button } from '@/components/base/button/button';
+import { Button } from '@/components/ui/button';
 import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 import { useCheckoutStore } from '@/stores/checkout';

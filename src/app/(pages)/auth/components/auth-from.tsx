@@ -2,7 +2,7 @@
 
 import { createToken } from '@/api/server/create-test';
 import { SubmitButton } from './submit-button';
-import { Input } from '@/components/base/input/input';
+import { Input } from '@/components/ui/input';
 
 export const AuthForm = () => {
     return (

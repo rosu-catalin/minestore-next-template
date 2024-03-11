@@ -1,5 +1,5 @@
 import { useCartActions } from '@/app/(pages)/categories/utils/use-cart-actions';
-import { Button } from '@/components/base/button/button';
+import { Button } from '@/components/ui/button';
 import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
 import { InfoIcon, Trash2, ShoppingCart, Loader2 } from 'lucide-react';

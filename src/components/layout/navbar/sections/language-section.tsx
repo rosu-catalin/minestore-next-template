@@ -28,7 +28,7 @@ export const LanguageSection: FC<LanguageSectionProps> = ({ settings }) => {
                     className="cursor-pointer flex-row items-center"
                 >
                     <CountryFlag lang={lang} className="mb-[3px]" />
-                    <div className="flex-row text-accent-foreground">
+                    <div className="flex-row text-white dark:text-accent-foreground">
                         <span className="ml-1 font-bold uppercase">
                             {languages?.find((x) => x.code === lang)?.name}
                         </span>
