@@ -341,12 +341,12 @@ export function PaymentForm() {
                                             <RadioGroupItem
                                                 value={method.name}
                                                 id={method.name}
-                                                className="peer sr-only"
+                                                className="peer sr-only transition-all"
                                             />
                                             <Label
                                                 htmlFor={method.name}
-                                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/10
-                                                    [&:has([data-state=checked])]:border-primary
+                                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 transition-all hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary
+                                                    peer-data-[state=checked]:bg-primary/10 [&:has([data-state=checked])]:border-primary
                                                     "
                                             >
                                                 <Image

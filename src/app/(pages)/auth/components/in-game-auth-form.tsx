@@ -19,7 +19,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/hooks/use-user';
 import { Loader2Icon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { notify } from '@/core/notifications';
 
 const authFormSchema = z.object({
     username: z
@@ -37,8 +38,10 @@ const defaultValues: Partial<AuthFormValues> = {
     username: ''
 };
 
-export function AuthForm() {
-    const { login, loading } = useUser();
+export function InGameAuthForm() {
+    const [step, setStep] = useState(0);
+
+    const { loginAttemptInGame, loginInGame, loading } = useUser();
 
     const form = useForm<AuthFormValues>({
         resolver: zodResolver(authFormSchema),
@@ -48,7 +51,59 @@ export function AuthForm() {
 
     async function onSubmit(data: AuthFormValues) {
         const { username } = data;
-        await login(username);
+        try {
+            const response = await loginAttemptInGame(username);
+
+            if (response?.status) {
+                setStep(1);
+            }
+        } catch (error) {
+            console.error('Error while logging in game:', error);
+        }
+    }
+
+    useEffect(() => {
+        if (step === 1) {
+            const timer = setInterval(async () => {
+                const response = await loginInGame(form.getValues('username'));
+                console.log('Status: ', response?.status);
+                if (response?.status) {
+                    clearInterval(timer);
+                }
+            }, 5000);
+            return () => clearInterval(timer);
+        }
+    }, [step, loginInGame, form]);
+
+    if (step === 1) {
+        return (
+            <div>
+                <h2 className="text-center text-2xl font-bold text-accent-foreground">
+                    Waiting for verification 🚀
+                </h2>
+                <p className="mx-auto mt-4 max-w-[80ch] text-balance text-center">
+                    <span className="font-bold">
+                        Please, check a chat & verify yourself on the Minecraft Server!
+                    </span>{' '}
+                    You need to confirm that you are the owner of the account!
+                </p>
+                <div className="my-8 flex items-center justify-center space-x-2">
+                    <span className="sr-only">Loading...</span>
+                    <div className="h-8 w-8 animate-bounce rounded-full bg-primary [animation-delay:-0.3s]"></div>
+                    <div className="h-8 w-8 animate-bounce rounded-full bg-primary [animation-delay:-0.15s]"></div>
+                    <div className="h-8 w-8 animate-bounce rounded-full bg-primary"></div>
+                </div>
+                <Button
+                    className="mx-auto flex"
+                    onClick={() => {
+                        loginAttemptInGame(form.getValues('username'));
+                        notify('Verification resent', 'green');
+                    }}
+                >
+                    Resend Verification
+                </Button>
+            </div>
+        );
     }
 
     return (
