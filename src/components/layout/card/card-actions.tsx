@@ -15,7 +15,10 @@ type CardActionsProps = {
     displayFull?: boolean;
 };
 
-type CardActionButtonProps = Omit<CardActionsProps, 'direction' | 'setShowModal'>;
+type CardActionButtonProps = Omit<CardActionsProps, 'direction' | 'setShowModal'> & {
+    addToCartPressed?: boolean;
+    setAddToCartPressed: (value: boolean) => void;
+};
 
 export function CardActions({
     direction = 'col',
@@ -24,6 +27,7 @@ export function CardActions({
     item,
     displayFull = true
 }: CardActionsProps) {
+    const [addToCartPressed, setAddToCartPressed] = useState(false);
     return (
         <div
             className={joinClasses(
@@ -41,30 +45,58 @@ export function CardActions({
                 <InfoIcon size={24} aria-hidden={true} />
             </Button>
 
-            <CardActionButtons isItemInCart={isItemInCart} item={item} displayFull={displayFull} />
+            <CardActionButtons
+                isItemInCart={isItemInCart}
+                item={item}
+                displayFull={displayFull}
+                addToCartPressed={addToCartPressed}
+                setAddToCartPressed={setAddToCartPressed}
+            />
         </div>
     );
 }
 
-export function CardActionButtons({ isItemInCart, item, displayFull }: CardActionButtonProps) {
+export function CardActionButtons({
+    isItemInCart,
+    item,
+    displayFull,
+    addToCartPressed,
+    setAddToCartPressed
+}: CardActionButtonProps) {
     return (
         <>
-            <AddToCartButton isItemInCart={isItemInCart} item={item} displayFull={displayFull} />
+            <AddToCartButton
+                isItemInCart={isItemInCart}
+                item={item}
+                displayFull={displayFull}
+                addToCartPressed={addToCartPressed}
+                setAddToCartPressed={setAddToCartPressed}
+            />
             <SubscriptionsButton
                 isItemInCart={isItemInCart}
                 item={item}
                 displayFull={displayFull}
+                addToCartPressed={addToCartPressed}
+                setAddToCartPressed={setAddToCartPressed}
             />
             <RemoveFromCartButton
                 isItemInCart={isItemInCart}
                 item={item}
                 displayFull={displayFull}
+                addToCartPressed={false}
+                setAddToCartPressed={setAddToCartPressed}
             />
         </>
     );
 }
 
-function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
+function AddToCartButton({
+    isItemInCart,
+    item,
+    displayFull,
+    addToCartPressed,
+    setAddToCartPressed
+}: CardActionButtonProps) {
     const isAvailable = item.is_unavailable ? false : true;
 
     const [loading, setLoading] = useState(false);
@@ -75,6 +107,7 @@ function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonPr
     const handleItem = async () => {
         try {
             setLoading(true);
+            setAddToCartPressed(true);
             await handleAddItem({
                 id: item.id,
                 calledFromCheckout: path === '/checkout',
@@ -85,6 +118,7 @@ function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonPr
             console.error('Error while adding item:', error);
         } finally {
             setLoading(false);
+            setAddToCartPressed(false);
         }
     };
 
@@ -95,7 +129,7 @@ function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonPr
     return (
         <Button
             onClick={handleItem}
-            disabled={!isAvailable || loading}
+            disabled={!isAvailable || loading || addToCartPressed}
             className={joinClasses('h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
             <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
@@ -104,7 +138,13 @@ function AddToCartButton({ isItemInCart, item, displayFull }: CardActionButtonPr
     );
 }
 
-function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
+function SubscriptionsButton({
+    isItemInCart,
+    item,
+    displayFull,
+    addToCartPressed,
+    setAddToCartPressed
+}: CardActionButtonProps) {
     const [loading, setLoading] = useState(false);
     const { handleAddItem } = useCartActions();
 
@@ -112,6 +152,7 @@ function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButt
 
     const handleItem = async () => {
         try {
+            setAddToCartPressed(true);
             setLoading(true);
             await handleAddItem({
                 id: item.id,
@@ -123,6 +164,7 @@ function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButt
             console.error('Error while adding item:', error);
         } finally {
             setLoading(false);
+            setAddToCartPressed(false);
         }
     };
 
@@ -131,7 +173,7 @@ function SubscriptionsButton({ isItemInCart, item, displayFull }: CardActionButt
 
     return (
         <Button
-            disabled={loading}
+            disabled={loading || addToCartPressed}
             onClick={handleItem}
             className={joinClasses('col-span-2 h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >

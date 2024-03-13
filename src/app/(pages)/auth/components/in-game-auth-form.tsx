@@ -39,6 +39,7 @@ const defaultValues: Partial<AuthFormValues> = {
 };
 
 export function InGameAuthForm() {
+    const [resentVerification, setResentVerification] = useState(false);
     const [step, setStep] = useState(0);
 
     const { loginAttemptInGame, loginInGame, loading } = useUser();
@@ -75,6 +76,15 @@ export function InGameAuthForm() {
         }
     }, [step, loginInGame, form]);
 
+    useEffect(() => {
+        if (resentVerification) {
+            const timer = setTimeout(() => {
+                setResentVerification(false);
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [resentVerification]);
+
     if (step === 1) {
         return (
             <div>
@@ -95,12 +105,16 @@ export function InGameAuthForm() {
                 </div>
                 <Button
                     className="mx-auto flex"
+                    disabled={resentVerification}
                     onClick={() => {
                         loginAttemptInGame(form.getValues('username'));
                         notify('Verification resent', 'green');
+                        setResentVerification(true);
                     }}
                 >
-                    Resend Verification
+                    {resentVerification
+                        ? 'Wait 10 seconds before sending it again...'
+                        : 'Resend Verification'}
                 </Button>
             </div>
         );
