@@ -144,6 +144,8 @@ export function PaymentForm() {
         }
     }
 
+    if (!items.length) return null;
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

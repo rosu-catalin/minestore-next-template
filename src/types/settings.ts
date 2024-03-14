@@ -21,8 +21,22 @@ export type TSettings = {
         name: string;
         price: number;
         discount: number;
-        image: null | string;
+        active: boolean;
+        is_subs: boolean;
+        image: string | null;
         id: number;
+        featured: boolean;
+        is_unavailable: boolean;
+
+        // Optional properties with clear types
+        virtual_price?: number | null;
+        is_virtual_currency_only?: boolean;
+        quantityGlobalLimit?: number;
+        quantityGlobalCurrentLimit?: number;
+        quantityUserLimit?: number;
+        quantityUserCurrentLimit?: number;
+        original_price?: number;
+        description?: string;
     }>;
     details: number | boolean;
     content: string;

@@ -38,7 +38,13 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
                     </div>
 
                     <div className="col-span-12 flex w-full max-w-[750px] flex-col items-center justify-center px-[100px] text-center md:col-span-6">
-                        <Image src="/logo.png" width={165} height={145} alt="logo" />
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/logo.png`}
+                            width={165}
+                            height={145}
+                            alt="logo"
+                            className="h-[145px] w-[165px]"
+                        />
                         <p className="mt-1 text-xs font-bold text-white">2023 ©</p>
                         <h2 className="mt-1 text-3xl font-bold text-card-foreground">
                             {settings.website_name}

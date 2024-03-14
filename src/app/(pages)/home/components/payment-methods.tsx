@@ -9,7 +9,13 @@ export function PaymentMethods() {
         <div className="mt-10">
             <div className="flex-row py-4">
                 <div className="w-32">
-                    <Image src="/paypal.png" alt=" " width={110} height={29} />
+                    <Image
+                        className="h-[29px] w-28 object-contain"
+                        src={`/media/home/paypal.svg`}
+                        alt="PayPal Logo"
+                        width={112}
+                        height={29}
+                    />
                 </div>
                 <span className="ml-12">{t('paypal-balance-banks-all-credit-debit-cards')}</span>
             </div>
@@ -18,7 +24,13 @@ export function PaymentMethods() {
 
             <div className="flex-row py-4">
                 <div className="w-32">
-                    <Image src="/paymentwall.png" alt=" " width={108} height={26} />
+                    <Image
+                        className="mr-auto h-[40px] w-28 object-contain"
+                        src={`/media/home/skrill.svg`}
+                        alt="Skrill Logo"
+                        width={112}
+                        height={40}
+                    />
                 </div>
                 <span className="ml-12">
                     {t('paysafecard-amazon-pay-mobile-payments-600-more')}
@@ -29,7 +41,13 @@ export function PaymentMethods() {
 
             <div className="flex-row py-4">
                 <div className="w-32">
-                    <Image src="/stripe.png" alt=" " width={66} height={27} />
+                    <Image
+                        className="h-[29px] w-28 object-contain"
+                        src={`/media/home/stripe.svg`}
+                        alt="Stripe Logo"
+                        width={112}
+                        height={29}
+                    />
                 </div>
                 <span className="ml-12">{t('all-credit-debit-cards')}</span>
             </div>

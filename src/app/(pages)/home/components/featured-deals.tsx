@@ -20,7 +20,7 @@ export function FeaturedDeals({ featuredDeals }: { featuredDeals: TFeaturedDeal 
 
             <hr className="mt-2 border-[2.5px] border-primary" />
 
-            <div className="mt-6 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-2">
                 {featuredDeals.map((item) => (
                     <FeaturedDeal key={item.id} item={item} />
                 ))}

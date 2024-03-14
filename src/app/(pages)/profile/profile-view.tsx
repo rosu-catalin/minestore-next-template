@@ -29,7 +29,7 @@ export const ProfileView: FC<ProfileViewProps> = ({ profile }) => {
                         alt={profile.displayname}
                     />
                     <div className="mt-4 rounded bg-accent px-4 text-xl font-bold leading-10 text-accent-foreground">
-                        {profile.displayname}
+                        {profile.username}
                     </div>
                 </div>
                 <div className="w-1/2 flex-col rounded-lg border-4 border-accent p-6">

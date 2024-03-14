@@ -24,6 +24,7 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
     const isItemInCart = items.some((x) => x.id === id);
 
     const [details, setDetails] = useState<TItem>();
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
         getItem(id, route).then((data) => {
@@ -66,6 +67,8 @@ export const ItemDetails: FC<DetailsProps> = ({ show, onHide, id, route }) => {
                         isItemInCart={isItemInCart}
                         item={details as TItem}
                         displayFull={false}
+                        setAddToCartPressed={setIsAddingToCart}
+                        addToCartPressed={isAddingToCart}
                     />
                 </div>
             </div>

@@ -3,9 +3,9 @@
 import { FC } from 'react';
 import { RecentPurchases } from '@layout/recent-purchases/recent-purchases';
 import { useTranslations } from 'next-intl';
-import { FaGhost, FaHatWizard } from 'react-icons/fa';
 import Image from 'next/image';
 import { TSettings } from '@/types/settings';
+import { Heart, Trophy } from 'lucide-react';
 
 type ExtraWidgetProps = {
     settings: TSettings;
@@ -18,12 +18,12 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
     return (
         <div className="mt-4 hidden w-full rounded-[10px] bg-card p-8 lg:block">
             <div className="flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
-                <FaGhost className="fill-accent-foreground" />
+                <Trophy className="text-accent-foreground" />
                 <h3 className="text-accent-foreground">{t('sidebar.top-donator')}</h3>
             </div>
             <div className="my-4 flex items-start justify-center">
                 <Image
-                    src={avatar || 'https://mc-heads.net/body/MHF_Question'}
+                    src={avatar || '/media/modules/no-top-donor.webp'}
                     alt="Avatar"
                     width={120}
                     height={120}
@@ -42,7 +42,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
             </div>
             <div className="mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
                 <h3 className="text-accent-foreground">{t('recent-purchases')}</h3>
-                <FaHatWizard className="fill-accent-foreground" />
+                <Heart className="text-accent-foreground" />
             </div>
             <RecentPurchases limit={10} />
         </div>

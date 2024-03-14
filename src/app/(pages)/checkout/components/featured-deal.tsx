@@ -23,10 +23,8 @@ export const FeaturedDeal: FC = () => {
     if (recommends.length === 0) return null;
 
     return (
-        <div className="mb-8">
-            <h3 className="mt-8 text-center text-[30px] uppercase text-primary">
-                {t('featured-deal')}
-            </h3>
+        <div>
+            <h3 className="text-center text-[30px] uppercase text-primary">{t('featured-deal')}</h3>
 
             <hr className="border-2 border-primary" />
 

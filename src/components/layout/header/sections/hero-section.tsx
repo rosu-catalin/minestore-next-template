@@ -65,14 +65,14 @@ export const HeroSection: FC<HeroSectionProps> = ({ settings }) => {
                 </div>
             </div>
 
-            <div className="ghost translate-y-12">
+            <div className="relative z-10 translate-y-12">
                 <Link href="/">
                     <Image
-                        className="levitate mx-4"
-                        src="/logo.png"
+                        className="levitate mx-4 h-[338px] w-[381px]"
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/assets/logo.png`}
                         width={381}
                         height={338}
-                        alt=""
+                        alt="Logo"
                     />
                 </Link>
             </div>

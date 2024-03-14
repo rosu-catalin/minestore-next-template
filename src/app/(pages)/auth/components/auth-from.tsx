@@ -19,7 +19,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/hooks/use-user';
 import { Loader2Icon } from 'lucide-react';
-import { useState } from 'react';
 
 const authFormSchema = z.object({
     username: z

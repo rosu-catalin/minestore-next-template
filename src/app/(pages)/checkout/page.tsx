@@ -13,10 +13,10 @@ export default async function Checkout() {
     const { id } = user;
 
     return (
-        <div className="w-full flex-col rounded-[10px] bg-card p-4">
+        <div className="w-full flex-col gap-8 rounded-[10px] bg-card p-4">
             <Cart />
             <FeaturedDeal />
-            <div className="mb-10 flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4">
                 <RedeemCoupon userId={id} />
                 <ReferralCode />
             </div>
