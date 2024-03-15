@@ -8,8 +8,11 @@ import { ThemeProvider } from './providers/theme-provider';
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
-    title: 'Mine Store',
-    description: ''
+    title: `${process.env.NEXT_PUBLIC_WEBSTORE_NAME}`,
+    description: `${process.env.NEXT_PUBLIC_WEBSTORE_DESCRIPTION}`,
+    icons: `${process.env.NEXT_PUBLIC_API_URL}/assets/logo.png`,
+    applicationName: `${process.env.NEXT_PUBLIC_WEBSTORE_NAME}`,
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_API_URL}`)
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,10 +1,8 @@
-'use client';
-
 import { TSubCategories } from '@/types/categories';
 import { joinClasses } from '@helpers/join-classes';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { SumMenuItem } from './sub-menu-item';
 
@@ -18,22 +16,39 @@ type MenuItemProps = {
 export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] }) => {
     const pathname = usePathname();
     const isActive = pathname === url;
-
     const [expand, setExpand] = useState(false);
-    const isSubMenu = 0 < subItems.length;
-
+    const isSubMenu = subItems.length > 0;
     const router = useRouter();
+
+    const menuRef = useRef<HTMLLIElement>(null);
 
     const handleClick = () => {
         if (isSubMenu === false) {
             router.push(url);
         }
 
-        setExpand((expand) => !expand);
+        setExpand((prevExpand) => !prevExpand);
     };
 
+    // Handle clicks outside the menu to close it
+    const handleOutsideClick = (event: MouseEvent) => {
+        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            setExpand(false);
+        }
+    };
+
+    useEffect(() => {
+        if (expand) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [expand]);
+
     return (
-        <li className="cursor-pointer overflow-hidden rounded-[10px] bg-accent/90">
+        <li className="cursor-pointer overflow-hidden rounded-[10px] bg-accent/90" ref={menuRef}>
             <div
                 onClick={handleClick}
                 className={joinClasses(
@@ -43,14 +58,13 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
             >
                 {image && (
                     <div
-                        className={joinClasses(
-                            'flex h-16 w-20 border-r border-transparent px-3 py-1',
-                            { 'border-accent-foreground/10': image }
-                        )}
+                        className={joinClasses('flex size-20 border-r border-transparent', {
+                            'border-accent-foreground/10': image
+                        })}
                     >
                         <Image
                             src={image}
-                            className="m-auto h-auto w-auto"
+                            className="m-auto h-[64px] w-[64px] object-contain"
                             width={64}
                             height={64}
                             alt=""

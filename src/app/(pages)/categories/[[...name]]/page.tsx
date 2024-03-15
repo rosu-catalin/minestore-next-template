@@ -40,8 +40,24 @@ export default async function Page({ params }: { params: { name: string[] } }) {
 
     const isComparison = subCategory?.category.is_comparison || category.is_comparison;
 
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        itemListElement: items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            description: item.description
+        }))
+    };
+
     return (
         <div className="w-full flex-col rounded-[10px] bg-card">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+
             <Suspense fallback={<SkeletonCategory />}>
                 <CategoryHeader category={category} subCategory={subCategory} />
 

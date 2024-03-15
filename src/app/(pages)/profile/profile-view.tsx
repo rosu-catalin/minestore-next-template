@@ -57,6 +57,12 @@ export const ProfileView: FC<ProfileViewProps> = ({ profile }) => {
             <div className="mt-8 grid grid-cols-3 gap-8">
                 {profile?.items?.map((item, index) => <Card key={index} item={item} />)}
             </div>
+
+            {profile?.items?.length === 0 && (
+                <div className="text-center text-muted-foreground">
+                    No recent purchases found for this user.
+                </div>
+            )}
         </div>
     );
 };

@@ -24,7 +24,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
     return (
         <header>
             <div className="absolute inset-0 -z-20 h-[525px] w-full">
-                <div className="hero-image">
+                <div className="hero-image before:bg-[#000000d6] dark:before:bg-transparent">
                     <Image
                         src="/background.png"
                         className="absolute -z-10 h-full w-full object-cover opacity-60"
@@ -54,7 +54,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
             </div>
 
             <Container>
-                <div className="relative flex h-[110px] items-center bg-primary/55 px-5">
+                <div className="relative flex h-[110px] items-center bg-primary/20 px-5">
                     <div className="absolute inset-0 -z-10 size-full rounded-md bg-primary"></div>
                     <div className="absolute inset-0 -z-10 size-full rounded-md bg-[url(/bg.jpg)] bg-cover opacity-20"></div>
 

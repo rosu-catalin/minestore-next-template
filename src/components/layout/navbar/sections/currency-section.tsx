@@ -1,9 +1,17 @@
 import { FC, useState } from 'react';
-import { ReactSVG } from 'react-svg';
 import { TSettings } from '@/types/settings';
 import { useCurrencyStore } from '@/stores/currency';
 import { useTranslations } from 'next-intl';
-import { Modal } from '@/components/base/modal/modal';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type CurrencySectionProps = {
     settings: TSettings;
@@ -12,42 +20,51 @@ type CurrencySectionProps = {
 export const CurrencySection: FC<CurrencySectionProps> = ({ settings }) => {
     const { currencies } = settings;
 
-    const [displayCurrency, setDisplayCurrency] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     const { currency, setCurrency } = useCurrencyStore();
 
     const t = useTranslations('navbar');
 
     return (
-        <>
+        <div className="space-x-4">
             <span className="uppercase text-muted-foreground">{t('currency')}</span>
 
-            <div className="relative ml-4">
-                <div
-                    onClick={() => setDisplayCurrency((value) => !value)}
-                    className="cursor-pointer flex-row text-white dark:text-accent-foreground"
-                >
-                    <span className="cursor-pointer font-bold uppercase">{currency?.name}</span>
-                    <ReactSVG src="/icons/expand-more.svg" />
-                </div>
-                <Modal
-                    show={displayCurrency}
-                    onClickOutside={() => setDisplayCurrency(false)}
-                    className="absolute -ml-4 mt-[19px] w-max flex-col bg-muted px-4"
-                >
+            <DropdownMenu
+                onOpenChange={(open) => {
+                    setExpanded(open);
+                }}
+            >
+                <DropdownMenuTrigger>
+                    <div className="flex-row items-center">
+                        <div className="flex-row items-center gap-1 text-white dark:text-accent-foreground">
+                            <span className="ml-1 font-bold uppercase">{currency?.name}</span>
+                            <ChevronDown
+                                size={20}
+                                className={cn(
+                                    'transform transition-transform',
+                                    expanded ? 'rotate-180' : 'rotate-0'
+                                )}
+                            />
+                        </div>
+                    </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel>
+                        <span className="text-muted-foreground">{t('currency')}</span>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
                     {currencies.map((currency, index) => (
-                        <span
+                        <DropdownMenuItem
                             onClick={() => {
                                 setCurrency(currency);
-                                setDisplayCurrency(false);
                             }}
-                            className="h-10 cursor-pointer font-bold leading-10 text-accent-foreground"
                             key={index}
                         >
                             {currency.name}
-                        </span>
+                        </DropdownMenuItem>
                     ))}
-                </Modal>
-            </div>
-        </>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     );
 };
