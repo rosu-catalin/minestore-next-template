@@ -24,25 +24,31 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
     return (
         <header>
             <div className="absolute inset-0 -z-20 h-[525px] w-full">
-                <div className="hero-image before:bg-[#000000d6] dark:before:bg-transparent">
+                <div className="hero-image before:bg-primary/20 dark:before:bg-transparent">
                     <Image
-                        src="/background.png"
+                        src="/background.jpg"
                         className="absolute -z-10 h-full w-full object-cover opacity-60"
                         width={1590}
                         height={352}
                         alt=""
                     />
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 1440 320"
-                        className="absolute inset-0 top-[150px] z-[-1] h-full w-full"
+                        className="absolute inset-0 top-[280px] z-[-1] h-full w-full"
+                        viewBox="0 0 1440 224"
+                        fill="none"
                         preserveAspectRatio="xMidYMid slice"
+                        xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
-                            className="fill-background"
+                            d="M720 90.7C960 85 1200 43 1320 21.3L1440 0V224H1320C1200 224 960 224 720 224V90.7Z"
+                            fill="hsl(var(--background))"
                             fillOpacity="1"
-                            d="M0,128L120,144C240,160,480,192,720,186.7C960,181,1200,139,1320,117.3L1440,96L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"
-                        ></path>
+                        />
+                        <path
+                            d="M720 90.7C480 85 240 43 120 21.3L0 0V224H120C240 224 480 224 720 224V90.7Z"
+                            fill="hsl(var(--background))"
+                            fillOpacity="1"
+                        />
                     </svg>
                 </div>
             </div>
