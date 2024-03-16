@@ -22,13 +22,15 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
                 <h3 className="text-accent-foreground">{t('sidebar.top-donator')}</h3>
             </div>
             <div className="my-4 flex items-start justify-center">
-                <Image
-                    src={avatar || '/media/modules/no-top-donor.webp'}
-                    alt="Avatar"
-                    width={120}
-                    height={120}
-                    className="h-[120px] w-[120px] object-contain"
-                />
+                <div className=" z-0 -mb-12 overflow-hidden">
+                    <Image
+                        src={avatar || '/media/modules/no-top-donor.webp'}
+                        alt="Avatar"
+                        width={120}
+                        height={160}
+                        className="h-[160px] w-[120px] object-contain"
+                    />
+                </div>
                 <div className="mt-4">
                     <h3 className="text-xl font-bold text-primary">
                         {username || t('sidebar.no-top-donor')}
@@ -40,7 +42,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
                     </p>
                 </div>
             </div>
-            <div className="mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
+            <div className="relative mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
                 <h3 className="text-accent-foreground">{t('recent-purchases')}</h3>
                 <Heart className="text-accent-foreground" />
             </div>

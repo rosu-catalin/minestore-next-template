@@ -124,16 +124,12 @@ export function PaymentForm() {
             });
 
             if (response.success) {
-                console.log(response);
-                console.log(response.data);
-
                 if (response.data.type === 'url') {
                     window.location.href = response.data.url;
                 } else if (response.data.type === 'html') {
                     const paymentForm = document.createElement('div');
                     paymentForm.innerHTML = response.data.html;
                     document.body.appendChild(paymentForm);
-
                     paymentForm.querySelector('form')?.submit();
                 }
             }
