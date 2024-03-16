@@ -26,6 +26,7 @@ import { setSelectedServer } from './endpoints/set-selected-server';
 import { setCustomPrice } from './endpoints/set-custom-price';
 import { inGameAuthAttempt } from './endpoints/in-game-auth-attempt';
 import { inGameAuth } from './endpoints/in-game-auth';
+import { getCustomPage } from './endpoints/get-custom-page';
 
 export const getEndpoints = (fetcher: AxiosInstance) => {
     return {
@@ -54,6 +55,7 @@ export const getEndpoints = (fetcher: AxiosInstance) => {
         getFeaturedDeals: getFeaturedDeals(fetcher),
         setProductVariable: setProductVariable(fetcher),
         setSelectedServer: setSelectedServer(fetcher),
-        setCustomPrice: setCustomPrice(fetcher)
+        setCustomPrice: setCustomPrice(fetcher),
+        getCustomPage: getCustomPage(fetcher)
     };
 };
