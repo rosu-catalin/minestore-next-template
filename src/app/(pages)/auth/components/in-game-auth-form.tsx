@@ -67,7 +67,6 @@ export function InGameAuthForm() {
         if (step === 1) {
             const timer = setInterval(async () => {
                 const response = await loginInGame(form.getValues('username'));
-                console.log('Status: ', response?.status);
                 if (response?.status) {
                     clearInterval(timer);
                 }

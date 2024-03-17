@@ -41,7 +41,7 @@ import { useEffect, useState } from 'react';
 
 import { TPayments } from '@/types/payments';
 import { useCartStore } from '@/stores/cart';
-import { paymentFormSchema } from './form-schema';
+import { paymentFormSchema } from './payment-form/form-schema';
 import { useCurrencyStore } from '@/stores/currency';
 
 const { checkout } = getEndpoints(fetcher);
@@ -74,7 +74,6 @@ export function PaymentForm() {
     useEffect(() => {
         getPaymentMethods()
             .then((response) => {
-                console.log(response);
                 setPaymentMethods(response);
             })
             .catch((err) => {

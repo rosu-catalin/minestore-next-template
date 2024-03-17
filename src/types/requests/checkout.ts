@@ -1,7 +1,7 @@
 export type TCheckoutRequest = {
     currency: string;
     paymentMethod: string;
-    details: {
+    details?: {
         fullname: string;
         email: string;
         address1: string;

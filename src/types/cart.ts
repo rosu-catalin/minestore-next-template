@@ -6,19 +6,25 @@ export type Line = {
 
 export type TCart = {
     cart: {
+        clear_price: number;
+        coupon_code: string;
+        coupon_type: 0 | 1;
+        coupon_value: number;
+        coupon_id: null | number;
+        created_at: string;
+        gift_code: string;
+        gift_id: number;
+        gift_sum: number;
         id: number;
-        user_id: number;
+        is_active: 0 | 1;
         items: number;
         price: number;
-        clear_price: number;
+        referral: null | string;
+        referral_code: null | string;
         tax: number;
-        virtual_price: number;
-        is_active: number;
-        coupon_id: number | null;
-        gift_id: number | null;
-        gift_sum: number;
-        created_at: string;
         updated_at: string;
+        user_id: number;
+        virtual_price: number;
     };
     items: Array<{
         name: string;

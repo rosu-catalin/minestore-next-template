@@ -1,10 +1,10 @@
 'use client';
 
+import { DescriptionTooltip } from '@/app/(pages)/checkout/components/cart-item/item-description-tooltip';
 import { useSettingsStore } from '@/stores/settings';
 import { joinClasses } from '@helpers/join-classes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 export const RecentPurchases = ({ limit = 10 }: { limit: number }) => {
     const { settings } = useSettingsStore();
@@ -29,37 +29,28 @@ export const RecentPurchases = ({ limit = 10 }: { limit: number }) => {
                     Array.from({ length: limit }).map((_, index) => <SkeletonDonor key={index} />)
                 )}
             </div>
-            <ReactTooltip
-                id="username-tooltip"
-                place="top"
-                style={{
-                    borderRadius: 10,
-                    padding: 2,
-                    fontWeight: 'bold',
-                    backgroundColor: 'hsl(var(--primary))',
-                    color: 'hsl(var(--primary-foreground))'
-                }}
-            />
         </div>
     );
 };
 
 function Donor({ username, avatar }: { username: string; avatar: string }) {
     return (
-        <Link
-            href={`/profile/${username}`}
-            data-tooltip-id="username-tooltip"
-            data-tooltip-content={username}
-            className="h-[60px] w-[60px] overflow-hidden rounded-md"
-        >
-            <Image
-                src={avatar}
-                alt={username}
-                width={60}
-                height={60}
-                className="h-full w-full rounded-md object-cover"
-            />
-        </Link>
+        <DescriptionTooltip description={username} html={false}>
+            <Link
+                href={`/profile/${username}`}
+                data-tooltip-id="username-tooltip"
+                data-tooltip-content={username}
+                className="h-[60px] w-[60px] overflow-hidden rounded-md"
+            >
+                <Image
+                    src={avatar}
+                    alt={username}
+                    width={60}
+                    height={60}
+                    className="h-full w-full rounded-md object-cover"
+                />
+            </Link>
+        </DescriptionTooltip>
     );
 }
 

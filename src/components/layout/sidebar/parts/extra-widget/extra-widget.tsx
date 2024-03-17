@@ -5,7 +5,7 @@ import { RecentPurchases } from '@layout/recent-purchases/recent-purchases';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { TSettings } from '@/types/settings';
-import { Heart, Trophy } from 'lucide-react';
+import { Crown, Rocket } from 'lucide-react';
 
 type ExtraWidgetProps = {
     settings: TSettings;
@@ -18,7 +18,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
     return (
         <div className="mt-4 hidden w-full rounded-[10px] bg-card p-8 lg:block">
             <div className="flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
-                <Trophy className="text-accent-foreground" />
+                <Crown className="text-accent-foreground" />
                 <h3 className="text-accent-foreground">{t('sidebar.top-donator')}</h3>
             </div>
             <div className="my-4 flex items-start justify-center">
@@ -44,7 +44,7 @@ export const ExtraWidget: FC<ExtraWidgetProps> = ({ settings }) => {
             </div>
             <div className="relative mb-4 flex items-center justify-center gap-2 rounded-[10px] bg-accent py-4 font-bold">
                 <h3 className="text-accent-foreground">{t('recent-purchases')}</h3>
-                <Heart className="text-accent-foreground" />
+                <Rocket className="text-accent-foreground" />
             </div>
             <RecentPurchases limit={10} />
         </div>

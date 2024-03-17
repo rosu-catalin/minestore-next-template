@@ -10,8 +10,6 @@ export function FeaturedDeals({ featuredDeals }: { featuredDeals: TFeaturedDeal 
 
     if (featuredDeals.length === 0) return null;
 
-    console.log('featuredDeals', featuredDeals);
-
     return (
         <div className="mb-4 flex-col rounded-[10px] bg-card p-6">
             <span className="text-center text-[28px] uppercase text-primary">

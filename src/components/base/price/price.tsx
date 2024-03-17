@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useCurrencyStore } from '@/stores/currency';
 import { useSettingsStore } from '@/stores/settings';
 import { convertToLocalCurrency } from '@helpers/convert-to-local-currency';
+import { cn } from '@/lib/utils';
 
 type PriceProps = {
     value: number;
@@ -53,8 +54,8 @@ const PriceTag: FC<PriceTagProps> = ({
                     <span className="text-green-400">{displayPrice}</span>
                 </p>
             ) : (
-                <p className={className}>
-                    <span className="text-green-400">{displayPrice}</span>
+                <p>
+                    <span className={cn('text-green-400', className)}>{displayPrice}</span>
                 </p>
             )}
         </>

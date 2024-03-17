@@ -1,7 +1,9 @@
 import { TCurrency } from './currency';
 
+type AuthType = 'username' | 'ingame';
+
 export type TSettings = {
-    auth: string | null;
+    auth_type: AuthType;
     header: unknown[];
     footer: Array<{
         id?: number;
