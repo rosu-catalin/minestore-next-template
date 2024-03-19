@@ -11,9 +11,10 @@ type MenuItemProps = {
     image: string | null;
     url: string;
     subItems?: TSubCategories;
+    isPageLink?: boolean;
 };
 
-export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] }) => {
+export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [], isPageLink }) => {
     const pathname = usePathname();
     const isActive = pathname === url;
     const [expand, setExpand] = useState(false);
@@ -56,21 +57,8 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
                     { 'before:bg-primary': isActive }
                 )}
             >
-                {image && (
-                    <div
-                        className={joinClasses('flex size-20 border-r border-transparent', {
-                            'border-accent-foreground/10': image
-                        })}
-                    >
-                        <Image
-                            src={image}
-                            className="m-auto h-[64px] w-[64px] object-contain"
-                            width={64}
-                            height={64}
-                            alt=""
-                        />
-                    </div>
-                )}
+                <CategoryImage image={image} />
+
                 <span className={joinClasses('ml-6 font-bold', isActive && 'text-primary')}>
                     {name}
                 </span>
@@ -99,4 +87,36 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [] })
             )}
         </li>
     );
+};
+
+function CategoryImage({ image, icon }: { image: string; icon?: string }) {
+    if (!image) {
+        return null;
+    }
+
+    if (icon) {
+        return (
+            <div className="flex size-20 border-r border-accent-foreground/10">
+                <Icon name={icon} color="white" size={20} />
+            </div>
+        );
+    }
+
+    return (
+        <div className="flex size-20 border-r border-accent-foreground/10">
+            <Image
+                src={image}
+                className="m-auto h-[64px] w-[64px] object-contain"
+                width={64}
+                height={64}
+                alt=""
+            />
+        </div>
+    );
+}
+
+const Icon = ({ name, color, size }: LucideProps) => {
+    const LucideIcon = icons[name];
+
+    return <LucideIcon color={color} size={size} />;
 };

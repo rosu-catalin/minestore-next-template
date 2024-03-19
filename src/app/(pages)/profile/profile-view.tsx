@@ -16,8 +16,10 @@ export const ProfileView: FC<ProfileViewProps> = ({ profile }) => {
 
     return (
         <div className="flex-col rounded-[10px] bg-card p-6">
-            <div className="flex-row rounded-[10px] bg-[url(/bg.png)] bg-cover p-9">
-                <h2 className="text-[25px] font-bold text-accent-foreground">{t('title')}</h2>
+            <div className="stone-pattern flex-row rounded-md p-9 dark:bg-accent">
+                <h2 className="text-2xl font-bold text-white dark:text-accent-foreground">
+                    {t('title')}
+                </h2>
             </div>
 
             <div className="mt-8 flex-row items-start">

@@ -14,7 +14,7 @@ export const Cart: FC = () => {
 
     return (
         <>
-            <div className="flex-row rounded-md bg-[url(/navbar.png)] bg-cover p-9">
+            <div className="stone-pattern flex-row rounded-md p-9 dark:bg-accent">
                 <p className="text-2xl font-bold text-white dark:text-accent-foreground">
                     {t('title')}
                 </p>

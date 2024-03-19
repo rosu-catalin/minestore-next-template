@@ -19,15 +19,16 @@ type RedeemCouponProps = {
 };
 
 export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
-    const { items } = useCartStore();
+    const { cart, setCart, items } = useCartStore();
 
     const t = useTranslations('checkout');
 
     const [loading, setLoading] = useState(false);
 
-    const { cart, setCart } = useCartStore();
-
-    console.log(cart);
+    console.log({
+        cart,
+        items
+    });
 
     const [coupon, setCoupon] = useState('');
 

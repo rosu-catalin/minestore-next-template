@@ -4,14 +4,17 @@ type AuthType = 'username' | 'ingame';
 
 export type TSettings = {
     auth_type: AuthType;
-    header: unknown[];
-    footer: Array<{
-        id?: number;
+    header: Array<{
+        id: number;
         name: string;
         url: string;
-        type?: string;
-        created_at?: string;
-        updated_at?: string;
+        icon: string;
+    }>;
+    footer: Array<{
+        id: number;
+        name: string;
+        url: string;
+        icon: string;
     }>;
     website_name: string;
     server: {
@@ -64,10 +67,12 @@ export type TSettings = {
     block_2: string;
     block_3: string;
     socials: {
-        facebook: string;
-        instagram: string;
-        discord: string;
-        twitter: string;
+        facebook?: string;
+        instagram?: string;
+        discord?: string;
+        twitter?: string;
+        steam?: string;
+        tiktok?: string;
     };
     is_virtual_currency: number;
     virtual_currency: string;

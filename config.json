@@ -1,0 +1,52 @@
+{
+    "author": "TripleZone & MineStoreCMS",
+    "config": [
+        {
+            "header": "General Settings",
+            "options": [
+                {
+                    "id": "main-color",
+                    "name": "Main Color",
+                    "default": "#ff7300",
+                    "description": "Enter the main color used on your website.",
+                    "type": "textarea"
+                },
+                {
+                    "id": "screen-loading-enabled",
+                    "name": "Toggle Screen Loading",
+                    "description": "Toggle the screen loading (NOT RECOMMENDED) If you disable this it's recommended to disable Theme Switcher too.",
+                    "type": "select",
+                    "default": "Enabled",
+                    "values": ["Enabled", "Disabled"]
+                }
+            ]
+        },
+        {
+            "header": "Player Counter Settings",
+            "options": [
+                {
+                    "id": "player-counter-enabled",
+                    "name": "Toggle Player Counter",
+                    "description": "Toggle the player counter.",
+                    "type": "select",
+                    "default": "Enabled",
+                    "values": ["Enabled", "Disabled"]
+                },
+                {
+                    "id": "server-ip",
+                    "name": "Server IP",
+                    "default": "mc.hypixel.net",
+                    "description": "Enter your server IP - it will be used in the copy server IP section.",
+                    "type": "textarea"
+                },
+                {
+                    "id": "server-port",
+                    "name": "Server Port",
+                    "default": "25565",
+                    "description": "Enter your server PORT - it will be used in the copy server IP section.",
+                    "type": "textarea"
+                }
+            ]
+        }
+    ]
+}

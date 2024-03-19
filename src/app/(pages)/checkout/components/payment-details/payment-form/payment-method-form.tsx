@@ -52,7 +52,7 @@ export const PaymentMethodForm = ({ items }: PaymentMethodFormProps) => {
                             Payment Method
                         </FormLabel>
                         <RadioGroup
-                            className="grid grid-cols-3 gap-4"
+                            className="grid grid-cols-2 gap-4 md:grid-cols-3"
                             onValueChange={field.onChange}
                             defaultValue={field.value}
                         >

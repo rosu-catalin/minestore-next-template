@@ -28,6 +28,7 @@ import { inGameAuthAttempt } from './endpoints/in-game-auth-attempt';
 import { inGameAuth } from './endpoints/in-game-auth';
 import { getCustomPage } from './endpoints/get-custom-page';
 import { removeGiftcard } from './endpoints/remove-giftcard';
+import { acceptReferral } from './endpoints/accept-referral';
 
 export const getEndpoints = (fetcher: AxiosInstance) => {
     return {
@@ -52,6 +53,7 @@ export const getEndpoints = (fetcher: AxiosInstance) => {
         getServerOnline: getServerOnline(fetcher),
         getGift: getGift(fetcher),
         acceptCoupon: acceptCoupon(fetcher),
+        acceptReferral: acceptReferral(fetcher),
         removeCoupon: removeCoupon(fetcher),
         removeGiftCard: removeGiftcard(fetcher),
         getFeaturedDeals: getFeaturedDeals(fetcher),

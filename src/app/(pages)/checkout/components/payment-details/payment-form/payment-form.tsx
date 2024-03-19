@@ -16,7 +16,7 @@ import { loadScript } from '@/lib/utils';
 
 const { checkout } = getEndpoints(fetcher);
 
-export function PaymentForm2() {
+export function PaymentForm() {
     const { items } = useCartStore();
     const { currency } = useCurrencyStore();
 

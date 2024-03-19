@@ -11,7 +11,7 @@ type ResponseType = {
 };
 
 async function getStaffMembers() {
-    const URL = `${process.env.NEXT_PUBLIC_API_URL}/staff`;
+    const URL = `${process.env.NEXT_PUBLIC_API_URL}/api/staff`;
 
     const res = await fetch(URL, {
         next: {

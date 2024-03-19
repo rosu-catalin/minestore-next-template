@@ -4,12 +4,9 @@ import { FC } from 'react';
 import { TSettings } from '@/types/settings';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoLogoDiscord } from 'react-icons/io5';
-import { FaFacebook } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { FaTwitter } from 'react-icons/fa';
 import { Container } from '@/components/base/container/container';
 import { useTranslations } from 'next-intl';
+import { ReactSVG } from 'react-svg';
 import { ModeToggle } from '@layout/theme-selector/theme-selector';
 
 export type FooterProps = {
@@ -21,64 +18,103 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
 
     return (
         <div className="bg-card/60">
-            <Container className="-mt-4 flex flex-col items-center pt-20">
-                <ModeToggle />
-                <div className="grid w-full grid-cols-12 items-center gap-10">
-                    <div className="col-span-12 text-center md:col-span-3 md:max-w-[300px]">
-                        <h2 className="text-3xl font-bold text-card-foreground">
-                            {t('useful-links')}
-                        </h2>
-                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-primary" />
-                        <Link href={settings.footer?.[0]?.url || ''} target="_blank">
-                            <p className="py-3 !text-base font-bold">YouTube</p>
-                        </Link>
-                        <Link href={settings.footer?.[1]?.url || ''} target="_blank">
-                            <p className="py-3 !text-base font-bold">Staff</p>
-                        </Link>
-                    </div>
-
-                    <div className="col-span-12 flex w-full max-w-[750px] flex-col items-center justify-center px-[100px] text-center md:col-span-6">
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/logo.png`}
-                            width={165}
-                            height={145}
-                            alt="logo"
-                            className="h-[145px] w-[165px]"
-                        />
-                        <p className="mt-1 text-xs font-bold text-white">2023 ©</p>
-                        <h2 className="mt-1 text-3xl font-bold text-card-foreground">
-                            {settings.website_name}
-                        </h2>
-                        <p className="mt-5 !text-lg font-bold">All Rights Reserved.</p>
-                        <p className="">
-                            {t('info')}{' '}
-                            <span className="text-primary">{settings.website_name}</span>
-                        </p>
-                        <div className="flex w-full items-center justify-between py-8">
-                            <Link href={settings.socials?.facebook || ''} target="_blank">
-                                <FaFacebook className="h-[30px] w-[30px]" />
-                            </Link>
-                            <Link href={settings.socials?.instagram || ''} target="_blank" replace>
-                                <FaInstagram className="h-[30px] w-[30px]" />
-                            </Link>
-                            <Link href={settings.socials?.discord || ''} target="_blank">
-                                <IoLogoDiscord className="h-[30px] w-[30px]" />
-                            </Link>
-                            <Link href={settings.socials?.twitter || ''} target="_blank">
-                                <FaTwitter className="h-[30px] w-[30px]" />
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="col-span-12 max-w-[300px] text-center md:col-span-3">
-                        <h2 className="text-3xl font-bold text-card-foreground">{t('about-us')}</h2>
-                        <div className="mx-auto mt-2 h-[5px] w-[40px] bg-primary" />
-                        <p className="mt-2">
-                            {settings.website_name} {t('description')}
-                        </p>
-                    </div>
-                </div>
+            <Container className="-mt-8 grid grid-cols-1 items-start gap-8 py-20 lg:grid-cols-3">
+                <UsefulLinks settings={settings} />
+                <Copyright settings={settings} />
+                <AboutUs />
             </Container>
         </div>
     );
 };
+
+function UsefulLinks({ settings }: { settings: TSettings }) {
+    if (!settings.footer) {
+        return null;
+    }
+
+    return (
+        <div className="flex flex-col items-center justify-center gap-6 text-center lg:mt-24">
+            <div>
+                <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">
+                    Useful Links
+                </h3>
+                <hr className="mx-auto mt-2 h-1 w-12 rounded border-0 bg-primary" />
+            </div>
+            <ul className="space-y-2">
+                {settings.footer.map((item, index) => (
+                    <li key={index}>
+                        <Link href={item.url}>{item.name}</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+function Copyright({ settings }: { settings: TSettings }) {
+    return (
+        <div className="flex flex-col items-center justify-center gap-6 text-center">
+            <Image
+                className="aspect-square w-[260px] object-contain"
+                src={`${process.env.NEXT_PUBLIC_API_URL}/assets/logo.png`}
+                width={260}
+                height={231}
+                alt="Logo"
+            />
+            <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">
+                <span className="block text-sm">&copy; {new Date().getFullYear()}</span>
+                {settings.website_name}
+            </h3>
+            <div>
+                <p>
+                    <span className="font-bold">All Rights Reserved. </span>
+                    We are not affiliated with Mojang AB.
+                </p>
+                <p>
+                    Powered by&nbsp;
+                    <Link href="https://minestorecms.com/" className="text-primary">
+                        Minestore Pro | Official
+                    </Link>
+                </p>
+            </div>
+            <SocialIcons settings={settings} />
+            <ModeToggle />
+        </div>
+    );
+}
+
+function AboutUs() {
+    return (
+        <div className="hidden flex-col items-center justify-center gap-6 text-center lg:mt-24 lg:flex">
+            <div>
+                <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">About Us</h3>
+                <hr className="mx-auto mt-2 h-1 w-12 rounded border-0 bg-primary" />
+            </div>
+            <p className="text-balance">
+                MineStoreCMS PRO is a Minecraft: Java Edition network that provides players with
+                captivating and unique gameplay. This is the only official store for the network.
+            </p>
+        </div>
+    );
+}
+
+function SocialIcons({ settings }: { settings: TSettings }) {
+    const socials = settings.socials;
+
+    return (
+        <div className="flex flex-wrap items-center gap-4">
+            {Object.entries(socials).map(([key, value], index) => (
+                <Link key={index} href={value}>
+                    <ReactSVG
+                        src={`/icons/${key}.svg`}
+                        width={32}
+                        height={32}
+                        beforeInjection={(svg) => {
+                            svg.classList.add('w-8', 'h-8');
+                        }}
+                    />
+                </Link>
+            ))}
+        </div>
+    );
+}

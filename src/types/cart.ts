@@ -20,7 +20,7 @@ export type TCart = {
         items: number;
         price: number;
         referral: null | string;
-        referral_code: null | string;
+        referral_code: string;
         tax: number;
         updated_at: string;
         user_id: number;
