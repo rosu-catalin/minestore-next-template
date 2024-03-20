@@ -6,19 +6,16 @@ export function middleware(request: NextRequest) {
 
     // Base redirects:
     if (!token && !request.url.endsWith('/auth')) {
-        console.log('No token, redirecting to /auth');
         return NextResponse.redirect(new URL('/auth', request.url));
     }
 
     // Handle token on /auth:
     if (request.url.endsWith('/auth') && token) {
-        console.log('Token present on /auth, redirecting to home');
         return NextResponse.redirect(new URL('/', request.url));
     }
 
     // Protected routes check (optional):
     if (request.url.match(/^\/(categories|checkout|profile)(\?.*)?$/) && !token) {
-        console.log('Missing token for protected route, redirecting to /auth');
         return NextResponse.redirect(new URL('/auth', request.url));
     }
 

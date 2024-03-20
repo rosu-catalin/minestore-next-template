@@ -1,30 +1,28 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+
 export default function Error() {
+    const t = useTranslations('error');
+
     return (
-        <div className="bg-card flex-col rounded-[10px] p-6">
-            <span className="text-primary text-center text-[28px]">OOOPPSS!</span>
+        <div className="flex-col rounded-[10px] bg-card p-6">
+            <span className="text-center text-[28px] text-primary">{t('oops')}</span>
 
-            <span className="text-center">Something went wrong or our servers are offline!</span>
+            <span className="text-center">{t('somethingWrong')}</span>
 
-            <span className="mt-8 text-xl">You{"'"}re the best, but something happened 🥺</span>
+            <span className="mt-8 text-xl">{t('youreTheBest')}</span>
 
             <hr className="mt-2 border-[2.5px] border-accent" />
 
             <p className="mt-8 text-gray-400">
-                <span className="font-bold text-white">
-                    Please, contact us at Discord or any other way!
-                </span>
-                <p>Probably our servers are offline or something happened with your payment.</p>
+                <span className="font-bold text-white">{t('contactUs')}</span>
+                <p>{t('serverIssue')}</p>
             </p>
 
             <p className="mt-8 text-gray-400">
-                <span className="font-bold text-white">
-                    Please contact us with your username and attached proof of purchase.
-                </span>
-                <p>
-                    Maybe your payment marked as {'"'}pending{'"'}. Also make sure that you have
-                    submitted your correct Minecraft username. If this is not the case, please
-                    mention this.
-                </p>
+                <span className="font-bold text-white">{t('contactWithProof')}</span>
+                <p>{t('paymentIssue')}</p>
             </p>
         </div>
     );

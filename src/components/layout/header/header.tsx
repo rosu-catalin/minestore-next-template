@@ -73,7 +73,7 @@ export const Header: FC<HeaderProps> = ({ settings }) => {
                                     {user.username}
                                 </span>
                                 <span className="ml-4 text-accent-foreground/80">
-                                    {user.virtual_currency} QQ
+                                    {user.virtual_currency} {settings.virtual_currency}
                                 </span>
                             </div>
 

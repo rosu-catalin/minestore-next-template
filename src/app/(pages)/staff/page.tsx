@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { StaffHeading } from './heading';
 
 type User = {
     username: string;
@@ -31,9 +32,7 @@ export default async function Page() {
 
     return (
         <div className="flex-col rounded-[10px] bg-card p-6">
-            <h1 className="scroll-m-20 text-center text-4xl font-bold tracking-tight text-primary lg:text-5xl">
-                Staff Members
-            </h1>
+            <StaffHeading />
 
             <div className="grid gap-4">
                 {Object.entries(staffMembers).map(([role, users]) => (

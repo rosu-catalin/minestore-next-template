@@ -1,14 +1,16 @@
 import { useUserStore } from '@/stores/user';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export function UserAvatar() {
     const { user } = useUserStore();
+    const t = useTranslations('checkout');
 
     if (!user) return null;
 
     return (
         <>
-            <span className="font-medium">You are buying as</span>
+            <span className="font-medium">{t('you-are-buying-as')}</span>
             <Image
                 src={user.avatar}
                 className="mt-4 h-auto w-auto flex-1"

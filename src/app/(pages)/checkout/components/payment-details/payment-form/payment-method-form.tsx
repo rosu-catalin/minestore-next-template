@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const { getPaymentMethods } = getEndpoints(fetcher);
 
@@ -28,6 +29,7 @@ type PaymentMethodFormProps = {
 };
 
 export const PaymentMethodForm = ({ items }: PaymentMethodFormProps) => {
+    const t = useTranslations('checkout');
     const {} = useFormContext();
 
     const [paymentMethods, setPaymentMethods] = useState<TPayments>([]);
@@ -49,7 +51,7 @@ export const PaymentMethodForm = ({ items }: PaymentMethodFormProps) => {
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className="text-[20px] font-bold text-accent-foreground">
-                            Payment Method
+                            {t('payment-method')}
                         </FormLabel>
                         <RadioGroup
                             className="grid grid-cols-2 gap-4 md:grid-cols-3"
@@ -94,13 +96,8 @@ export const PaymentMethodForm = ({ items }: PaymentMethodFormProps) => {
                             <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                            <FormLabel>Privacy Statement</FormLabel>
-                            <FormDescription>
-                                All payments are final and non-refundable. Attempting a chargeback
-                                or opening a PayPal dispute will result in permanent and
-                                irreversible banishment from all of our servers, and other minecraft
-                                stores.
-                            </FormDescription>
+                            <FormLabel>{t('privacy-statement')}</FormLabel>
+                            <FormDescription>{t('privacy-statement-description')}</FormDescription>
                             <FormMessage />
                         </div>
                     </FormItem>

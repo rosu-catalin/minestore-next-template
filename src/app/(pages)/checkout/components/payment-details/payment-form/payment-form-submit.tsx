@@ -3,8 +3,11 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export const PaymentFormSubmit = ({ loading }: { loading: boolean }) => {
+    const t = useTranslations('checkout');
+
     return (
         <div className="flex flex-wrap items-center justify-between">
             <FormField
@@ -15,9 +18,7 @@ export const PaymentFormSubmit = ({ loading }: { loading: boolean }) => {
                             <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                            <FormLabel>
-                                I agree to the terms & conditions of this purchase.
-                            </FormLabel>
+                            <FormLabel>{t('agree')}</FormLabel>
                             <FormMessage />
                         </div>
                     </FormItem>
@@ -29,7 +30,7 @@ export const PaymentFormSubmit = ({ loading }: { loading: boolean }) => {
                 className="mt-4 flex items-center justify-center gap-2"
             >
                 {loading && <Loader2 className="animate-spin" size={24} />}
-                Continue to Payment
+                {t('purchase')}
             </Button>
         </div>
     );

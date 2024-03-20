@@ -14,8 +14,6 @@ export type FooterProps = {
 };
 
 export const Footer: FC<FooterProps> = ({ settings }) => {
-    const t = useTranslations('footer');
-
     return (
         <div className="bg-card/60">
             <Container className="-mt-8 grid grid-cols-1 items-start gap-8 py-20 lg:grid-cols-3">
@@ -28,6 +26,8 @@ export const Footer: FC<FooterProps> = ({ settings }) => {
 };
 
 function UsefulLinks({ settings }: { settings: TSettings }) {
+    const t = useTranslations('footer');
+
     if (!settings.footer) {
         return null;
     }
@@ -36,7 +36,7 @@ function UsefulLinks({ settings }: { settings: TSettings }) {
         <div className="flex flex-col items-center justify-center gap-6 text-center lg:mt-24">
             <div>
                 <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">
-                    Useful Links
+                    {t('useful-links')}
                 </h3>
                 <hr className="mx-auto mt-2 h-1 w-12 rounded border-0 bg-primary" />
             </div>
@@ -52,6 +52,7 @@ function UsefulLinks({ settings }: { settings: TSettings }) {
 }
 
 function Copyright({ settings }: { settings: TSettings }) {
+    const t = useTranslations('footer');
     return (
         <div className="flex flex-col items-center justify-center gap-6 text-center">
             <Image
@@ -67,11 +68,11 @@ function Copyright({ settings }: { settings: TSettings }) {
             </h3>
             <div>
                 <p>
-                    <span className="font-bold">All Rights Reserved. </span>
-                    We are not affiliated with Mojang AB.
+                    <span className="font-bold">{t('all-rights-reserved')} </span>
+                    {t('not-affiliated')}
                 </p>
                 <p>
-                    Powered by&nbsp;
+                    {t('powered-by')}&nbsp;
                     <Link href="https://minestorecms.com/" className="text-primary">
                         Minestore Pro | Official
                     </Link>
@@ -84,16 +85,17 @@ function Copyright({ settings }: { settings: TSettings }) {
 }
 
 function AboutUs() {
+    const t = useTranslations('footer');
+
     return (
         <div className="hidden flex-col items-center justify-center gap-6 text-center lg:mt-24 lg:flex">
             <div>
-                <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">About Us</h3>
+                <h3 className="text-2xl font-bold text-card-foreground md:text-3xl">
+                    {t('about-us')}
+                </h3>
                 <hr className="mx-auto mt-2 h-1 w-12 rounded border-0 bg-primary" />
             </div>
-            <p className="text-balance">
-                MineStoreCMS PRO is a Minecraft: Java Edition network that provides players with
-                captivating and unique gameplay. This is the only official store for the network.
-            </p>
+            <p className="text-balance">{t('description')}</p>
         </div>
     );
 }

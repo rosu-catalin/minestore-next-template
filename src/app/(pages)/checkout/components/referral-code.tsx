@@ -20,6 +20,7 @@ import {
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 const { getCart, removeReferral, acceptReferral } = getEndpoints(fetcher);
 
@@ -32,6 +33,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export const ReferralCode = () => {
+    const t = useTranslations('checkout');
+
     const { setCart, items, cart } = useCartStore();
 
     const [loading, setLoading] = useState(false);
@@ -46,7 +49,7 @@ export const ReferralCode = () => {
 
     async function onSubmit(data: FormValues) {
         if (cart?.referral_code) {
-            notify('You already have a referral code', 'red');
+            notify(t('referral-code-already-redeemed'), 'red');
             return;
         }
 
@@ -57,7 +60,7 @@ export const ReferralCode = () => {
             const response = await acceptReferral(code);
 
             if (!response.success) {
-                notify('Invalid referral code', 'red');
+                notify(t('referral-code-invalid'), 'red');
                 return;
             }
 
@@ -79,7 +82,7 @@ export const ReferralCode = () => {
             <div className="flex-col gap-4">
                 <div>
                     <p className="text-[20px] font-bold text-accent-foreground">
-                        Redeem a Referral Code
+                        {t('redeem-referral')}
                     </p>
 
                     <Form {...form}>
@@ -89,11 +92,11 @@ export const ReferralCode = () => {
                                 name="code"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Referral Code</FormLabel>
+                                        <FormLabel>{t('referral-code')}</FormLabel>
                                         <FormControl>
                                             <div className="flex gap-2">
                                                 <Input
-                                                    placeholder="Enter referral code"
+                                                    placeholder={t('referral-code-placeholder')}
                                                     {...field}
                                                 />
                                                 <Button
@@ -107,7 +110,7 @@ export const ReferralCode = () => {
                                                             className="animate-spin"
                                                         />
                                                     )}
-                                                    Redeem
+                                                    {t('redeem')}
                                                 </Button>
                                             </div>
                                         </FormControl>
@@ -126,6 +129,7 @@ export const ReferralCode = () => {
 };
 
 function RedeemedCouponList() {
+    const t = useTranslations('checkout');
     const { cart, setCart } = useCartStore();
 
     const isReferralApplied = !!cart?.referral_code;
@@ -144,7 +148,7 @@ function RedeemedCouponList() {
 
     return (
         <div className="flex-col">
-            <p className="font-bold text-accent-foreground">Redeemed Referral</p>
+            <p className="font-bold text-accent-foreground">{t('redeemed-referral')}</p>
             <div className="mt-2 flex gap-2">
                 <Badge
                     variant="secondary"

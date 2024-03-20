@@ -34,11 +34,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export const RedeemCoupon = () => {
-    const { setCart, items, cart } = useCartStore();
-
-    console.log('cart', cart);
-
     const t = useTranslations('checkout');
+    const { setCart, items, cart } = useCartStore();
 
     const [loading, setLoading] = useState(false);
 
@@ -56,10 +53,8 @@ export const RedeemCoupon = () => {
 
         const bothTypesOfCouponsRedeemed = isCouponApplied && isGiftCardApplied;
 
-        console.log('bothTypesOfCouponsRedeemed', bothTypesOfCouponsRedeemed);
-
         if (bothTypesOfCouponsRedeemed) {
-            notify('You can only redeem one coupon and one gift card at a time', 'red');
+            notify(t('only-one-coupon'), 'red');
             return;
         }
 
@@ -103,10 +98,13 @@ export const RedeemCoupon = () => {
                                 name="code"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Coupon Code</FormLabel>
+                                        <FormLabel>{t('coupon-code')}</FormLabel>
                                         <FormControl>
                                             <div className="flex gap-2">
-                                                <Input placeholder="Enter coupon code" {...field} />
+                                                <Input
+                                                    placeholder={t('coupon-placeholder')}
+                                                    {...field}
+                                                />
                                                 <Button
                                                     type="submit"
                                                     className="gap-2"
@@ -118,7 +116,7 @@ export const RedeemCoupon = () => {
                                                             className="animate-spin"
                                                         />
                                                     )}
-                                                    Redeem
+                                                    {t('redeem')}
                                                 </Button>
                                             </div>
                                         </FormControl>
@@ -137,6 +135,7 @@ export const RedeemCoupon = () => {
 };
 
 function RedeemedCouponList() {
+    const t = useTranslations('checkout');
     const { cart, setCart } = useCartStore();
 
     const isCouponApplied = cart?.coupon_value || cart?.gift_code;
@@ -165,7 +164,7 @@ function RedeemedCouponList() {
 
     return (
         <div className="flex-col">
-            <p className="font-bold text-accent-foreground">Redeemed Coupons</p>
+            <p className="font-bold text-accent-foreground">{t('coupons-redeemed')}</p>
             <div className="mt-2 flex gap-2">
                 {cart?.coupon_value && (
                     <RedeemedCoupon
@@ -196,6 +195,8 @@ type RedeemedCouponProps = {
 };
 
 function RedeemedCoupon({ code, removeCode, amount, coupon_type }: RedeemedCouponProps) {
+    const t = useTranslations('checkout');
+
     return (
         <Badge
             variant="secondary"
@@ -208,7 +209,9 @@ function RedeemedCoupon({ code, removeCode, amount, coupon_type }: RedeemedCoupo
                     {coupon_type === 1 ? (
                         <Price value={amount} className="text-foreground/80" />
                     ) : (
-                        <p className="text-foreground/80">{amount}% savings</p>
+                        <p className="text-foreground/80">
+                            {amount}% {t('coupon-savings')}
+                        </p>
                     )}
                 </div>
             </div>

@@ -31,7 +31,7 @@ export const UserSection: FC = () => {
         <Link href="/auth" className="flex-row items-center">
             <Image src="https://minotar.net/helm/steve/30.png" alt="" width={32} height={32} />
             <span className="ml-4 cursor-pointer font-bold uppercase text-white dark:text-accent-foreground">
-                guest
+                {t('guest')}
             </span>
         </Link>
     );

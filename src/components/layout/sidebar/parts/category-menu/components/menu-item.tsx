@@ -31,7 +31,6 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [], i
         setExpand((prevExpand) => !prevExpand);
     };
 
-    // Handle clicks outside the menu to close it
     const handleOutsideClick = (event: MouseEvent) => {
         if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
             setExpand(false);
@@ -57,7 +56,7 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [], i
                     { 'before:bg-primary': isActive }
                 )}
             >
-                <CategoryImage image={image} />
+                <CategoryImage image={image as string} isPageLink={isPageLink} />
 
                 <span className={joinClasses('ml-6 font-bold', isActive && 'text-primary')}>
                     {name}
@@ -89,16 +88,33 @@ export const MenuItem: FC<MenuItemProps> = ({ name, image, url, subItems = [], i
     );
 };
 
-function CategoryImage({ image, icon }: { image: string; icon?: string }) {
+function CategoryImage({ image, isPageLink }: { image: string; isPageLink?: boolean }) {
     if (!image) {
         return null;
     }
 
-    if (icon) {
+    if (isPageLink) {
+        if (image.startsWith('http')) {
+            return (
+                <div className="flex size-20 border-r border-accent-foreground/10">
+                    <Image
+                        src={image}
+                        className="m-auto h-[64px] w-[64px] object-contain"
+                        width={64}
+                        height={64}
+                        alt=""
+                    />
+                </div>
+            );
+        }
+
+        const svg = image.replace(/<svg/g, `<svg width="64" height="64" class="m-auto"`);
+
         return (
-            <div className="flex size-20 border-r border-accent-foreground/10">
-                <Icon name={icon} color="white" size={20} />
-            </div>
+            <div
+                className="flex size-20 border-r border-accent-foreground/10"
+                dangerouslySetInnerHTML={{ __html: svg }}
+            ></div>
         );
     }
 
@@ -114,9 +130,3 @@ function CategoryImage({ image, icon }: { image: string; icon?: string }) {
         </div>
     );
 }
-
-const Icon = ({ name, color, size }: LucideProps) => {
-    const LucideIcon = icons[name];
-
-    return <LucideIcon color={color} size={size} />;
-};

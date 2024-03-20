@@ -21,6 +21,7 @@ import { useUser } from '@/hooks/use-user';
 import { Loader2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { notify } from '@/core/notifications';
+import { useTranslations } from 'next-intl';
 
 const authFormSchema = z.object({
     username: z
@@ -39,6 +40,8 @@ const defaultValues: Partial<AuthFormValues> = {
 };
 
 export function InGameAuthForm() {
+    const t = useTranslations('auth');
+
     const [resentVerification, setResentVerification] = useState(false);
     const [step, setStep] = useState(0);
 
@@ -88,13 +91,10 @@ export function InGameAuthForm() {
         return (
             <div>
                 <h2 className="text-center text-2xl font-bold text-accent-foreground">
-                    Waiting for verification 🚀
+                    {t('waiting-for-verification')}
                 </h2>
                 <p className="mx-auto mt-4 max-w-[80ch] text-balance text-center">
-                    <span className="font-bold">
-                        Please, check a chat & verify yourself on the Minecraft Server!
-                    </span>{' '}
-                    You need to confirm that you are the owner of the account!
+                    <span className="font-bold">{t('check-in-game')}</span> {t('confirm')}
                 </p>
                 <div className="my-8 flex items-center justify-center space-x-2">
                     <span className="sr-only">Loading...</span>
@@ -107,13 +107,11 @@ export function InGameAuthForm() {
                     disabled={resentVerification}
                     onClick={() => {
                         loginAttemptInGame(form.getValues('username'));
-                        notify('Verification resent', 'green');
+                        notify(t('verification-resent'), 'green');
                         setResentVerification(true);
                     }}
                 >
-                    {resentVerification
-                        ? 'Wait 10 seconds before sending it again...'
-                        : 'Resend Verification'}
+                    {resentVerification ? t('wait-before-resend') : t('resend-verification')}
                 </Button>
             </div>
         );
@@ -124,20 +122,18 @@ export function InGameAuthForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto">
                 <div className="space-y-4">
                     <h2 className="text-center text-2xl font-bold text-accent-foreground">
-                        Log In
+                        {t('title')}
                     </h2>
                     <FormField
                         control={form.control}
                         name="username"
                         render={({ field }) => (
                             <FormItem className="w-[300px] md:w-[400px]">
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>{t('label')}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Minecraft Username" {...field} />
+                                    <Input placeholder={t('placeholder')} {...field} />
                                 </FormControl>
-                                <FormDescription>
-                                    To start shopping, please enter your Minecraft Username
-                                </FormDescription>
+                                <FormDescription>{t('description')}</FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -149,7 +145,7 @@ export function InGameAuthForm() {
                     disabled={!form.formState.isValid || form.formState.isSubmitting || loading}
                 >
                     {loading && <Loader2Icon className="mr-2 animate-spin" />}
-                    Continue
+                    {t('submit')}
                 </Button>
             </form>
         </Form>

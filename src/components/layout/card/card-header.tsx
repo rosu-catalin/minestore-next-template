@@ -4,6 +4,7 @@ import { TItem } from '@/types/item';
 import { imagePath } from '@helpers/image-path';
 import { joinClasses } from '@helpers/join-classes';
 import { AlertTriangle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 type CardHeaderProps = {
@@ -43,6 +44,8 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 }
 
 function QuantityBadge({ item, className }: { item: TItem; className?: string }) {
+    const t = useTranslations('card');
+
     if (!item.quantityGlobalLimit || !item.quantityGlobalCurrentLimit) return null;
 
     const { quantityGlobalLimit, quantityGlobalCurrentLimit } = item;
@@ -51,10 +54,12 @@ function QuantityBadge({ item, className }: { item: TItem; className?: string })
     return (
         <Badge
             variant="destructive"
-            className={joinClasses('mx-auto w-[150px] justify-center gap-2 p-2', className)}
+            className={joinClasses('mx-auto max-w-[220px] justify-center gap-2 p-2', className)}
         >
             <AlertTriangle size={16} />
-            <p>{quantityLeft} items left</p>
+            <p>
+                {quantityLeft} {t('items-left')}
+            </p>
         </Badge>
     );
 }

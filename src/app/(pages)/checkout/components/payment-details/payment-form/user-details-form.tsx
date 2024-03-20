@@ -20,12 +20,15 @@ import { cn } from '@/lib/utils';
 import { useFormContext } from 'react-hook-form';
 import { UserAvatar } from './user-avatar';
 import { useSettingsStore } from '@/stores/settings';
+import { useTranslations } from 'next-intl';
 
 export const UserDetailsForm = () => {
     const { settings } = useSettingsStore();
     const formCountries = getFormCountries();
 
     const { setValue } = useFormContext();
+
+    const t = useTranslations('checkout.details');
 
     if (!settings?.details) {
         return null;
@@ -37,14 +40,14 @@ export const UserDetailsForm = () => {
                 <UserAvatar />
             </div>
             <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-accent-foreground">Your details</h2>
+                <h2 className="text-2xl font-bold text-accent-foreground">{t('your-details')}</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <FormField
                         name="details.fullname"
                         defaultValue=""
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Full name</FormLabel>
+                                <FormLabel>*{t('full-name')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="John Doe" {...field} />
                                 </FormControl>
@@ -58,7 +61,7 @@ export const UserDetailsForm = () => {
                         name="details.email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Email</FormLabel>
+                                <FormLabel>*{t('email')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="test@gmail.com" {...field} />
                                 </FormControl>
@@ -72,7 +75,7 @@ export const UserDetailsForm = () => {
                         name="details.address1"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Address 1</FormLabel>
+                                <FormLabel>*{t('address-line-1')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="1234 Main St" {...field} />
                                 </FormControl>
@@ -86,7 +89,7 @@ export const UserDetailsForm = () => {
                         name="details.address2"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Address 2</FormLabel>
+                                <FormLabel>{t('address-line-2')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="Apartment, studio, or floor" {...field} />
                                 </FormControl>
@@ -100,7 +103,7 @@ export const UserDetailsForm = () => {
                         name="details.city"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>City</FormLabel>
+                                <FormLabel>{t('city')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="New York" {...field} />
                                 </FormControl>
@@ -114,7 +117,7 @@ export const UserDetailsForm = () => {
                         name="details.region"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Region</FormLabel>
+                                <FormLabel>*{t('state-region')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="NY" {...field} />
                                 </FormControl>
@@ -128,7 +131,7 @@ export const UserDetailsForm = () => {
                         name="details.zipcode"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Zipcode</FormLabel>
+                                <FormLabel>*{t('zip-code')}</FormLabel>
                                 <FormControl>
                                     <Input placeholder="12345" {...field} />
                                 </FormControl>
@@ -142,7 +145,7 @@ export const UserDetailsForm = () => {
                         name="details.country"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>*Country</FormLabel>
+                                <FormLabel>*{t('country')}</FormLabel>
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <FormControl>
@@ -159,15 +162,15 @@ export const UserDetailsForm = () => {
                                                           (language) =>
                                                               language.value === field.value
                                                       )?.label
-                                                    : 'Select country'}
+                                                    : t('country-placeholder')}
                                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                             </Button>
                                         </FormControl>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-full p-0">
                                         <Command>
-                                            <CommandInput placeholder="Search country..." />
-                                            <CommandEmpty>No country found.</CommandEmpty>
+                                            <CommandInput placeholder={t('country-placeholder')} />
+                                            <CommandEmpty>{t('no-country-found')}</CommandEmpty>
                                             <CommandGroup className="max-h-[200px] overflow-auto">
                                                 {formCountries.map((country) => (
                                                     <CommandItem

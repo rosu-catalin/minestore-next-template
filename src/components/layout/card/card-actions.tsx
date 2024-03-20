@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { TItem } from '@/types/item';
 import { joinClasses } from '@helpers/join-classes';
 import { InfoIcon, Trash2, ShoppingCart, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -104,6 +105,8 @@ function AddToCartButton({
 
     const path = usePathname();
 
+    const t = useTranslations('card');
+
     const handleItem = async () => {
         try {
             setLoading(true);
@@ -124,7 +127,7 @@ function AddToCartButton({
 
     if (isItemInCart) return null;
 
-    const actionText = isAvailable ? 'Add to cart' : 'Unavailable';
+    const actionText = isAvailable ? t('buy') : t('unavailable');
 
     return (
         <Button
@@ -145,6 +148,7 @@ function SubscriptionsButton({
     addToCartPressed,
     setAddToCartPressed
 }: CardActionButtonProps) {
+    const t = useTranslations('card');
     const [loading, setLoading] = useState(false);
     const { handleAddItem } = useCartActions();
 
@@ -178,12 +182,14 @@ function SubscriptionsButton({
             className={joinClasses('col-span-2 h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
             <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
-            Subscribe
+            {t('subscribe')}
         </Button>
     );
 }
 
 function RemoveFromCartButton({ isItemInCart, item, displayFull }: CardActionButtonProps) {
+    const t = useTranslations('card');
+
     const [loading, setLoading] = useState(false);
     const { handleRemoveItem } = useCartActions();
 
@@ -207,7 +213,7 @@ function RemoveFromCartButton({ isItemInCart, item, displayFull }: CardActionBut
             className={joinClasses('h-[50px] gap-2', !displayFull && 'min-w-[180px]')}
         >
             <ButtonIcon isItemInCart={isItemInCart} loading={loading} />
-            Remove
+            {t('remove')}
         </Button>
     );
 }

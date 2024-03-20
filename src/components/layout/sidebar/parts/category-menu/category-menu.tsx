@@ -12,9 +12,10 @@ type CategoryMenuProps = {
 };
 
 export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
+    const t = useTranslations('sidebar');
     const { settings } = useSettingsStore();
 
-    const t = useTranslations('sidebar');
+    console.log(settings);
 
     return (
         <aside className="h-fit rounded-[10px] bg-card p-6">
@@ -28,6 +29,16 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
                         image={imagePath(category.img)}
                         url={`/categories/${category.url}`}
                         subItems={category.subcategories}
+                    />
+                ))}
+
+                {settings?.header.map((item) => (
+                    <MenuItem
+                        key={item.id}
+                        name={item.name}
+                        image={item.icon}
+                        url={item.url}
+                        isPageLink={true}
                     />
                 ))}
             </ul>

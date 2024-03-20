@@ -4,8 +4,6 @@ import { FeaturedDeal } from '@layout/feratured-deal/featured-deal';
 import { useTranslations } from 'next-intl';
 
 export function FeaturedDeals({ featuredDeals }: { featuredDeals: TFeaturedDeal }) {
-    console.log(featuredDeals);
-
     const t = useTranslations('home');
 
     if (!featuredDeals) return null;

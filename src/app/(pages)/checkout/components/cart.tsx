@@ -7,10 +7,12 @@ import { useCartStore } from '@/stores/cart';
 import { useTranslations } from 'next-intl';
 import { Table, TableHeader, TableRow, TableHead, TableBody } from '@/components/ui/table';
 import { TCart } from '@/types/cart';
+import { useSettingsStore } from '@/stores/settings';
 
 export const Cart: FC = () => {
     const t = useTranslations('checkout');
     const { cart, items } = useCartStore();
+    const {settings} = useSettingsStore();
 
     return (
         <>
@@ -20,7 +22,7 @@ export const Cart: FC = () => {
                 </p>
                 <span className="ml-auto text-[25px] font-bold">
                     <Price value={cart?.price || 0} />
-                    {cart?.virtual_price ? ` / ${cart.virtual_price} QQ` : ''}
+                    {cart?.virtual_price ? ` / ${cart.virtual_price} ${settings?.virtual_currency}` : ''}
                     {cart?.tax ? (
                         <span>
                             {' '}

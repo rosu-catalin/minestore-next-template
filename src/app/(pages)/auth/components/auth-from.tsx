@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/hooks/use-user';
 import { Loader2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const authFormSchema = z.object({
     username: z
@@ -37,6 +38,7 @@ const defaultValues: Partial<AuthFormValues> = {
 };
 
 export function AuthForm() {
+    const t = useTranslations('auth');
     const { login, loading } = useUser();
 
     const form = useForm<AuthFormValues>({
@@ -55,20 +57,18 @@ export function AuthForm() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto">
                 <div className="space-y-4">
                     <h2 className="text-center text-2xl font-bold text-accent-foreground">
-                        Log In
+                        {t('title')}
                     </h2>
                     <FormField
                         control={form.control}
                         name="username"
                         render={({ field }) => (
                             <FormItem className="w-[300px] md:w-[400px]">
-                                <FormLabel>Username</FormLabel>
+                                <FormLabel>{t('label')}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Minecraft Username" {...field} />
+                                    <Input placeholder={t('placeholder')} {...field} />
                                 </FormControl>
-                                <FormDescription>
-                                    To start shopping, please enter your Minecraft Username
-                                </FormDescription>
+                                <FormDescription>{t('description')}</FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -80,7 +80,7 @@ export function AuthForm() {
                     disabled={!form.formState.isValid || form.formState.isSubmitting || loading}
                 >
                     {loading && <Loader2Icon className="mr-2 animate-spin" />}
-                    Continue
+                    {t('submit')}
                 </Button>
             </form>
         </Form>
