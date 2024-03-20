@@ -1,10 +1,9 @@
-import { AxiosInstance } from "axios"
-import { TProfile } from "@/types/profile"
+import { AxiosInstance } from 'axios';
+import { TProfile } from '@/types/profile';
 
-type ReturnType = TProfile
+type ReturnType = TProfile;
 
-export const getProfile = (fetcher: AxiosInstance) =>
-   async (name: string) => {
-      const url = `/profile/${name}`
-      return (await fetcher.post<ReturnType>(url)).data
-   }
+export const getProfile = (fetcher: AxiosInstance) => async (name: string) => {
+    const url = `/profile/${name}`;
+    return (await fetcher.get<ReturnType>(url)).data;
+};

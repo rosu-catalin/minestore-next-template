@@ -24,5 +24,5 @@ export type TFeaturedDeal = Array<{
 
 export const getFeaturedDeals = (fetcher: AxiosInstance) => async () => {
     const url = '/items/getFeaturedDeals';
-    return (await fetcher.get<TFeaturedDeal>(url)).data;
+    return (await fetcher.post<TFeaturedDeal>(url)).data;
 };

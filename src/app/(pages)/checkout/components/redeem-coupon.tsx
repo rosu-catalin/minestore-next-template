@@ -9,39 +9,65 @@ import { useCartStore } from '@/stores/cart';
 import { Price } from '@/components/base/price/price';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { Tags, X } from 'lucide-react';
+import { Loader2, Tags, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from '@/components/ui/form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 const { acceptCoupon, getCart, removeCoupon, removeGiftCard } = getEndpoints(fetcher);
 
-type RedeemCouponProps = {
-    userId: number;
-};
+const formSchema = z.object({
+    code: z.string().min(1, {
+        message: 'Code is required'
+    })
+});
 
-export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
-    const { cart, setCart, items } = useCartStore();
+type FormValues = z.infer<typeof formSchema>;
+
+export const RedeemCoupon = () => {
+    const { setCart, items, cart } = useCartStore();
+
+    console.log('cart', cart);
 
     const t = useTranslations('checkout');
 
     const [loading, setLoading] = useState(false);
 
-    console.log({
-        cart,
-        items
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            code: ''
+        },
+        mode: 'onSubmit'
     });
 
-    const [coupon, setCoupon] = useState('');
+    async function onSubmit(data: FormValues) {
+        const isCouponApplied = !!cart?.coupon_code;
+        const isGiftCardApplied = !!cart?.gift_code;
 
-    const handleCoupon = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCoupon(e.target.value);
-    };
+        const bothTypesOfCouponsRedeemed = isCouponApplied && isGiftCardApplied;
 
-    const accept = async () => {
-        if (!coupon) return notify('Please enter a coupon', 'red');
+        console.log('bothTypesOfCouponsRedeemed', bothTypesOfCouponsRedeemed);
+
+        if (bothTypesOfCouponsRedeemed) {
+            notify('You can only redeem one coupon and one gift card at a time', 'red');
+            return;
+        }
+
+        const { code } = data;
 
         try {
             setLoading(true);
-            const response = await acceptCoupon(coupon);
+            const response = await acceptCoupon(code);
 
             setCart(await getCart());
 
@@ -56,86 +82,84 @@ export const RedeemCoupon = ({ userId }: RedeemCouponProps) => {
         } finally {
             setLoading(false);
         }
-    };
+
+        form.reset();
+    }
+
+    if (items.length === 0) return null;
+
+    return (
+        <>
+            <div className="flex-col gap-4">
+                <div>
+                    <p className="text-[20px] font-bold text-accent-foreground">
+                        {t('redeem-coupons-or-gift-cards')}
+                    </p>
+
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 flex gap-2">
+                            <FormField
+                                control={form.control}
+                                name="code"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Coupon Code</FormLabel>
+                                        <FormControl>
+                                            <div className="flex gap-2">
+                                                <Input placeholder="Enter coupon code" {...field} />
+                                                <Button
+                                                    type="submit"
+                                                    className="gap-2"
+                                                    disabled={loading || !field.value}
+                                                >
+                                                    {loading && (
+                                                        <Loader2
+                                                            size={24}
+                                                            className="animate-spin"
+                                                        />
+                                                    )}
+                                                    Redeem
+                                                </Button>
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </form>
+                    </Form>
+                </div>
+
+                <RedeemedCouponList />
+            </div>
+        </>
+    );
+};
+
+function RedeemedCouponList() {
+    const { cart, setCart } = useCartStore();
+
+    const isCouponApplied = cart?.coupon_value || cart?.gift_code;
 
     const handleRemoveCoupon = async () => {
         try {
-            setLoading(true);
-            const response = await removeCoupon(userId);
-
+            await removeCoupon();
             setCart(await getCart());
-
-            if (response.success) {
-                notify(response.message, 'green');
-            } else {
-                notify(response.message, 'red');
-            }
         } catch (error) {
             notify('Something wrong happened', 'red');
             console.error('Error removing coupon', error);
-        } finally {
-            setLoading(false);
         }
     };
 
     const handleRemoveGiftCard = async () => {
         try {
-            setLoading(true);
-            const response = await removeGiftCard(userId);
-
+            await removeGiftCard();
             setCart(await getCart());
-
-            if (response.success) {
-                notify(response.message, 'green');
-            } else {
-                notify(response.message, 'red');
-            }
         } catch (error) {
             notify('Something wrong happened', 'red');
-            console.error('Error removing coupon', error);
-        } finally {
-            setLoading(false);
+            console.error('Error removing gift card', error);
         }
     };
-
-    if (items.length === 0) return null;
-
-    return (
-        <div className="flex-col gap-4">
-            <div>
-                <p className="text-[20px] font-bold text-accent-foreground">
-                    {t('redeem-coupons-or-gift-cards')}
-                </p>
-
-                <div className="mt-2 flex gap-2">
-                    <Input
-                        className="h-10 w-[250px]"
-                        placeholder="Enter the coupon code..."
-                        onChange={handleCoupon}
-                    />
-                    <Button onClick={accept} disabled={loading || !coupon.length}>
-                        {t('redeem')}
-                    </Button>
-                </div>
-            </div>
-
-            <RedeemedCouponList
-                removeCoupon={handleRemoveCoupon}
-                removeGiftCard={handleRemoveGiftCard}
-            />
-        </div>
-    );
-};
-
-type RedeemedCouponListProps = {
-    removeCoupon: () => void;
-    removeGiftCard: () => void;
-};
-
-function RedeemedCouponList({ removeCoupon, removeGiftCard }: RedeemedCouponListProps) {
-    const { cart } = useCartStore();
-
-    const isCouponApplied = cart?.coupon_value || cart?.gift_code;
 
     if (!isCouponApplied) return null;
 
@@ -146,7 +170,7 @@ function RedeemedCouponList({ removeCoupon, removeGiftCard }: RedeemedCouponList
                 {cart?.coupon_value && (
                     <RedeemedCoupon
                         code={cart.coupon_code}
-                        removeCode={removeCoupon}
+                        removeCode={handleRemoveCoupon}
                         amount={cart.coupon_value}
                         coupon_type={cart.coupon_type}
                     />
@@ -154,7 +178,7 @@ function RedeemedCouponList({ removeCoupon, removeGiftCard }: RedeemedCouponList
                 {cart?.gift_code && (
                     <RedeemedCoupon
                         code={cart.gift_code}
-                        removeCode={removeGiftCard}
+                        removeCode={handleRemoveGiftCard}
                         amount={cart.gift_sum}
                         coupon_type={1}
                     />
@@ -194,6 +218,7 @@ function RedeemedCoupon({ code, removeCode, amount, coupon_type }: RedeemedCoupo
                 size="icon"
                 onClick={removeCode}
                 className="size-max"
+                type="button"
             >
                 <X size={24} />
             </Button>

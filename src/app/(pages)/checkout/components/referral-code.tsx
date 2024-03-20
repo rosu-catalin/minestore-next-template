@@ -1,103 +1,171 @@
 'use client';
+
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
 import { getEndpoints } from '@/api';
 import { fetcher } from '@/api/client/fetcher';
-import { FC, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { useTranslations } from 'next-intl';
+import { notify } from '@/core/notifications';
 import { useCartStore } from '@/stores/cart';
 import { Button } from '@/components/ui/button';
-import { notify } from '@/core/notifications';
+import { Loader2, Tags, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Tags, X } from 'lucide-react';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from '@/components/ui/form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
-const { acceptReferral, getCart } = getEndpoints(fetcher);
+const { getCart, removeReferral, acceptReferral } = getEndpoints(fetcher);
 
-export const ReferralCode: FC = () => {
-    const [referral, setReferral] = useState('');
+const formSchema = z.object({
+    code: z.string().min(1, {
+        message: 'Code is required'
+    })
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+export const ReferralCode = () => {
+    const { setCart, items, cart } = useCartStore();
+
     const [loading, setLoading] = useState(false);
 
-    const { items } = useCartStore();
-    const t = useTranslations('checkout');
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            code: ''
+        },
+        mode: 'onSubmit'
+    });
 
-    const { cart, setCart } = useCartStore();
+    async function onSubmit(data: FormValues) {
+        if (cart?.referral_code) {
+            notify('You already have a referral code', 'red');
+            return;
+        }
 
-    const handleInputReferral = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setReferral(e.target.value);
-    };
-
-    const accept = async () => {
-        if (!referral) return;
+        const { code } = data;
 
         try {
             setLoading(true);
-            const response = await acceptReferral(referral);
-            setCart(await getCart());
+            const response = await acceptReferral(code);
 
-            if (response.success) {
-                notify('Referral accepted', 'green');
-                setReferral('');
+            if (!response.success) {
+                notify('Invalid referral code', 'red');
                 return;
             }
+
+            setCart(await getCart());
         } catch (error) {
+            notify('Something wrong happened', 'red');
             console.error('Error accepting referral', error);
         } finally {
             setLoading(false);
         }
-    };
+
+        form.reset();
+    }
 
     if (items.length === 0) return null;
 
     return (
-        <div className="flex-col">
-            <span className="text-[20px] font-bold text-accent-foreground">
-                {t('referral-code')}
-            </span>
-            <div className="mt-2 flex gap-2">
-                <Input
-                    className="h-10 w-[250px]"
-                    placeholder="Enter the coupon code..."
-                    onChange={handleInputReferral}
-                />
-                <Button onClick={accept} disabled={loading || !referral.length}>
-                    {t('redeem')}
-                </Button>
+        <>
+            <div className="flex-col gap-4">
+                <div>
+                    <p className="text-[20px] font-bold text-accent-foreground">
+                        Redeem a Referral Code
+                    </p>
+
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 flex gap-2">
+                            <FormField
+                                control={form.control}
+                                name="code"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Referral Code</FormLabel>
+                                        <FormControl>
+                                            <div className="flex gap-2">
+                                                <Input
+                                                    placeholder="Enter referral code"
+                                                    {...field}
+                                                />
+                                                <Button
+                                                    type="submit"
+                                                    className="gap-2"
+                                                    disabled={loading || !field.value}
+                                                >
+                                                    {loading && (
+                                                        <Loader2
+                                                            size={24}
+                                                            className="animate-spin"
+                                                        />
+                                                    )}
+                                                    Redeem
+                                                </Button>
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </form>
+                    </Form>
+                </div>
+
+                <RedeemedCouponList />
             </div>
-            <RedeemedReferral
-                code={cart?.referral_code || ''}
-                removeCode={() => {
-                    console.log('remove referral');
-                }}
-            />
-        </div>
+        </>
     );
 };
 
-type RedeemedReferralnProps = {
-    code: string;
-    removeCode: () => void;
-};
+function RedeemedCouponList() {
+    const { cart, setCart } = useCartStore();
 
-function RedeemedReferral({ code, removeCode }: RedeemedReferralnProps) {
-    if (!code) return null;
+    const isReferralApplied = !!cart?.referral_code;
+
+    const handleRemoveReferral = async () => {
+        try {
+            await removeReferral();
+            setCart(await getCart());
+        } catch (error) {
+            notify('Something wrong happened', 'red');
+            console.error('Error removing coupon', error);
+        }
+    };
+
+    if (!isReferralApplied) return null;
 
     return (
-        <Badge
-            variant="secondary"
-            className="flex w-max items-center justify-between gap-4 rounded-md p-2"
-        >
-            <div className="flex items-center gap-2">
-                <Tags size={30} className="scale-x-[-1] text-foreground/80" />
-                <span className="text-accent-foreground">{code}</span>
+        <div className="flex-col">
+            <p className="font-bold text-accent-foreground">Redeemed Referral</p>
+            <div className="mt-2 flex gap-2">
+                <Badge
+                    variant="secondary"
+                    className="flex w-max items-center justify-between gap-4 rounded-md p-2"
+                >
+                    <div className="flex items-center gap-2">
+                        <Tags size={30} className="scale-x-[-1] text-foreground/80" />
+                        <p className="text-foreground/80">{cart?.referral_code}</p>
+                    </div>
+                    <Button
+                        variant="link"
+                        aria-label="Remove referral"
+                        size="icon"
+                        onClick={handleRemoveReferral}
+                        className="size-max"
+                        type="button"
+                    >
+                        <X size={24} />
+                    </Button>
+                </Badge>
             </div>
-            <Button
-                variant="link"
-                aria-label="Remove coupon"
-                size="icon"
-                onClick={removeCode}
-                className="size-max"
-            >
-                <X size={24} />
-            </Button>
-        </Badge>
+        </div>
     );
 }

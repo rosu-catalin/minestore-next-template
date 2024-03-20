@@ -8,8 +8,7 @@ type ReturnType = {
     type?: string;
 };
 
-export const removeGiftcard = (fetcher: AxiosInstance) => async (userId: string | number) => {
+export const removeGiftcard = (fetcher: AxiosInstance) => async () => {
     const url = '/cart/removeGiftcard';
-    const body = { userId };
-    return (await fetcher.post<ReturnType>(url, body)).data;
+    return (await fetcher.post<ReturnType>(url)).data;
 };

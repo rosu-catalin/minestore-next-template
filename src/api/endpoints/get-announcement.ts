@@ -5,5 +5,5 @@ type ReturnType = TAnnouncement;
 
 export const getAnnouncement = (fetcher: AxiosInstance) => async () => {
     const url = '/announcement/get';
-    return (await fetcher.post<ReturnType>(url)).data;
+    return (await fetcher.get<ReturnType>(url)).data;
 };

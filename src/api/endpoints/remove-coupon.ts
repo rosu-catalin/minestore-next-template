@@ -8,8 +8,7 @@ type ReturnType = {
     type?: string;
 };
 
-export const removeCoupon = (fetcher: AxiosInstance) => async (userId: string | number) => {
+export const removeCoupon = (fetcher: AxiosInstance) => async () => {
     const url = '/cart/removeCoupon';
-    const body = { userId };
-    return (await fetcher.post<ReturnType>(url, body)).data;
+    return (await fetcher.post<ReturnType>(url)).data;
 };
