@@ -30,7 +30,8 @@
         "remove": "Odebrat",
         "subscribe": "Přihlásit se k odběru",
         "unavailable": "Není k dispozici",
-        "items-left": "zbývající položky"
+        "items-left": "zbývající položky",
+        "featured": "Doporučené"
     },
     "recent-purchases": "Nedávné platby",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Pravděpodobně jsou naše servery offline nebo se něco stalo s vaší platbou.",
         "contactWithProof": "Kontaktujte nás prosím se svým uživatelským jménem a přiloženým dokladem o nákupu.",
         "paymentIssue": "Možná byla vaše platba označena jako 'čekající'. Ujistěte se také, že jste zadali správné uživatelské jméno v Minecraftu. Pokud tomu tak není, uveďte to prosím."
+    },
+    "actions": {
+        "please-authorize": "Prosím, autorizujte se!",
+        "item-not-found": "Položka nenalezena!",
+        "item-out-of-stock": "Položka je vyprodaná!",
+        "reached-stock-limit": "Dosáhli jste limitu pro tuto položku!",
+        "cant-mix-normal-and-subscription": "Nemůžete kombinovat běžné položky s odběrovými položkami!",
+        "cant-add-more-than-one-subscription": "Nemůžete přidat více než jednu odběrovou položku do košíku!",
+        "item-removed-from-cart": "Položka byla odebrána z košíku!",
+        "item-added-to-cart": "Položka byla přidána do košíku!"
     }
 }

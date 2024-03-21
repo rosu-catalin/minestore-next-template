@@ -30,7 +30,8 @@
         "remove": "Remove",
         "subscribe": "Subscribe",
         "unavailable": "Unavailable",
-        "items-left": "items left"
+        "items-left": "items left",
+        "featured": "Featured"
     },
     "recent-purchases": "Recent Payments",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Probably our servers are offline or something happened with your payment.",
         "contactWithProof": "Please contact us with your username and attached proof of purchase.",
         "paymentIssue": "Maybe your payment marked as 'pending'. Also make sure that you have submitted your correct Minecraft username. If this is not the case, please mention this."
+    },
+    "actions": {
+        "please-authorize": "Please, authorize!",
+        "item-not-found": "Item not found!",
+        "item-out-of-stock": "Item out of stock!",
+        "reached-stock-limit": "You've reached the limit for this item!",
+        "cant-mix-normal-and-subscription": "You can't mix normal items with subscription items!",
+        "cant-add-more-than-one-subscription": "You can't add more than one subscription to the cart!",
+        "item-removed-from-cart": "Item removed from cart!",
+        "item-added-to-cart": "Item added to cart!"
     }
 }

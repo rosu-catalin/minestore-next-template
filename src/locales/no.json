@@ -30,7 +30,8 @@
         "remove": "Fjern",
         "subscribe": "Abonner",
         "unavailable": "Utilgjengelig",
-        "items-left": "ting igjen"
+        "items-left": "ting igjen",
+        "featured": "Utvalgt"
     },
     "recent-purchases": "Nylige betalinger",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Sannsynligvis er serverne våre nede eller noe har skjedd med betalingen din.",
         "contactWithProof": "Vennligst kontakt oss med brukernavnet ditt og vedlagt bevis på kjøpet.",
         "paymentIssue": "Kanskje betalingen din er merket som 'ventende'. Sørg også for at du har oppgitt riktig Minecraft-brukernavn. Hvis dette ikke er tilfelle, vennligst nevn det."
+    },
+    "actions": {
+        "please-authorize": "Vennligst autoriser!",
+        "item-not-found": "Vare ikke funnet!",
+        "item-out-of-stock": "Vare utsolgt!",
+        "reached-stock-limit": "Du har nådd grensen for denne varen!",
+        "cant-mix-normal-and-subscription": "Du kan ikke blande vanlige varer med abonnementsvarer!",
+        "cant-add-more-than-one-subscription": "Du kan ikke legge til mer enn ett abonnement i handlekurven!",
+        "item-removed-from-cart": "Vare fjernet fra handlekurven!",
+        "item-added-to-cart": "Vare lagt til i handlekurven!"
     }
 }

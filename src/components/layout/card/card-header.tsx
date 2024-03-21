@@ -1,5 +1,6 @@
 import { Price } from '@/components/base/price/price';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { TItem } from '@/types/item';
 import { imagePath } from '@helpers/image-path';
 import { joinClasses } from '@helpers/join-classes';
@@ -25,9 +26,15 @@ export function CardHeader({ item, direction }: CardHeaderProps) {
 
     return (
         <div className={cardHeaderClasses}>
+            <FeaturedBadge item={item} className={direction === 'row' ? 'absolute -top-4' : ''} />
+
             {direction === 'col' ? <QuantityBadge item={item} /> : null}
 
-            <CardHeaderImage item={item} direction={direction} />
+            <CardHeaderImage
+                item={item}
+                direction={direction}
+                className={direction === 'row' && item.featured ? 'mt-4 md:mt-0' : ''}
+            />
             <div className={direction === 'col' ? 'text-center' : 'text-center md:text-start'}>
                 {direction === 'row' ? <QuantityBadge item={item} className="mb-2" /> : null}
                 <h3 className="text-xl font-bold text-accent-foreground">{item.name}</h3>
@@ -64,7 +71,15 @@ function QuantityBadge({ item, className }: { item: TItem; className?: string })
     );
 }
 
-function CardHeaderImage({ item, direction }: { item: TItem; direction?: 'row' | 'col' }) {
+function CardHeaderImage({
+    item,
+    direction,
+    className
+}: {
+    item: TItem;
+    direction?: 'row' | 'col';
+    className?: string;
+}) {
     const image = imagePath(item.image);
     if (!image) return null;
 
@@ -77,8 +92,22 @@ function CardHeaderImage({ item, direction }: { item: TItem; direction?: 'row' |
                 alt={item.name}
                 width={imageSize}
                 height={imageSize}
-                className={`mx-auto object-contain w-[${imageSize}px] h-[${imageSize}px]`}
+                className={cn(
+                    `mx-auto object-contain w-[${imageSize}px] h-[${imageSize}px]`,
+                    className
+                )}
             />
         </div>
+    );
+}
+
+function FeaturedBadge({ item, className }: { item: TItem; className?: string }) {
+    const t = useTranslations('card');
+    if (!item.featured) return null;
+
+    return (
+        <Badge variant="default" className={cn('mx-auto w-max px-4 py-2', className)}>
+            {t('featured')}
+        </Badge>
     );
 }

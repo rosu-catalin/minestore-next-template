@@ -30,7 +30,8 @@
         "remove": "Verwijderen",
         "subscribe": "Abonneren",
         "unavailable": "Niet beschikbaar",
-        "items-left": "artikelen over"
+        "items-left": "artikelen over",
+        "featured": "Uitgelicht"
     },
     "recent-purchases": "Recente Betalingen",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Waarschijnlijk zijn onze servers offline of is er iets misgegaan met uw betaling.",
         "contactWithProof": "Neem contact met ons op met uw gebruikersnaam en bijgevoegd bewijs van aankoop.",
         "paymentIssue": "Misschien is uw betaling gemarkeerd als 'in behandeling'. Zorg er ook voor dat u uw juiste Minecraft-gebruikersnaam heeft ingediend. Als dit niet het geval is, vermeld dit dan."
+    },
+    "actions": {
+        "please-authorize": "Gelieve te autoriseren!",
+        "item-not-found": "Item niet gevonden!",
+        "item-out-of-stock": "Item is uitverkocht!",
+        "reached-stock-limit": "U heeft de limiet voor dit item bereikt!",
+        "cant-mix-normal-and-subscription": "U kunt geen normale items mixen met abonnementsitems!",
+        "cant-add-more-than-one-subscription": "U kunt niet meer dan één abonnement aan de winkelwagen toevoegen!",
+        "item-removed-from-cart": "Item verwijderd uit winkelwagen!",
+        "item-added-to-cart": "Item toegevoegd aan winkelwagen!"
     }
 }

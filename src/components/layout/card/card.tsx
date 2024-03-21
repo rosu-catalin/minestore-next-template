@@ -8,6 +8,7 @@ import { CardLayout } from './card-layout';
 import { CardHeader } from './card-header';
 import { CardActions } from './card-actions';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 type CardProps = {
     item: TItem;
@@ -27,8 +28,8 @@ export function Card({ item, direction = 'col' }: CardProps) {
     const path = usePathname();
 
     return (
-        <div className={direction === 'col' ? 'h-full' : ''}>
-            <CardLayout direction={direction}>
+        <div className={cn('relative', direction === 'col' ? 'h-full' : '')}>
+            <CardLayout direction={direction} className={item.featured ? 'featured-package' : ''}>
                 <CardHeader item={item} direction={direction} />
                 <CardActions
                     item={item}

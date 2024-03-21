@@ -30,7 +30,8 @@
         "remove": "Eliminare",
         "subscribe": "Abonare",
         "unavailable": "Indisponibil",
-        "items-left": "articole rămase"
+        "items-left": "articole rămase",
+        "featured": "Recomandat"
     },
     "recent-purchases": "Plăți recente",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Probabil serverele noastre sunt offline sau s-a întâmplat ceva cu plata dvs.",
         "contactWithProof": "Vă rugăm să ne contactați cu numele de utilizator și dovada de achiziție atașată.",
         "paymentIssue": "Poate plata dvs. este marcată ca „în așteptare”. Asigurați-vă și că ați introdus numele de utilizator Minecraft corect. Dacă nu este cazul, menționați acest lucru."
+    },
+    "actions": {
+        "please-authorize": "Vă rugăm să autorizați!",
+        "item-not-found": "Produsul nu a fost găsit!",
+        "item-out-of-stock": "Produsul nu este în stoc!",
+        "reached-stock-limit": "Ați atins limita pentru acest produs!",
+        "cant-mix-normal-and-subscription": "Nu puteți combina produse normale cu produse de abonament!",
+        "cant-add-more-than-one-subscription": "Nu puteți adăuga mai mult de un abonament în coș!",
+        "item-removed-from-cart": "Produsul a fost eliminat din coș!",
+        "item-added-to-cart": "Produsul a fost adăugat în coș!"
     }
 }

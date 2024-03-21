@@ -30,7 +30,8 @@
         "remove": "הסר",
         "subscribe": "הירשם",
         "unavailable": "לא זמין",
-        "items-left": "פריטים נותרים"
+        "items-left": "פריטים נותרים",
+        "featured": "מומלץ"
     },
     "recent-purchases": "תשלומים אחרונים",
     "home": {
@@ -148,5 +149,16 @@
         "serverIssue": "יתכן והשרתים שלנו לא מקוונים או שמשהו קרה עם התשלום שלך.",
         "contactWithProof": "אנא צור קשר עם השם המשתמש שלך והוכחה מצורפת של הרכישה.",
         "paymentIssue": "יתכן והתשלום שלך מסומן כ'ממתין'. ודא שהזנת את שם המשתמש הנכון שלך. אם זה לא המקרה, אנא ציין זאת."
+    },
+
+    "actions": {
+        "please-authorize": "אנא אמת!",
+        "item-not-found": "הפריט לא נמצא!",
+        "item-out-of-stock": "הפריט אזל מהמלאי!",
+        "reached-stock-limit": "הגעת למגבלת המלאי עבור פריט זה!",
+        "cant-mix-normal-and-subscription": "אין אפשרות לשלב פריטים רגילים עם פריטי מנוי!",
+        "cant-add-more-than-one-subscription": "אין אפשרות להוסיף יותר מפריט מנוי אחד לעגלה!",
+        "item-removed-from-cart": "הפריט הוסר מהעגלה!",
+        "item-added-to-cart": "הפריט נוסף לעגלה!"
     }
 }

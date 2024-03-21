@@ -30,7 +30,8 @@
         "remove": "Fjern",
         "subscribe": "Abonner",
         "unavailable": "Utilgængelig",
-        "items-left": "varer tilbage"
+        "items-left": "varer tilbage",
+        "featured": "Udvalgt"
     },
     "recent-purchases": "Seneste betalinger",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Måske er vores servere offline, eller der skete noget med din betaling.",
         "contactWithProof": "Kontakt os venligst med dit brugernavn og vedhæftet bevis for købet.",
         "paymentIssue": "Måske er din betaling markeret som 'afventende'. Sørg også for, at du har indtastet dit korrekte Minecraft-brugernavn. Hvis dette ikke er tilfældet, bedes du nævne det."
+    },
+    "actions": {
+        "please-authorize": "Venligst, autoriser!",
+        "item-not-found": "Vare ikke fundet!",
+        "item-out-of-stock": "Vare ikke på lager!",
+        "reached-stock-limit": "Du har nået grænsen for denne vare!",
+        "cant-mix-normal-and-subscription": "Du kan ikke blande normale varer med abonnementsvarer!",
+        "cant-add-more-than-one-subscription": "Du kan ikke tilføje mere end ét abonnement til kurven!",
+        "item-removed-from-cart": "Vare fjernet fra kurven!",
+        "item-added-to-cart": "Vare tilføjet til kurven!"
     }
 }

@@ -30,7 +30,8 @@
         "remove": "Ta bort",
         "subscribe": "Prenumerera",
         "unavailable": "Ej tillgänglig",
-        "items-left": "artiklar kvar"
+        "items-left": "artiklar kvar",
+        "featured": "Utvald"
     },
     "recent-purchases": "Senaste betalningar",
     "home": {
@@ -148,5 +149,15 @@
         "serverIssue": "Våra servrar är förmodligen offline eller något har hänt med din betalning.",
         "contactWithProof": "Kontakta oss med ditt användarnamn och bifogad köpproof.",
         "paymentIssue": "Din betalning kan vara markerad som 'väntande'. Se också till att du har angett ditt korrekta Minecraft-användarnamn. Om detta inte är fallet, vänligen meddela detta."
+    },
+    "actions": {
+        "please-authorize": "Vänligen, auktorisera!",
+        "item-not-found": "Objektet hittades inte!",
+        "item-out-of-stock": "Objektet är slut i lager!",
+        "reached-stock-limit": "Du har nått gränsen för detta objekt!",
+        "cant-mix-normal-and-subscription": "Du kan inte blanda vanliga objekt med prenumerationsobjekt!",
+        "cant-add-more-than-one-subscription": "Du kan inte lägga till mer än en prenumeration i korgen!",
+        "item-removed-from-cart": "Objektet borttaget från korgen!",
+        "item-added-to-cart": "Objektet tillagt i korgen!"
     }
 }
