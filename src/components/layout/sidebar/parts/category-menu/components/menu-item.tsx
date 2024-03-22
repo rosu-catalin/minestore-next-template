@@ -118,6 +118,22 @@ function CategoryImage({ image, isPageLink }: { image: string; isPageLink?: bool
         );
     }
 
+    if (image.startsWith('/icons/home.svg')) {
+        return (
+            <div className="flex size-20 border-r border-accent-foreground/10 text-primary">
+                <ReactSVG
+                    src={image}
+                    className="m-auto h-[64px] w-[64px] object-contain"
+                    width={64}
+                    height={64}
+                    beforeInjection={(svg) => {
+                        svg.setAttribute('fill', 'currentColor');
+                    }}
+                />
+            </div>
+        );
+    }
+
     return (
         <div className="flex size-20 border-r border-accent-foreground/10">
             <Image

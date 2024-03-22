@@ -1,8 +1,37 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+type TCheckAccessibilityResponse = {
+    success: boolean;
+    status: 'banned' | 'maintenance';
+    message: string;
+};
+
+export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token');
+
+    const checkAccessibilityURL = `${process.env.NEXT_PUBLIC_API_URL}/api/checkAccessibility`;
+
+    if (!request.url.startsWith('/maintenance') || !request.url.startsWith('/banned')) {
+        const data = (await (
+            await fetch(checkAccessibilityURL, {
+                next: {
+                    revalidate: 60
+                }
+            })
+        ).json()) as TCheckAccessibilityResponse;
+        if (!data.success) {
+            if (data.status === 'maintenance') {
+                request.cookies.set('maintenance', 'true');
+                return NextResponse.redirect(new URL('/maintenance', request.url));
+            }
+
+            if (data.status === 'banned') {
+                request.cookies.set('banned', 'true');
+                return NextResponse.redirect(new URL('/banned', request.url));
+            }
+        }
+    }
 
     // Base redirects:
     if (!token && !request.url.endsWith('/auth')) {
@@ -23,5 +52,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/categories/:path*', '/checkout', '/profile', '/auth']
+    matcher: ['/categories/:path*', '/checkout', '/profile', '/auth', '/!(maintenance|banned)']
 };

@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { extractCategoryComparisons, extractSubCategoryComparisons } from '../utils/utils';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import { DescriptionTooltip } from '../../checkout/components/cart-item/item-description-tooltip';
 
 type ComparisonProps = {
     category: TCategory;
@@ -45,7 +46,12 @@ export const Comparison = ({ categoryItems, category, subCategory }: ComparisonP
             <TableBody>
                 {comparisons.map((comparison) => (
                     <TableRow key={comparison.id} className="divide-x divide-accent even:bg-accent">
-                        <TableCell>{comparison.name}</TableCell>
+                        <TableCell className="flex items-center justify-between">
+                            <p>{comparison.name}</p>
+                            {comparison.description && (
+                                <DescriptionTooltip description={comparison.description} />
+                            )}
+                        </TableCell>
                         {comparison.comparisons.map((item) => (
                             <TableCell key={item.comparison_id} className="text-center">
                                 <ComparisonIcon value={item.value} />

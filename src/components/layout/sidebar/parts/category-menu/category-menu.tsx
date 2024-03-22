@@ -15,8 +15,6 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({ categories }) => {
     const t = useTranslations('sidebar');
     const { settings } = useSettingsStore();
 
-    console.log(settings);
-
     return (
         <aside className="h-fit rounded-[10px] bg-card p-6">
             <ul className="space-y-8">

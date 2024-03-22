@@ -6,6 +6,7 @@ type TComparisonResult = {
     name: string;
     type: number;
     sorting: number;
+    description: string | null;
     comparisons: [
         {
             comparison_id: number;
