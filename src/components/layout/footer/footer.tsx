@@ -73,8 +73,8 @@ function Copyright({ settings }: { settings: TSettings }) {
                 </p>
                 <p>
                     {t('powered-by')}&nbsp;
-                    <Link href="https://minestorecms.com/" className="text-primary">
-                        Minestore Pro | Official
+                    <Link href="https://minestorecms.com/" className="font-bold text-primary">
+                        MineStoreCMS Software
                     </Link>
                 </p>
             </div>
